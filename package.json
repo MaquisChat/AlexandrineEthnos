@@ -11,7 +11,8 @@
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
     "schemas": "pnpm --filter @fieldwork/contracts run schemas",
-    "ai:try": "tsx packages/gateway/scripts/try.ts"
+    "ai:try": "tsx packages/gateway/scripts/try.ts",
+    "models": "pnpm --filter @fieldwork/make-models run models"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

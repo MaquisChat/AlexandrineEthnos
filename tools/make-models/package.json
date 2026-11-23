@@ -1,0 +1,16 @@
+{
+  "name": "@fieldwork/make-models",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "models": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "@fieldwork/contracts": "workspace:*",
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1"
+  }
+}

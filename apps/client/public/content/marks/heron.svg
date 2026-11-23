@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
+  <title>Heron</title>
+  <!-- body -->
+  <path d="M34 54 C36 42 54 37 66 45 C74 51 73 62 63 67 C52 72 36 68 34 54 Z"/>
+  <!-- neck, head and beak -->
+  <path d="M40 50 C33 42 31 30 38 22 C42 17 49 16 53 20 L74 16 L55 25 C49 27 45 34 49 44 Z"/>
+  <!-- tail -->
+  <path d="M64 49 L88 61 L66 64 Z"/>
+  <!-- legs -->
+  <path d="M47 67 L45 91 L39 93 L39 95 L53 95 L53 93 L49 91 L51 67 Z"/>
+  <path d="M57 67 L60 84 L55 93 L59 95 L64 85 L61 67 Z"/>
+</svg>
