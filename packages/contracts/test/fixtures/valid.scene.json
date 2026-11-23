@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "waters-edge",
+  "name": "The water's edge",
+  "models": [{ "id": "set", "uri": "models/waters-edge.glb", "position": [0, 0, 0], "rotationYDeg": 0, "scale": 1 }],
+  "camera": { "fovDeg": 28, "driftSeconds": 40, "rail": [{ "position": [0, 2, 15], "lookAt": [0, 1, 0] }] },
+  "walk": {
+    "start": "a",
+    "nodes": [
+      { "id": "a", "position": [0, 0, 0] },
+      { "id": "b", "position": [3, 0, 0] },
+      { "id": "c", "position": [6, 0, 0] }
+    ],
+    "edges": [["a", "b"], ["b", "c"]]
+  },
+  "hotspots": [{ "id": "post", "kind": "object", "label": "A post", "position": [6, 1, 0], "radius": 0.8, "walkNode": "c" }],
+  "slots": [{ "id": "post-mark", "kind": "mark", "position": [6, 1.6, 0.2], "rotationYDeg": 0, "size": 0.5 }],
+  "palette": {
+    "sky": "#f2c9a0", "fog": "#e9b98f", "ground": "#3b2f3a", "water": "#6f7f95", "structure": "#241c26",
+    "figure": "#141018", "accent": "#d9502f", "shadow": "#1b1520", "mark": "#f4ead7"
+  },
+  "fog": { "near": 12, "far": 42 }
+}
