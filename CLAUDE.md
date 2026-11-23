@@ -14,6 +14,7 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `pnpm typecheck` | TypeScript check of every package |
 | `pnpm test` | All unit tests (Vitest). Tests run from the root, so file paths in tests are root-relative |
 | `pnpm schemas` | Regenerate `packages/contracts/schemas/*.json` from the parsers |
+| `pnpm ai:try "<prompt>"` | Send one prompt through the AI gateway. `AI_PROVIDER=fake` (default, scripted echo) or `AI_PROVIDER=login` (Claude Code login; development only, uses the owner's plan) |
 
 More commands are added to this table by the task that creates them.
 

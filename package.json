@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
-    "schemas": "pnpm --filter @fieldwork/contracts run schemas"
+    "schemas": "pnpm --filter @fieldwork/contracts run schemas",
+    "ai:try": "tsx packages/gateway/scripts/try.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
