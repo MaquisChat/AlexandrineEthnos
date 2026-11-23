@@ -1,0 +1,87 @@
+:root {
+  --text-scale: 1;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  block-size: 100%;
+  margin: 0;
+}
+
+body {
+  background: #0e0b10;
+  color: #f4ead7;
+  font-family: system-ui, sans-serif;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+#root {
+  inline-size: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* The scene is a framed, lit box, like a model theatre: always 16:9, as large as the window allows. */
+.frame {
+  position: relative;
+  inline-size: min(100vw, 100vh * 16 / 9);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0e0b10;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.hotspots {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hotspots button {
+  font: inherit;
+  font-size: calc(0.95rem * var(--text-scale));
+  padding: 0.35em 0.8em;
+  border: 2px solid #f4ead7;
+  background: #241c26;
+  color: #f4ead7;
+  cursor: pointer;
+}
+
+/* Out of sight until reached with the keyboard. */
+.hotspots button:not(:focus-visible) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.problem {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  text-align: center;
+  background: #241c26;
+  font-size: calc(1.2rem * var(--text-scale));
+}

@@ -16,6 +16,9 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `pnpm schemas` | Regenerate `packages/contracts/schemas/*.json` from the parsers |
 | `pnpm ai:try "<prompt>"` | Send one prompt through the AI gateway. `AI_PROVIDER=fake` (default, scripted echo) or `AI_PROVIDER=login` (Claude Code login; development only, uses the owner's plan) |
 | `pnpm models` | Regenerate the committed `.glb` files in `apps/client/public/content/models/` |
+| `pnpm dev` | Run the client with live reload (Vite) |
+| `pnpm build` | Build the client into `apps/client/dist` |
+| `pnpm e2e` | Build, serve and run the browser tests (Playwright). In the cloud container, set `PW_CHROMIUM_PATH=/opt/pw-browsers/chromium` first |
 
 More commands are added to this table by the task that creates them.
 
@@ -31,6 +34,7 @@ More commands are added to this table by the task that creates them.
 ## Tooling notes
 
 - TypeScript is pinned to 6.0.x. typescript-eslint does not support TypeScript 7 yet; move up when it does.
+- Add `?debug=1` to the client URL to expose `window.__stage` for tests; `?shot=1` freezes the scene at time zero for screenshots.
 - Packages export their TypeScript source directly (`exports` points at `src/index.ts`); there is no build step between packages.
 
 ## Constraints that apply to every task

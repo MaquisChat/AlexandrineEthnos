@@ -39,7 +39,7 @@ export function buildWatersEdge(): Document {
   const add = (...args: Parameters<ModelDoc["node"]>) => m.scene.addChild(m.node(...args));
 
   // The bank the figures walk on, and the water behind it.
-  add("ground", [{ role: "ground", geometry: box([60, 0.5, 5.4], [0, -0.25, 1.7]) }]);
+  add("ground", [{ role: "ground", geometry: box([80, 0.5, 21], [0, -0.25, 9.5]) }]);
   add("water", [
     {
       role: "water",
@@ -83,18 +83,19 @@ export function buildWatersEdge(): Document {
   ]);
 
   // A hut on stilts, gable towards the viewer, read as a silhouette.
+  const HUT_X = 7.7;
   const hutZ = -3;
-  const stilts = [-1.3, 1.3].flatMap((dx) => [-0.9, 0.9].map((dz) => box([0.14, 0.9, 0.14], [8.4 + dx, 0.45, hutZ + dz])));
+  const stilts = [-1.3, 1.3].flatMap((dx) => [-0.9, 0.9].map((dz) => box([0.14, 0.9, 0.14], [HUT_X + dx, 0.45, hutZ + dz])));
   add("hut", [
     {
       role: "structure",
       geometry: merge(
-        box([3.0, 1.7, 2.2], [8.4, 1.75, hutZ]),
+        box([3.0, 1.7, 2.2], [HUT_X, 1.75, hutZ]),
         prism(
           [
-            [6.5, 2.6],
-            [10.3, 2.6],
-            [8.4, 4.0],
+            [HUT_X - 1.9, 2.6],
+            [HUT_X + 1.9, 2.6],
+            [HUT_X, 4.0],
           ],
           2.6,
           hutZ,

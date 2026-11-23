@@ -12,7 +12,10 @@
     "test": "vitest run",
     "schemas": "pnpm --filter @fieldwork/contracts run schemas",
     "ai:try": "tsx packages/gateway/scripts/try.ts",
-    "models": "pnpm --filter @fieldwork/make-models run models"
+    "models": "pnpm --filter @fieldwork/make-models run models",
+    "build": "pnpm --filter @fieldwork/client run build",
+    "dev": "pnpm --filter @fieldwork/client run dev",
+    "e2e": "pnpm --filter @fieldwork/client run e2e"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
