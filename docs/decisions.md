@@ -32,4 +32,8 @@ A figure is rigid parts on the fixed joints in `FIGURE_NODES`, animated by turni
 
 ## 2026-11-23: First composition of "the water's edge"
 
-After looking at renders: the walking path runs from x = -4.6 to 4.8 so the figure stays inside the frame; the camera looks slightly down (look-at height 0.95 m) so feet stand clear of the dialogue strip; the ground extends towards the viewer so the lower third is dark behind the text. The owner's verdict on the look is still to be recorded here.
+After looking at renders: the walking path runs from x = -4.6 to 4.8 so the figure stays inside the frame; the camera looks slightly down (look-at height 0.95 m) so feet stand clear of the dialogue strip; the ground extends towards the viewer so the lower third is dark behind the text.
+
+## 2026-11-23: The owner approved the look
+
+Shown `docs/look/waters-edge@2x.png` and `docs/look/waters-edge-kazakh@2x.png` and asked "is this the look?", the owner answered: "yes that's the look". This is the reference for later scenes: flat unlit colour, fog-stepped ranks of cut-outs, jointed silhouette figures with one accent band, the mark as the only texture, and speech set large in a dark strip across the lower third.
