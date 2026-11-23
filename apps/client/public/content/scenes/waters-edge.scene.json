@@ -7,8 +7,8 @@
     "fovDeg": 28,
     "driftSeconds": 40,
     "rail": [
-      { "position": [0, 2.2, 15], "lookAt": [0, 1.4, 0] },
-      { "position": [1.5, 2.2, 15], "lookAt": [1.0, 1.4, 0] }
+      { "position": [0, 2.2, 15], "lookAt": [0, 0.95, 0] },
+      { "position": [1.5, 2.2, 15], "lookAt": [1.0, 0.95, 0] }
     ]
   },
   "walk": {

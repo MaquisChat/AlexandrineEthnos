@@ -1,9 +1,11 @@
 import type { Scene } from "@fieldwork/contracts";
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { DEMO } from "./demo";
 import { SceneLoadError, WebGLUnavailableError } from "./stage/errors";
 import { type LoadedScene, loadScene } from "./stage/loadScene";
 import { Stage, type StageOptions } from "./stage/Stage";
+import { DialogueStrip } from "./ui/DialogueStrip";
+import { TextSizeControl } from "./ui/TextSizeControl";
 
 /** What the app needs from a stage. The real one is `Stage`; tests pass their own. */
 export type StageLike = Pick<Stage, "start" | "dispose" | "ready" | "activateHotspot">;
@@ -31,11 +33,27 @@ function problemText(error: unknown): string {
   return "Something went wrong while opening the scene.";
 }
 
+/** The scene's palette as CSS variables, so the interface wears the culture's colours. */
+function paletteVariables(palette: Scene["palette"] | null): CSSProperties {
+  if (!palette) return {};
+  return Object.fromEntries(Object.entries(palette).map(([role, colour]) => [`--c-${role}`, colour])) as CSSProperties;
+}
+
 export function App({ load = defaultLoad, createStage = defaultCreateStage }: AppProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<StageLike | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
   const [hotspots, setHotspots] = useState<Scene["hotspots"]>([]);
+  const [palette, setPalette] = useState<Scene["palette"] | null>(null);
+  const [speaking, setSpeaking] = useState(false);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSpeaking(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -52,9 +70,13 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
           ...(shot ? { fixedTimeSeconds: 0 } : {}),
           marks: Object.fromEntries(Object.entries(DEMO.marks).map(([slot, file]) => [slot, DEMO.contentRoot + file])),
           actors: [...DEMO.actors],
+          // The only person in the demo scene is Maëlle; reaching her opens the fixture line.
+          onHotspot: (id) => setSpeaking(id === "maelle"),
         });
         stageRef.current = stage;
         setHotspots(loaded.scene.hotspots);
+        setPalette(loaded.scene.palette);
+        if (shot) setSpeaking(true);
         stage.start();
         await stage.ready;
         if (cancelled) return;
@@ -73,7 +95,7 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
   }, [load, createStage]);
 
   return (
-    <div className="frame">
+    <div className="frame" style={paletteVariables(palette)}>
       <canvas ref={canvasRef} className="stage" />
       {/* Keyboard access to everything that can be clicked in the scene. Hidden until focused. */}
       <nav className="hotspots" aria-label="Things in this place">
@@ -83,6 +105,20 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
           </button>
         ))}
       </nav>
+      {problem === null && palette !== null && <TextSizeControl />}
+      {problem === null && speaking && (
+        <DialogueStrip
+          speaker={DEMO.dialogue.speaker}
+          tokens={[...DEMO.dialogue.tokens]}
+          suggestions={[...DEMO.dialogue.suggestions]}
+          // M0 has no service, so these do nothing yet: the client holds no rules of its own.
+          onTapWord={() => {}}
+          onSay={() => {}}
+          onSimpler={() => {}}
+          onTranslation={() => {}}
+          onClip={() => {}}
+        />
+      )}
       {problem !== null && (
         <div role="alert" className="problem">
           {problem}

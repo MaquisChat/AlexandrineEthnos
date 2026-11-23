@@ -1,0 +1,126 @@
+/* Sizes are in cqi (hundredths of the frame's width), so the picture is composed the same at every
+   window size. At a 1280-pixel frame, 2cqi is 25.6px, the same as 1.6rem. */
+.strip {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  max-block-size: 50%;
+  overflow-y: auto;
+  padding-block: 1.4cqi 1.6cqi;
+  padding-inline: 5cqi;
+  display: grid;
+  gap: 0.9cqi;
+  background: color-mix(in srgb, var(--c-structure, #241c26) 85%, transparent);
+  color: var(--c-mark, #f4ead7);
+  --ui: calc(max(1.15cqi, 11px) * var(--text-scale));
+}
+
+.strip-speaker {
+  margin: 0;
+  font-size: var(--ui);
+  /* Capitals, set small and spaced. Small-caps fonts often lack accented letters. */
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--c-accent, #d9502f);
+}
+
+.strip-line {
+  margin: 0;
+  font-family: "Noto Serif", Georgia, serif;
+  font-size: calc(max(2cqi, 15px) * var(--text-scale));
+  line-height: 1.35;
+}
+
+.strip-word {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  border-block-end: 1px dotted color-mix(in srgb, currentColor 45%, transparent);
+}
+
+.strip-word:hover,
+.strip-word:focus-visible {
+  outline: none;
+  background: var(--c-mark, #f4ead7);
+  color: var(--c-structure, #241c26);
+}
+
+.strip-aids,
+.strip-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6cqi 1.6cqi;
+  font-size: var(--ui);
+}
+
+.strip-aids button,
+.strip-suggestions button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+.strip-suggestions button {
+  font-family: "Noto Serif", Georgia, serif;
+}
+
+.strip-or {
+  opacity: 0.7;
+}
+
+.strip button:focus-visible,
+.strip-say:focus-visible,
+.text-size button:focus-visible {
+  outline: 2px solid var(--c-accent, #d9502f);
+  outline-offset: 2px;
+}
+
+.strip-say {
+  font-family: "Noto Serif", Georgia, serif;
+  font-size: calc(max(1.5cqi, 13px) * var(--text-scale));
+  color: inherit;
+  background: none;
+  border: none;
+  border-block-end: 1px solid color-mix(in srgb, currentColor 60%, transparent);
+  padding-block: 0.3cqi;
+  padding-inline: 0;
+  inline-size: 100%;
+}
+
+.strip-say::placeholder {
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.text-size {
+  position: absolute;
+  inset-block-start: 1.2cqi;
+  inset-inline-end: 1.2cqi;
+  display: flex;
+  gap: 0.4cqi;
+}
+
+.text-size button {
+  font: inherit;
+  font-size: max(1.15cqi, 11px);
+  padding: 0.3em 0.6em;
+  color: var(--c-structure, #241c26);
+  background: none;
+  border: 1px solid currentColor;
+  cursor: pointer;
+}
+
+.text-size button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
