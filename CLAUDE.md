@@ -19,8 +19,14 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `pnpm dev` | Run the client with live reload (Vite) |
 | `pnpm build` | Build the client into `apps/client/dist` |
 | `pnpm e2e` | Build, serve and run the browser tests (Playwright). In the cloud container, set `PW_CHROMIUM_PATH=/opt/pw-browsers/chromium` first |
+| `pnpm shots` | Build and save 2x screenshots of the look into `docs/look/` |
 
-More commands are added to this table by the task that creates them.
+## Running and looking
+
+- `pnpm dev` serves the client with live reload. Click the ground or a person to walk; Tab reaches everything clickable; Escape closes the dialogue strip.
+- Address options: `?shot=1` freezes the scene at time zero with the strip open (for screenshots), `?debug=1` exposes `window.__stage` (for tests), `?line=kk` swaps the demo line for a Kazakh one, `?textScale=1.25|1.5|2` sets the text size.
+- `pnpm shots` writes `docs/look/waters-edge@2x.png` and `docs/look/waters-edge-kazakh@2x.png`. Open them and check the look constraint below, line by line, before accepting any change to how the scene looks.
+- The browser tests compare against baselines in `apps/client/e2e/look.spec.ts-snapshots/`. Baselines are made on Linux with software rendering (the flags in `playwright.config.ts`) and must be regenerated there: `pnpm e2e --update-snapshots`. Only re-baseline after looking at the 2x screenshots.
 
 ## Layout
 
@@ -34,7 +40,6 @@ More commands are added to this table by the task that creates them.
 ## Tooling notes
 
 - TypeScript is pinned to 6.0.x. typescript-eslint does not support TypeScript 7 yet; move up when it does.
-- Add `?debug=1` to the client URL to expose `window.__stage` for tests; `?shot=1` freezes the scene at time zero for screenshots.
 - Packages export their TypeScript source directly (`exports` points at `src/index.ts`); there is no build step between packages.
 
 ## Constraints that apply to every task

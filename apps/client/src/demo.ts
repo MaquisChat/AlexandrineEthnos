@@ -33,4 +33,14 @@ export const DEMO = {
     ),
     suggestions: ["Qui lui donne à manger ?", "C'était toujours ainsi ?"],
   },
+  /**
+   * Shown instead with ?line=kk. Fixture text for checking the font and layout in Kazakh only:
+   * "Please come up to the place of honour, guest." It is not content from the Kazakh pack
+   * and has not been reviewed by a Kazakh speaker.
+   */
+  kazakhLine: {
+    speaker: "Айгүл",
+    tokens: line(["Төрге"], " ", ["шығыңыз"], ", ", ["қонақ"], "."),
+    suggestions: ["Рақмет!", "Төр деген не?"],
+  },
 } as const;

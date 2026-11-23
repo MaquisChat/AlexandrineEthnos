@@ -46,6 +46,9 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
   const [hotspots, setHotspots] = useState<Scene["hotspots"]>([]);
   const [palette, setPalette] = useState<Scene["palette"] | null>(null);
   const [speaking, setSpeaking] = useState(false);
+  const [dialogue] = useState(() =>
+    new URLSearchParams(window.location.search).get("line") === "kk" ? DEMO.kazakhLine : DEMO.dialogue,
+  );
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -108,9 +111,9 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
       {problem === null && palette !== null && <TextSizeControl />}
       {problem === null && speaking && (
         <DialogueStrip
-          speaker={DEMO.dialogue.speaker}
-          tokens={[...DEMO.dialogue.tokens]}
-          suggestions={[...DEMO.dialogue.suggestions]}
+          speaker={dialogue.speaker}
+          tokens={[...dialogue.tokens]}
+          suggestions={[...dialogue.suggestions]}
           // M0 has no service, so these do nothing yet: the client holds no rules of its own.
           onTapWord={() => {}}
           onSay={() => {}}
