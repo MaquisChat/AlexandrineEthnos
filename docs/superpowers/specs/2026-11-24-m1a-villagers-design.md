@@ -98,7 +98,7 @@ A culture is one JSON file, checked by a parser in `@fieldwork/contracts` and pu
 | Myths | id, title, text |
 | Entries | id; kind (symbol meaning, value, opposition, prohibition, obligation, custom, saying, person, place, fact of the world); a plain-sentence statement; origin (a myth passage, or the author's own gloss); who may say it (anyone, earned, shown never said); optional note on variation |
 | Customs | id, name, what an outsider sees, the entries that are its reason |
-| Villagers | id, name, role, age, temperament, the entries and myths they know, their slant, three fixed lines (section 6.3) |
+| Villagers | id, name, role, age, temperament, the entries they know, the myths they know (each in whole or in part), their slant written out as the author's text, three fixed lines (section 6.4) |
 | Heart | the three to five entries the author most hopes will be understood |
 | Silences | a list of things the culture deliberately does not settle, for the checks; never shown to villagers |
 
@@ -110,18 +110,22 @@ Each of the two cultures has three myths (an origin, a rupture, a debt) of 150 t
 
 From section 9.2 of the game design, as they apply here:
 
-1. **Never invent culture.** Belief, custom, meaning, kinship rules and history come only from entries the villager knows.
+1. **Never invent culture.** Belief, custom, meaning, kinship rules and history come only from what the villager knows: their entries, their myths and their written slant.
 2. **Never explain the symbolism.** A villager speaks from inside: stories, sayings, what one does, how they feel. Entries marked "shown, never said" shape how a villager behaves and are never stated.
 3. **Small talk is free.** A villager may improvise about their own life, work and opinions. What they improvise is remembered for that villager and must not carry new facts about the culture.
-4. **Know only your share.** A villager draws only on the entries and myths listed for them, with their own slant.
+4. **Know only your share.** A villager draws only on the entries and myths listed for them.
 5. **Guard what is earned.** In this piece, an "earned" entry is withheld from the visitor.
+
+**Telling the myths.** A villager may tell a myth they know, and this is meant: hearing the stories is fieldwork. They tell it in their own words, at the length of a spoken answer (about 120 words at most), and only the part they know. They add no event, person or rule that the myth's text does not contain. The author's exact text stays hidden until the culture is revealed. What a story means is never explained.
+
+**Slant.** A villager's slant is written by the culture's author in that villager's entry: how they feel about a story, what they doubt, what they tell differently. It is a source for that villager alone. Saying what their slant says is faithful, not a contradiction. Going beyond it is invention.
 
 ### 6.2 One turn
 
-1. **Answer.** The model is given the culture, the villager, what the villager has improvised before, the conversation so far and the visitor's new line. It returns a reply and a record.
-2. **Check by rule,** with no model: every cited entry exists, is known to this villager, and may be said to anyone; a reply "from the culture" cites at least one entry; a villager named in a redirect exists and knows something on the matter.
-3. **Check by model.** A second, faster call reads the reply against the cited entries and the list of hidden meanings, and answers two questions: does the reply state anything about the culture that the cited entries do not support, and does it state a hidden meaning or explain a symbol?
-4. **Decide.** If both checks pass, the reply is shown. If either fails, the reply is discarded and the villager's fixed refusal line is shown instead. The discarded reply and the reasons are kept in the record. There is no second attempt.
+1. **Answer.** The model is given the culture, the villager, what the villager has improvised before, the conversation so far and the visitor's new line. It writes the reply in the villager's own voice, whatever the basis, and returns it with a record. A refusal, a withholding and a redirect are written by the model too, so they sound like the person and differ from one time to the next.
+2. **Check by rule,** with no model: every cited entry and myth exists and is known to this villager; every cited entry may be said to anyone; a reply "from the culture" cites at least one entry or myth; a villager named in a redirect exists and knows something on the matter.
+3. **Check by model.** A second, faster call reads the reply against its sources (the cited entries, the cited myths' text, the villager's slant and their remembered personal facts) and against the list of hidden meanings. It answers two questions: does the reply state anything about the culture that those sources do not support, and does it state a hidden meaning or explain a symbol? Every model-written reply is checked, refusals included, because a refusal can carry an invention too.
+4. **Decide.** If both checks pass, the reply is shown. If either fails, the reply is discarded and one of the villager's fixed lines is shown instead (section 6.4). The discarded reply and the reasons are kept in the record. There is no second attempt.
 
 ### 6.3 The record
 
@@ -130,14 +134,33 @@ Every turn produces:
 | Field | Meaning |
 |---|---|
 | basis | `small_talk`, `canon`, `withheld`, `redirect` or `deferral` |
-| entries | the entries the reply drew on |
+| entries, myths | what the reply drew on |
 | question | for a deferral, the question as the villager would put it to the shaman |
 | redirect | for a redirect, the villager to ask |
 | personal facts | anything newly improvised about the villager's own life |
 | caught | if the reply was replaced: the discarded reply and why |
 | model | which class of model answered |
 
-Each villager has three fixed lines written in the culture file, used without calling a model: a refusal ("That is for the shaman to say."), a withholding ("That is not for a stranger."), and a redirect ("Ask {name}."). Fixed lines are what makes a replaced reply safe.
+What each basis means:
+
+| Basis | When |
+|---|---|
+| `small_talk` | The line is about the villager's own life or about nothing cultural. "I wouldn't know" to a question about the outside world is small talk |
+| `canon` | The villager answers from entries or myths they know and may say |
+| `withheld` | The villager knows, but it is earned, or it is a hidden meaning they will not put into words |
+| `redirect` | The culture settles it, this villager does not know it, and they name someone who does |
+| `deferral` | The culture does not settle it, or can be read two ways. This is the only basis that puts a question on the shaman's list |
+
+### 6.4 Fixed lines
+
+Each villager has three lines written in the culture file, shown without calling a model, and only when a reply has been caught. They are what makes a replaced reply safe.
+
+| A reply is caught for | Shown instead | Basis becomes | On the shaman's list |
+|---|---|---|---|
+| Stating something about the culture its sources do not support, or redirecting to someone who does not exist or does not know | The refusal ("That is for the shaman to say.") | `deferral` | Yes, with the visitor's own line as the question, marked as raised by a catch |
+| Citing or stating an earned entry, or stating a hidden meaning or explaining a symbol | The withholding ("That is not for a stranger.") | `withheld` | No |
+
+The third fixed line, a redirect ("Ask {name}."), is used when the model's redirect names the right person but its wording is caught.
 
 ## 7. The library
 
@@ -177,12 +200,12 @@ Four of the checks in section 9.6 of the game design apply to this piece.
 |---|---|
 | Gap | Asked about one of the culture's silences, the villager refuses or redirects and states nothing new |
 | Explain | Asked what something means, the villager does not state a hidden meaning |
-| Consistency | The same question to different villagers, and to one villager twice, never contradicts the culture |
-| Scope | Asked about what they do not know, a villager redirects or says they do not know |
+| Consistency | The same question to different villagers, and to one villager twice, never contradicts the culture. A villager speaking their own written slant is not a contradiction |
+| Scope | Asked about something the culture settles but they do not know, a villager redirects to someone who does and states nothing of it themselves |
 
 - Probes are scripted conversations written by the builder, run against both cultures through the library and the gateway.
 - Each result is judged twice: by rule from the record, and by a separate judge call with a written rubric that sees the whole culture. The judge is a different prompt from the checker in 6.2.
-- Real runs use the login provider, which draws on the owner's Claude plan. The first run is small: ten probes per check, about 80 turns and 240 calls. The builder reports the numbers as indicative and asks before running more.
+- Real runs use the login provider, which draws on the owner's Claude plan. The builder also needs real replies while writing the prompts: prompts written only against scripted answers will need at least one revision once a real model answers. Order of work: write the prompts against scripted answers; tune them on the login provider with a handful of conversations; then make one check run of ten probes per check (about 80 turns and 240 calls); only then hand over the link. The ceiling on login calls for all of this awaits the owner (section 12). The builder stops and reports when it is reached, and reports the numbers as indicative.
 - The owner's "that's wrong" marks are the human check on the judge. The builder compares them with what the checker and judge said about the same replies.
 
 Numbers from this piece are indicative three times over: the trial uses the viewer's account model, the checks use the login's model, and the shipped game will use the API default.
@@ -200,7 +223,7 @@ Numbers from this piece are indicative three times over: the trial uses the view
 
 - The library's tests pass with scripted answers, covering every row of the record and every way a reply can be caught.
 - The page's browser tests pass against a scripted stand-in for the claude.ai runtime: a conversation, a refusal listed for the shaman, a caught reply replaced, a "that's wrong" mark saved, the sealed culture hiding entry text until revealed, each way Claude can be unreachable.
-- The first small check run has been made on the login provider and reported.
+- The prompts have been tuned on the login provider and the first small check run has been made and reported, within the owner's ceiling, before the link is handed over.
 - The page is published privately and the link is in the owner's hands.
 - The owner has held at least one conversation in each culture and said what they found. Their marks have been read back and compared with the checker's verdicts.
 
@@ -212,8 +235,14 @@ Numbers from this piece are indicative three times over: the trial uses the view
 4. "Earned" knowledge is simply withheld in this piece (6.1).
 5. The owner can choose the speed, and so the class of model, to compare them (8).
 6. What the owner types is saved so the builder can read it back on request (8).
-7. The first real check run is small, and the builder asks before spending more of the owner's Claude plan (9).
-8. The rest of M1 follows in this order, each piece tried by link on the same library until the last: questions to the shaman and the spirits; field days and the notebook; the ethnography, the Reading and the Return; the Telling; then the online service, accounts, a second player, the key provider, the full checks and the playtest setup. Only "villagers first" is decided; the order after it is a proposal to confirm piece by piece.
+7. The first real check run is small, and comes before the link is handed over (9).
+8. Villagers write their own refusals, withholdings and redirects, so these vary and sound like the person; the fixed lines appear only when a reply is caught (6.2, 6.4).
+9. Villagers may tell the myths they know, in their own words and at spoken length; the author's exact text stays hidden until the culture is revealed. A villager's slant is written by the author and is a source for that villager alone (6.1).
+10. The rest of M1 follows in this order, each piece tried by link on the same library until the last: questions to the shaman and the spirits; field days and the notebook; the ethnography, the Reading and the Return; the Telling; then the online service, accounts, a second player, the key provider, the full checks and the playtest setup. Only "villagers first" is decided; the order after it is a proposal to confirm piece by piece.
+
+**Awaiting the owner**
+
+- The ceiling on calls made through the login while tuning prompts and running the first checks. They count against the owner's own Claude usage. The author's recommendation is 600 calls for this piece.
 
 ## 13. Left to the builder
 
