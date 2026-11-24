@@ -43,3 +43,16 @@ If the scene file, a model or a mark cannot be loaded, the player sees one messa
 ## 2026-11-24: Playwright is pinned to the cloud container's browser
 
 `@playwright/test` is pinned to exactly 1.63.0, the release whose Chromium (build 1243) is installed in the Claude Code cloud container. The screenshot baselines are made with that browser, and CI installs the same build, so the comparison is between like and like. When the container's browser changes, move the pin and regenerate the baselines together.
+
+## 2026-11-24: How a villager's reply is decided (M1a)
+
+A villager's reply is shown only after two checks: one by rule against the culture file, one by a faster model. A reply that fails is discarded and one of that villager's fixed lines is shown. If the failure is telling something guarded (an earned entry, a hidden meaning), the withholding line is shown, even if the reply also invented something, because the culture does hold an answer. A redirect must name what to ask about and someone who knows it.
+
+## 2026-11-24: Wording tuned against real replies (M1a)
+
+Two rounds, each after a run through the Claude login.
+
+1. The checker flagged villagers for mentioning the shaman and for naming one another. It is now told who lives in the village and that saying "that is for the shaman" is always allowed. Each villager gained a pronoun, because villagers were guessing one another's.
+2. A villager settled an open question by reasoning from a saying. The answer rules now say a saying or custom tells you what it says and no more, and the checker counts a conclusion the sources do not state as unsupported. The checker is also given each cited entry's topic, after it rejected a correct reply for a detail that came from the topic. The judge used in the checks is told the same always-allowed things.
+
+Two test questions were replaced because the culture file itself answered them (where salt comes from; who mends the cairns).

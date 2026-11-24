@@ -33,7 +33,7 @@ it("marks what may be said, what is earned and what is never said", () => {
 
 it("tells a villager who else knows what by topic, never by content", () => {
   const { instructions } = buildAnswerRequest(culture, "maelle", emptyState(), "Hello", "balanced");
-  expect(instructions).toContain("Old Tam [tam]");
+  expect(instructions).toContain("Old Tam [tam], boat-keeper (he)");
   expect(instructions).toContain("where the nets are kept [e4]");
   expect(instructions).not.toContain("north side of every house");
 });
@@ -77,7 +77,7 @@ it("checks on the quick class of model, against the reply's own sources", () => 
   } as never);
   expect(check).toMatchObject({ purpose: "check", model: "quick" });
   const text = check.instructions + check.turns.map((t) => t.content).join("\n");
-  expect(text).toContain("The first fish of every catch is given to the heron before anyone eats."); // cited entry
+  expect(text).toContain("- (who eats first) The first fish of every catch is given to the heron before anyone eats."); // cited entry, with its topic
   expect(text).toContain("So she wove a net and fed the heron first."); // cited myth
   expect(text).toContain("My mother taught me."); // new personal fact
   expect(text).toContain("She tells the first story as a story about patience."); // slant
@@ -86,12 +86,21 @@ it("checks on the quick class of model, against the reply's own sources", () => 
   expect(text).toContain("The first fish goes to the heron. Then we eat."); // the reply under check
 });
 
+it("lets the check know who lives here and that deferring to the shaman is always allowed", () => {
+  const check = buildCheckRequest(culture, "maelle", emptyState(), "What happens when a heron dies?", {
+    ...draft({ basis: "deferral", entries: [], reply: "The shaman would have to be asked." }),
+  } as never);
+  expect(check.instructions).toContain("- Old Tam, boat-keeper (he)");
+  expect(check.instructions).toContain("- Maëlle, net-mender (she)");
+  expect(check.instructions).toMatch(/Always allowed[^\n]*for the shaman to say/);
+});
+
 it("gives a redirect's check the topic of what was asked, not its content", () => {
   const check = buildCheckRequest(culture, "maelle", emptyState(), "Where are nets kept?", {
     ...draft({ basis: "redirect", entries: ["e4"], redirect: "tam", reply: "Ask Old Tam about that." }),
   } as never);
   const text = check.instructions + check.turns.map((t) => t.content).join("\n");
-  expect(text).toContain("where the nets are kept");
+  expect(text).toContain("Old Tam can speak about: where the nets are kept");
   expect(text).not.toContain("north side of every house");
 });
 

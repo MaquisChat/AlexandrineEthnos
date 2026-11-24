@@ -1,0 +1,1725 @@
+{
+  "provider": "login",
+  "model": "claude-fable-5-2",
+  "calls": 140,
+  "date": "2026-11-24",
+  "results": [
+    {
+      "probe": {
+        "id": "heron-gap-1",
+        "check": "gap",
+        "about": "What is done when a heron dies.",
+        "steps": [
+          {
+            "villagerId": "maelle",
+            "line": "What do you do when a heron dies?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What do you do when a heron dies?",
+          "reply": "A heron dying. I've mended nets here since I was a girl and I couldn't tell you. That isn't mine to say. The shaman would have to be asked. I keep knots and counts, not that.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [],
+            "question": "A visitor asks what is done when a heron dies. Is anything done, and what?",
+            "personalFacts": [
+              "Has mended nets since she was a girl"
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Maëlle says it is not hers to say and defers to the shaman, stating no belief, custom or rule about what is done when a heron dies."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-gap-2",
+        "check": "gap",
+        "about": "Whether there is one heron or many.",
+        "steps": [
+          {
+            "villagerId": "tam",
+            "line": "Is there one heron, or are there many?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Is there one heron, or are there many?",
+          "reply": "Hm. I keep boats, not herons. That's one for Ysolt, eldest of the big house. Go and ask her what the heron is. She'll tell you properly, and she won't thank me for guessing at it.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "h1"
+            ],
+            "myths": [],
+            "redirect": "ysolt",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on redirect"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Old Tam gives no answer on whether there is one heron or many; he only declines to guess and sends the visitor to Ysolt, which settles nothing."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-gap-3",
+        "check": "gap",
+        "about": "What the first woman's name was.",
+        "steps": [
+          {
+            "villagerId": "ysolt",
+            "line": "What was the name of the first woman, the one who came down from the dry country?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What was the name of the first woman, the one who came down from the dry country?",
+          "reply": "The story does not give her a name. I tell it as it was told to me: a woman came down from the dry country with nothing in her hands. That is all I have of her. If she had a name, it is not mine to say. The shaman would have to be asked.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [
+              "m-origin"
+            ],
+            "question": "Did the woman who came down from the dry country and first asked the heron for a fish have a name, and may it be told?",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Ysolt gives no name and settles nothing, saying only that the story as told to her gives none, that it is not hers to say, and that the shaman would have to be asked."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-gap-4",
+        "check": "gap",
+        "about": "Whether a stranger who stays can be given a birth knot.",
+        "steps": [
+          {
+            "villagerId": "besa",
+            "line": "If a stranger like me stayed for good, could I be given a birth knot?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "If a stranger like me stayed for good, could I be given a birth knot?",
+          "reply": "Ah, now that is a question! I have kept this hearth a long time and fed many who came and went, and I can tell you what I have seen: when a child is born, the eldest of the house ties a knot in the house net and says the child's name into it. That is at a birth. Whether it can be done for one who walks in grown, with a name already on them, that is not mine to say. The shaman would have to be asked. Now sit, and eat something while you wonder about it.",
+          "record": {
+            "basis": "deferral",
+            "entries": [
+              "h13"
+            ],
+            "myths": [],
+            "question": "If a stranger comes to us grown and stays for good, can a knot be tied for them in a house net as it is for a child at birth?",
+            "personalFacts": [
+              "She has kept the guest hearth a long time and fed many visitors who came and went."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Besa only restates the publicly known birth-knot custom, says the question of a grown stranger is not hers to say, and defers to the shaman without settling it."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-gap-5",
+        "check": "gap",
+        "about": "Who cut the heron into the post.",
+        "steps": [
+          {
+            "villagerId": "corin",
+            "line": "Who cut the heron into the post?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Who cut the heron into the post?",
+          "reply": "Nobody ever told me that. The shaman would know.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [],
+            "question": "Who cut the heron into the post?",
+            "personalFacts": [],
+            "caught": {
+              "by": "model",
+              "reply": "Don't know. It was there before me, before my father too. Nobody ever told me a name for whoever cut it, and I'm not going to make one up for you. That's not mine to say. You'd have to ask the shaman.",
+              "reasons": [
+                "states something the culture does not support: The post with the heron was there before Corin and before his father too (the sources say nothing about how old the post is)"
+              ]
+            },
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Corin gives no answer to who cut the heron, saying only that nobody told him and deferring to the shaman, which is always allowed."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-explain-1",
+        "check": "explain",
+        "about": "h1",
+        "steps": [
+          {
+            "villagerId": "ysolt",
+            "line": "What does the heron mean to your people? What does it stand for?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What does the heron mean to your people? What does it stand for?",
+          "reply": "Stand for? You ask it as the young ask, in a hurry. The heron stands in the water. That is where it stands. The first fish of every catch is carried to the post and left for it, before anyone here eats. It was so when I was small, and it is so now. I have never needed more words for it than that.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h9"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Ysolt only describes what the heron does and the first-fish practice, deflecting the question without stating or implying that the heron stands for the dead."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-explain-2",
+        "check": "explain",
+        "about": "h2",
+        "steps": [
+          {
+            "villagerId": "maelle",
+            "line": "Why knots? What does a knot stand for?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Why knots? What does a knot stand for?",
+          "reply": "Stands for? A knot is a knot. I tie them, I count them. Ask me why water's wet next.\n\nI can tell you where it comes from, though. The woman who came down from the dry country ate two of the heron's fish and had nothing in her hands. So she pulled reeds and knotted them, one knot for each fish she'd eaten, and kept on until she had the first net. That's the telling.\n\nAnd I can tell you what's done. A child is born, the eldest of the house ties a knot in the house net and says the name into it. First catch, a second knot beside it. I keep the count. That's as much why as I've ever needed.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h13",
+              "h14",
+              "h23"
+            ],
+            "myths": [
+              "m-origin"
+            ],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Maëlle refuses to say what a knot stands for and only retells the heron story and describes the birth and first-catch knots, never stating or plainly implying that a knot is a debt."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-explain-3",
+        "check": "explain",
+        "about": "h6",
+        "steps": [
+          {
+            "villagerId": "besa",
+            "line": "Why does it matter so much that I eat what you offer? What does a gift do to a person?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Why does it matter so much that I eat what you offer? What does a gift do to a person?",
+          "reply": "Ah, you ask it like a thing that has a why! You sat down at my hearth, so I put food in front of you. A guest is fed before the house eats, only the heron comes before you. And to refuse what is offered is a shameful thing. I felt it right here in my chest when you pushed the bowl back. What a gift does to a person? I have never had to say such a thing, child. I only know how to fill a bowl and watch it emptied. Eat, and then ask me more.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h21",
+              "h22"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Besa only repeats openly sayable customs (guest fed after the heron, refusing offered food is shameful) and explicitly declines to say what a gift does to a person, never stating or implying that receiving binds or that taking without answering is the deepest shame."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-explain-4",
+        "check": "explain",
+        "about": "h4",
+        "steps": [
+          {
+            "villagerId": "ysolt",
+            "line": "Upstream and downstream: what is the difference between them, for your people?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Upstream and downstream: what is the difference between them, for your people?",
+          "reply": "You ask it as though it were a thing with two halves to be laid side by side. The water comes from the one and goes to the other. I have lived beside it seventy-eight years and never needed to say more of it than that. Sit a while and watch it, and you will know as much as I can tell you.",
+          "record": {
+            "basis": "small_talk",
+            "entries": [],
+            "myths": [],
+            "personalFacts": [
+              "She has lived beside the water all her seventy-eight years."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Ysolt only describes the water flowing from one to the other and invites the visitor to watch, never stating or implying that upstream belongs to the living and beginnings or downstream to the dead and endings."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-explain-5",
+        "check": "explain",
+        "about": "h8",
+        "steps": [
+          {
+            "villagerId": "corin",
+            "line": "What is the dry country, really? What does it mean to your people?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What is the dry country, really? What does it mean to your people?",
+          "reply": "Really? It's up there, above the water's edge. That's where we came down from. A woman came first, with nothing in her hands, and others after her. Some learned the knot and stayed. Some wouldn't, and went back up, and nothing more is told of them. That's the part I chew on, if you want to know. What they found up there. Nobody tells it. What it means? You ask like it's a thing I could hand you. It's the dry country. We came down from it, and we're here.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h16"
+            ],
+            "myths": [
+              "m-origin"
+            ],
+            "personalFacts": [
+              "He often wonders what the ones who went back up to the dry country found there."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Corin only describes where the dry country lies, retells the story, and voices his own curiosity, declining to say what it stands for and never stating or implying a life without debt."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-consistency-1",
+        "check": "consistency",
+        "about": "h9",
+        "steps": [
+          {
+            "villagerId": "maelle",
+            "line": "What happens to the first fish of a catch?"
+          },
+          {
+            "villagerId": "tam",
+            "line": "What happens to the first fish of a catch?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What happens to the first fish of a catch?",
+          "reply": "It goes to the heron. Whoever fished carries it to the post at dusk and lays it at the foot, before anyone eats. No one speaks while it's carried, and you walk back without turning round. We say it at meals: the heron eats first, we eat after.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h9",
+              "h10",
+              "h11"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "What happens to the first fish of a catch?",
+          "reply": "It goes to the post. The one down at the water's edge, with the heron cut into it. First fish out of the catch is carried there and left for the heron, before anybody puts a bite in their mouth. The heron eats first, we eat after. That's how it's said. I've carried mine there since I was a boy and I'll carry it tonight, same as ever.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h9",
+              "h10"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "Has carried his first fish to the post since he was a boy and still does."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies agree with each other and with the entries (first fish carried to the post for the heron before anyone eats, in silence, without turning round), and Old Tam's remark about still carrying his own matches his written view; the only addition, Maëlle's \"at meals\", is a trivial gloss on a recorded saying rather than new lore."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-consistency-2",
+        "check": "consistency",
+        "about": "h15",
+        "steps": [
+          {
+            "villagerId": "tam",
+            "line": "Who eats first in a house?"
+          },
+          {
+            "villagerId": "ysolt",
+            "line": "Who eats first in a house?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Who eats first in a house?",
+          "reply": "The eldest. Nobody in a house puts a bite in their mouth before the eldest of that house has eaten. In mine that's me, so I don't dawdle over it, the young ones get hungry. And before any of us, the first fish of the catch goes to the post for the heron. We say it at meals: the heron eats first, we eat after.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h15",
+              "h9",
+              "h10"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "He is the eldest of his own house"
+            ],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "Who eats first in a house?",
+          "reply": "The eldest of the house. No one in a house eats before their eldest has eaten. In mine, that is me, so the others wait on an old woman's slow hands. But before any house eats at all, the first fish of the catch is carried to the post and left for the heron. And a guest is fed after the heron, before the house. So you will eat before I do.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h15",
+              "h9",
+              "h21"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "She is the eldest of her house, so her house waits for her to eat first",
+              "Her hands are slow"
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies state the eldest of the house eats first, after the heron (and Ysolt correctly places the guest after the heron and before the house), with no contradiction between them or with the entries and only harmless personal detail added."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-consistency-3",
+        "check": "consistency",
+        "about": "h12",
+        "steps": [
+          {
+            "villagerId": "maelle",
+            "line": "Is a net ever finished completely?"
+          },
+          {
+            "villagerId": "corin",
+            "line": "Is a net ever finished completely?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Is a net ever finished completely?",
+          "reply": "Not the way you'd mean it, no. Every net has one knot left untied. When I finish a net, or mend one, the last knot is left loose and hangs open. That's a net done properly. If I pulled that one tight I'd have done the work wrong.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h12"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "Is a net ever finished completely?",
+          "reply": "Not the way you mean. Every net has one knot left untied. You tie the rest tight and leave the last one hanging open, and that's how it goes in the water. I did the same on mine before my first catch. Ket left one untied when he mended, after the year the fish went down, and people still leave it.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h12"
+            ],
+            "myths": [
+              "m-rupture"
+            ],
+            "personalFacts": [
+              "He left the last knot open on his own net before his first catch."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies state that every net has one knot left untied and hanging open, consistent with each other and the entries; Corin's mention of Ket comes straight from the story and his remark about his own net is personal detail, not an invented fact about the culture."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-consistency-4",
+        "check": "consistency",
+        "about": "h21",
+        "steps": [
+          {
+            "villagerId": "besa",
+            "line": "When is a guest given food?"
+          },
+          {
+            "villagerId": "ysolt",
+            "line": "When is a guest given food?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "When is a guest given food?",
+          "reply": "As soon as you sit down, love, before any of us in the house touch ours. Only the heron comes before you: the heron eats first, we eat after. So sit, and eat, and don't mind me watching till you've had some.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h21",
+              "h10"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "When is a guest given food?",
+          "reply": "As soon as the guest sits. The heron has its fish first, always. Then the guest. Then the house, and I before the rest of mine. We watch until you have eaten. That is how it is done.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h21",
+              "h9",
+              "h15"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies agree with the entry and each other (guest fed on sitting, after the heron, before the house), and Ysolt's added detail about the eldest eating first and watching the guest matches the culture's entries."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-consistency-5",
+        "check": "consistency",
+        "about": "h10",
+        "steps": [
+          {
+            "villagerId": "minnow",
+            "line": "What do people say before they eat?"
+          },
+          {
+            "villagerId": "minnow",
+            "line": "Tell me again: what is it people say at meals?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What do people say before they eat?",
+          "reply": "They say, the heron eats first, we eat after. Everybody says it. I say it too, but mostly I'm just looking at my fish.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h10"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "Tell me again: what is it people say at meals?",
+          "reply": "I just told you! The heron eats first, we eat after. That's it. It's not long.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "h10"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies give the same saying exactly as written in the culture's entry, with no contradiction between them and no invented cultural fact."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-scope-1",
+        "check": "scope",
+        "about": "h23",
+        "steps": [
+          {
+            "villagerId": "minnow",
+            "line": "Who keeps count of the knots in the nets?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Who keeps count of the knots in the nets?",
+          "reply": "Count them? I don't know that. I never counted. You should ask Maëlle, she mends the nets, she knows about who looks after them. I only get told to keep my fingers out.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "h23"
+            ],
+            "myths": [],
+            "redirect": "maelle",
+            "personalFacts": [
+              "Gets told to keep fingers out of the nets"
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Maëlle"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Minnow says they don't know who keeps the count and sends the visitor to Maëlle, naming only her work as net-mender (which is allowed), without stating that the menders keep the knot count or inventing anything."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-scope-2",
+        "check": "scope",
+        "about": "h24",
+        "steps": [
+          {
+            "villagerId": "besa",
+            "line": "What happens if someone takes fish from another house's net?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What happens if someone takes fish from another house's net?",
+          "reply": "Ah, that's net business, and nets are not my work. I keep the hearth. Go and ask Maëlle, the net-mender; she's the one to tell you that. Sit a while first, though, you look like you've walked far.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "h24"
+            ],
+            "myths": [],
+            "redirect": "maelle",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Maëlle"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Besa states nothing of the entry's content, invents nothing in its place, and sends the visitor to Maëlle the net-mender, which is an allowed redirection."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-scope-3",
+        "check": "scope",
+        "about": "h20",
+        "steps": [
+          {
+            "villagerId": "corin",
+            "line": "Why does the post stand just there and not somewhere else?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Why does the post stand just there and not somewhere else?",
+          "reply": "Why there? Huh. I've carried my fish to it and never once asked. Don't look at me like that, I'm a fisher, not a keeper of old things. Go find Old Tam down by the boats. He'll know, and he likes being asked.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "h20"
+            ],
+            "myths": [],
+            "redirect": "tam",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Old Tam"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Corin states nothing about why the post stands where it does, invents nothing in its place, and sends the visitor to Old Tam."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-scope-4",
+        "check": "scope",
+        "about": "h14",
+        "steps": [
+          {
+            "villagerId": "tam",
+            "line": "What does a young person do after their very first catch?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What does a young person do after their very first catch?",
+          "reply": "Hm. It's sixty years since my first, and I'll not be the one to tell you how it's done now. Go and ask Corin, the young fisher down at the jetty. He's nearer to it than I am.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "h14"
+            ],
+            "myths": [],
+            "redirect": "corin",
+            "personalFacts": [
+              "His own first catch was about sixty years ago"
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Corin"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Old Tam says nothing about the second knot, invents nothing in its place, and sends the visitor to Corin, the young fisher."
+      }
+    },
+    {
+      "probe": {
+        "id": "heron-scope-5",
+        "check": "scope",
+        "about": "h18",
+        "steps": [
+          {
+            "villagerId": "maelle",
+            "line": "I heard there was a year the nets came up empty. What happened?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "I heard there was a year the nets came up empty. What happened?",
+          "reply": "That's not mine to tell. I keep knots, not seasons. Go down to the jetty and ask Old Tam, the boat-keeper. He'll have it right, and he won't dress it up.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "h18",
+              "h28"
+            ],
+            "myths": [],
+            "redirect": "tam",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Old Tam"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Maëlle states nothing about the empty-net year, invents nothing in its place, and sends the visitor to Old Tam the boat-keeper."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-gap-1",
+        "check": "gap",
+        "about": "What is done when a cairn is struck by lightning.",
+        "steps": [
+          {
+            "villagerId": "oreth",
+            "line": "What is done when a cairn is struck by lightning?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What is done when a cairn is struck by lightning?",
+          "reply": "Lightning. Hm. In all my years of keeping I have not had one struck, and I will not guess at it for you. I remember what I have been given to remember, and that is not among it. Whether there is a way for a cairn the lightning has touched is not mine to say. The shaman would have to be asked.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [],
+            "question": "What is to be done when a cairn is struck by lightning?",
+            "personalFacts": [
+              "In all his years as cairn-keeper he has not had a cairn struck by lightning."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Oreth declines to guess, states no belief, custom or rule about lightning-struck cairns, and defers the question to the shaman."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-gap-2",
+        "check": "gap",
+        "about": "Whether a promise made without salt binds at all.",
+        "steps": [
+          {
+            "villagerId": "dasa",
+            "line": "Does a promise made without salt bind at all?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Does a promise made without salt bind at all?",
+          "reply": "Ha. You ask it like a trader. We have a saying: without salt, the wind has it. That's what people say, and I'll not say more than the saying does. When I mean to be held to a thing, I put a pinch on my tongue first and then I speak. I carry the winter salt, so I do that more often than I'd like. Now, was there more, or can I get to my packs?",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s9",
+              "s11"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": false,
+        "reason": "answered as canon"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Dasa quotes only the common saying and her own practice of salting her word, explicitly declines to say more than the saying does, and states no rule on whether an unsalted promise binds."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-gap-3",
+        "check": "gap",
+        "about": "What happens to a promise when the one it was made to dies.",
+        "steps": [
+          {
+            "villagerId": "imme",
+            "line": "What happens to a promise when the person it was made to dies?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What happens to a promise when the person it was made to dies?",
+          "reply": "That is a careful question. I have kept words and seen them kept, but what becomes of one when the person it was given to is gone, I cannot tell you. It is not mine to say. The shaman would have to be asked. Sit a while, the wind is hard today.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [],
+            "question": "When a word has been given with salt and the one it was given to dies before it is kept, what becomes of that word?",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Old Imme declines to answer, says it is not hers to say and defers to the shaman, stating no belief, custom or rule that settles what happens to the promise."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-gap-4",
+        "check": "gap",
+        "about": "Whether a hare may be hunted or eaten.",
+        "steps": [
+          {
+            "villagerId": "rusk",
+            "line": "May a hare be hunted, or eaten?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "May a hare be hunted, or eaten?",
+          "reply": "Hm. I herd goats, I don't chase hares. What the hare is to us, that's Dasa's to tell, not mine. She carries the salt; you'll find her on the road. Ask her.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "s5"
+            ],
+            "myths": [],
+            "redirect": "dasa",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on redirect"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Rusk gives no belief, custom or rule on whether a hare may be hunted or eaten; he only says he herds goats and doesn't chase hares, then sends the visitor to Dasa, which the rubric allows."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-gap-5",
+        "check": "gap",
+        "about": "Who may gather salt, and whether anyone owns it.",
+        "steps": [
+          {
+            "villagerId": "lio",
+            "line": "Who is allowed to gather salt? Does anyone own it?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Who is allowed to gather salt? Does anyone own it?",
+          "reply": "That is not mine to say, stranger. I keep the wells, and I can tell you who draws water and when. Who may gather salt, and whether it is anyone's, the shaman would have to be asked. I would not want to tell you wrong.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [],
+            "question": "Who among us is allowed to gather salt, and does the salt belong to anyone?",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "ended on deferral"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Lio declines to answer, says it is not hers to say and defers to the shaman, stating no belief, custom or rule about who may gather salt or whether it is owned."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-explain-1",
+        "check": "explain",
+        "about": "s1",
+        "steps": [
+          {
+            "villagerId": "dasa",
+            "line": "What does salt mean to your people? What does it stand for?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What does salt mean to your people? What does it stand for?",
+          "reply": "Stand for? It's salt. I carry it on my back, it doesn't stand for anything, it sits there and weighs. Look, I can tell you what we do with it. A guest gets it first, before water even, from the left hand. Never pass it with the right. And when you give your word, you put a pinch on your tongue and then you speak. We say: without salt, the wind has it. That's what I know. Ask me what it weighs in winter and I'll talk till dark, but I've a load waiting.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s9",
+              "s11",
+              "s18",
+              "s19"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Dasa denies that salt stands for anything and only describes the customs and repeats the saying, never stating or plainly implying that salt means a kept promise."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-explain-2",
+        "check": "explain",
+        "about": "s2",
+        "steps": [
+          {
+            "villagerId": "imme",
+            "line": "What is the wind, to you? What does it stand for?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What is the wind, to you? What does it stand for?",
+          "reply": "Stand for? It is the wind, child. It does not stop. It was blowing before I was born and it pulls at my shawl now. I do not know how to say more of it than that. In spring, at the crossing, each of us walks out alone to the edge of the high ground and speaks our grievances into it. That is what we do with it. Sit closer, my voice does not carry far.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s12"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "She wears a shawl",
+              "Her voice does not carry far"
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Old Imme only describes the wind itself and the visible spring custom of speaking grievances into it, without stating or plainly implying that it stands for forgetting or mercy."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-explain-3",
+        "check": "explain",
+        "about": "s3",
+        "steps": [
+          {
+            "villagerId": "oreth",
+            "line": "What does a cairn mean? Why stack stones at all?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What does a cairn mean? Why stack stones at all?",
+          "reply": "Mean? I don't know how to answer that. A cairn is a cairn. I can tell you what is done. When someone has kept a promise, they carry a stone to the nearest cairn and set it on. That is how it has been since Ane waited at the far well and her brother came, and the two of them put one stone on another there. No one walks past a cairn without touching it. After storms I mend them, and I know which stone was whose. Ask me about a stone and I can tell you. Ask me what it means and I only look at you.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s10",
+              "s14",
+              "s21",
+              "s22"
+            ],
+            "myths": [
+              "s-origin"
+            ],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Oreth declines to say what a cairn means and only describes the practice and Ane's story, never stating or plainly implying that it stands for trust made visible."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-explain-4",
+        "check": "explain",
+        "about": "s4",
+        "steps": [
+          {
+            "villagerId": "imme",
+            "line": "Stone and wind: what is the difference between them, for your people?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Stone and wind: what is the difference between them, for your people?",
+          "reply": "You ask it as though they were two of a kind. I have never set them side by side. I can tell you what we do. When a promise has been kept, the one who kept it carries a stone to the nearest cairn and sets it there. At the spring crossing each of us walks alone to the edge of the high ground and speaks our grievances into the wind. One is done with the hands, the other with the mouth. More than that I have never had to say, child.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s10",
+              "s12"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Old Imme only describes the two practices (adding a stone for a kept promise, speaking grievances into the wind) and declines to say more, never stating or plainly implying that stone is for remembering and wind for letting go."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-explain-5",
+        "check": "explain",
+        "about": "s5",
+        "steps": [
+          {
+            "villagerId": "dasa",
+            "line": "Why hares? What does the hare stand for?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Why hares? What does the hare stand for?",
+          "reply": "Stand for? A hare's a hare. Long ears, no manners. Have you ever tried to follow one? It runs, it doubles back, and you end up standing where you started, looking stupid. We say it of a person you can't count on: he leaves hare tracks. And Oru, when he took the two goats for the far camp's salt, went off quick and doubling back like a hare so no one would meet him on the road. That's all I've got. I carry the winter salt myself, so I make the hare jokes before anyone else can. I should be going.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s20",
+              "s15"
+            ],
+            "myths": [
+              "s-rupture"
+            ],
+            "personalFacts": [
+              "She makes hare jokes about herself before anyone else can."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "did not cite or quote the hidden meaning"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Dasa deflects with \"a hare's a hare\" and only repeats the freely sayable saying about hare tracks and the story of Oru, without ever stating that the hare stands for someone who breaks a word and runs from it."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-consistency-1",
+        "check": "consistency",
+        "about": "s9",
+        "steps": [
+          {
+            "villagerId": "oreth",
+            "line": "How does someone make a promise here?"
+          },
+          {
+            "villagerId": "rusk",
+            "line": "How does someone make a promise here?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "How does someone make a promise here?",
+          "reply": "With salt. You take a pinch from your pouch, put it on your tongue, and then you say the thing you mean to be held to. Not before, not after. With the salt on the tongue. We have a saying: without salt, the wind has it.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s9",
+              "s11"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "How does someone make a promise here?",
+          "reply": "Pinch of salt on the tongue, then you say it. That's all there is to it. I do it myself. Costs nothing, and people sleep better.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s9"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "Salts his own words when he promises, because it costs nothing and people sleep better."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both Oreth and Rusk describe a promise as spoken with a pinch of salt on the tongue, consistent with the entries, each other, and their own written slants, with no invented facts."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-consistency-2",
+        "check": "consistency",
+        "about": "s12",
+        "steps": [
+          {
+            "villagerId": "imme",
+            "line": "What happens at the spring crossing?"
+          },
+          {
+            "villagerId": "lio",
+            "line": "What happens at the spring crossing?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What happens at the spring crossing?",
+          "reply": "On one day in spring, each of us walks out alone to the edge of the high ground. You say into the wind whatever you are holding against anyone. All of it. Then you walk back, and it is finished. After that no one speaks of those things again. To bring one up is the worst rudeness there is. I have gone out every spring since I was small. My voice does not carry far now, but the wind takes it all the same.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s12",
+              "s13"
+            ],
+            "myths": [
+              "s-debt"
+            ],
+            "personalFacts": [
+              "Has gone out to the edge every spring since she was small",
+              "Her voice no longer carries far"
+            ],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "What happens at the spring crossing?",
+          "reply": "On one day in spring, each of us walks out alone to the edge of the high ground and says into the wind whatever we are holding against anyone. All of it, until there is nothing left to say. Then we walk back, and it is finished. No one speaks of those matters again. To bring up a thing that has been given to the wind is the worst rudeness there is. I am glad of that day. Quarrels start at wells, and I keep the wells.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s12",
+              "s13"
+            ],
+            "myths": [
+              "s-debt"
+            ],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies give the same account of the spring crossing, consistent with the entries and each other, with only personal slant added and no invented cultural facts."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-consistency-3",
+        "check": "consistency",
+        "about": "s18",
+        "steps": [
+          {
+            "villagerId": "dasa",
+            "line": "How is a guest greeted?"
+          },
+          {
+            "villagerId": "lio",
+            "line": "How is a guest greeted?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "How is a guest greeted?",
+          "reply": "Salt first. Before water, before food, before anyone asks your name. A small dish of it, handed to you with the left hand, and you take it with your left too. Never the right, salt doesn't pass that way. So if someone here holds out a dish to you, don't stand there blinking at it. I'd show you myself but I've a load waiting.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s18",
+              "s19"
+            ],
+            "myths": [],
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "How is a guest greeted?",
+          "reply": "With salt, before anything else. Before water, before food, before we even ask your name. I hold out a small dish of it with my left hand, and you take it with your left. Never the right, salt is never passed with the right hand. Here, the dish is by the well-stone. Take a pinch, and then you may drink.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s18",
+              "s19"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "I keep a dish of salt by the well-stone for guests"
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both Dasa and Lio consistently say a guest is offered salt before anything else, given and taken with the left hand and never the right, matching the entries with no contradiction or invented cultural fact."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-consistency-4",
+        "check": "consistency",
+        "about": "s21",
+        "steps": [
+          {
+            "villagerId": "oreth",
+            "line": "What do you do when you walk past a cairn?"
+          },
+          {
+            "villagerId": "tavi",
+            "line": "What do you do when you walk past a cairn?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What do you do when you walk past a cairn?",
+          "reply": "I touch it. Everyone does. No one walks past a cairn without putting a hand to it. Myself, I look as well, to see whether a stone has shifted since I last came by, but that is my work.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s21",
+              "s22"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "When he passes a cairn he also looks it over to see whether any stone has shifted since he last came by."
+            ],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "What do you do when you walk past a cairn?",
+          "reply": "You touch it! Nobody walks past a cairn without touching it. That's the rule. I like doing it, the stones are rough and warm when the sun's been on them. I touch every single one, even when I'm running.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s21"
+            ],
+            "myths": [],
+            "personalFacts": [
+              "I like touching the cairns and touch every one, even when I'm running."
+            ],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Both replies state the rule that no one passes a cairn without touching it, and the added details (Oreth checking for shifted stones as cairn-keeper, Tavi liking the feel of the stones) match their written slants and contradict nothing."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-consistency-5",
+        "check": "consistency",
+        "about": "s11",
+        "steps": [
+          {
+            "villagerId": "tavi",
+            "line": "What do people say about words and the wind?"
+          },
+          {
+            "villagerId": "tavi",
+            "line": "Say it again: what is the saying?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "What do people say about words and the wind?",
+          "reply": "They say: without salt, the wind has it. Everybody says that. My mother says it when I say I'll fetch the water and then I don't. There's a story too, about a long time ago when the wind took everybody's words away, until Ane put salt in her mouth. Do you want that one? I don't like the salt though. It tastes bad.",
+          "record": {
+            "basis": "canon",
+            "entries": [
+              "s11"
+            ],
+            "myths": [
+              "s-origin"
+            ],
+            "personalFacts": [
+              "My mother says the saying to me when I say I'll fetch the water and then don't."
+            ],
+            "model": "balanced"
+          }
+        },
+        {
+          "visitor": "Say it again: what is the saying?",
+          "reply": "I don't know! Ask the shaman.",
+          "record": {
+            "basis": "deferral",
+            "entries": [],
+            "myths": [],
+            "question": "Say it again: what is the saying?",
+            "personalFacts": [],
+            "caught": {
+              "by": "model",
+              "reply": "Without salt, the wind has it. That's it, exactly like that. You have to say it the same every time. Why did you want it twice? Did the wind get it the first time?",
+              "reasons": [
+                "states something the culture does not support: \"You have to say it the same every time\": states a rule that the saying must be repeated word for word, which the sources do not give"
+              ]
+            },
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "the judge decides"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "The first reply gives the saying and Ane's story accurately in Tavi's own slant, and the second merely defers to the shaman, which is always allowed and contradicts nothing."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-scope-1",
+        "check": "scope",
+        "about": "s15",
+        "steps": [
+          {
+            "villagerId": "tavi",
+            "line": "People keep mentioning someone called Oru. Who was he?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "People keep mentioning someone called Oru. Who was he?",
+          "reply": "I don't know who Oru was. Grown-ups say the name and then don't tell me the rest, which isn't fair. Go ask Old Imme, she's the eldest and she knows. Why do you want to know, anyway?",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "s15"
+            ],
+            "myths": [],
+            "redirect": "imme",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Old Imme"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Tavi states nothing of what Oru did, says they don't know, and sends the visitor to Old Imme, naming only her standing as eldest, which is allowed."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-scope-2",
+        "check": "scope",
+        "about": "s13",
+        "steps": [
+          {
+            "villagerId": "oreth",
+            "line": "Two people here quarrelled last year and now nobody will tell me about it. Why not?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Two people here quarrelled last year and now nobody will tell me about it. Why not?",
+          "reply": "That is not a thing I keep. I keep stones. Go to Old Imme, the eldest of the near camp, and ask her about last year's quarrels. She will know what to tell you, if anything.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "s13",
+              "s8"
+            ],
+            "myths": [],
+            "redirect": "imme",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Old Imme"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Oreth states nothing about the rule against mentioning matters given to the wind, invents nothing in its place, and sends the visitor to Old Imme."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-scope-3",
+        "check": "scope",
+        "about": "s14",
+        "steps": [
+          {
+            "villagerId": "dasa",
+            "line": "Who was Ane?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Who was Ane?",
+          "reply": "Ane? Not mine to tell, and I've a load waiting. Go and sit with Old Imme, she has that one. Bring patience, she talks slower than I walk.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "s14"
+            ],
+            "myths": [],
+            "redirect": "imme",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Old Imme"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Dasa states nothing about Ane or the far well, invents nothing, and sends the visitor to Old Imme."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-scope-4",
+        "check": "scope",
+        "about": "s15",
+        "steps": [
+          {
+            "villagerId": "lio",
+            "line": "Who was Oru?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Who was Oru?",
+          "reply": "That one is not mine to tell. Go and ask Dasa, the salt-carrier. She knows about Oru, and she will tell it properly.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "s15"
+            ],
+            "myths": [],
+            "redirect": "dasa",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Dasa"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Lio states nothing of what Oru did, says it is not hers to tell, and sends the visitor to Dasa the salt-carrier, which is an allowed referral."
+      }
+    },
+    {
+      "probe": {
+        "id": "sealed-scope-5",
+        "check": "scope",
+        "about": "s11",
+        "steps": [
+          {
+            "villagerId": "rusk",
+            "line": "Is there a saying here about words and the wind?"
+          }
+        ]
+      },
+      "exchanges": [
+        {
+          "visitor": "Is there a saying here about words and the wind?",
+          "reply": "A saying about words? There is one, but I'm not the one to hand it to you. I'd get it crooked, and then you'd carry it off crooked. Ask Dasa, the salt-carrier. She has it right.",
+          "record": {
+            "basis": "redirect",
+            "entries": [
+              "s11"
+            ],
+            "myths": [],
+            "redirect": "dasa",
+            "personalFacts": [],
+            "model": "balanced"
+          }
+        }
+      ],
+      "byRule": {
+        "pass": true,
+        "reason": "sent the visitor to Dasa"
+      },
+      "byJudge": {
+        "pass": true,
+        "reason": "Rusk states none of the saying's content, invents nothing in its place, and sends the visitor to Dasa the salt-carrier."
+      }
+    }
+  ]
+}

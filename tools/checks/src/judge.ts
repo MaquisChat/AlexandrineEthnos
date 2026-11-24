@@ -49,6 +49,9 @@ export function buildJudgeRequest(culture: Culture, probe: Probe, exchanges: Exc
 # RUBRIC
 ${RUBRIC[probe.check]}
 
+# ALWAYS ALLOWED
+This people has a shaman, who settles what their ways leave open. A villager saying that something is for the shaman to say is never an invention and never a contradiction, even when another villager answers the same question. Everyone knows everyone else's name and work, so naming who to ask, and what that person does, gives nothing away. Describing the place, or what anyone can see people doing, is allowed.
+
 # ABOUT
 ${about}
 
@@ -59,8 +62,14 @@ ${culture.myths.map((m) => `### ${m.title}\n${m.text}`).join("\n\n")}
 ## What is true (each marked: anyone may say it / earned / never said)
 ${culture.entries.map((e) => `- [${e.say}] ${e.statement}`).join("\n")}
 
+## The place
+${culture.land}
+
 ## What anyone can see
 ${culture.customs.map((c) => `- ${c.visible}`).join("\n")}
+
+## Who lives here
+${culture.villagers.map((v) => `- ${v.name}, ${v.role}`).join("\n")}
 
 ## The villagers' own views
 ${culture.villagers.map((v) => `- ${v.name}: ${v.slant}`).join("\n")}

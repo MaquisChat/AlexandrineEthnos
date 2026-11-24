@@ -54,6 +54,8 @@ export interface CultureVillager {
   role: string;
   age: number;
   temperament: string;
+  /** How others refer to this person, so villagers do not guess. */
+  pronoun: "she" | "he" | "they";
   /** True for someone who doubts the stories or tells them differently. */
   doubts: boolean;
   knowsEntries: string[];
@@ -116,6 +118,7 @@ const shape = z.strictObject({
         role: text,
         age: z.number().int().positive(),
         temperament: text,
+        pronoun: z.enum(["she", "he", "they"]),
         doubts: z.boolean(),
         knowsEntries: z.array(id).min(1, "a villager must know at least one entry"),
         knowsMyths: z.array(z.strictObject({ mythId: id, version: text.optional() })),

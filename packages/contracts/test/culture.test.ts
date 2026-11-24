@@ -27,6 +27,7 @@ describe("parseCulture", () => {
     ["an unknown key", (c: any) => (c.spirits = true), /spirits/],
     ["a villager who knows nothing", (c: any) => (c.villagers[0].knowsEntries = []), /^villagers\.0\.knowsEntries/],
     ["an unknown kind of entry", (c: any) => (c.entries[0].kind = "rumour"), /^entries\.0\.kind/],
+    ["a villager with no way to be referred to", (c: any) => delete c.villagers[0].pronoun, /^villagers\.0\.pronoun/],
     ["a language other than English", (c: any) => (c.language = "fr"), /^language/],
   ])("rejects %s", (_name, edit, message) => {
     let error: unknown;

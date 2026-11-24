@@ -22,92 +22,607 @@
     }
   ],
   "entries": [
-    { "id": "h1", "kind": "symbol_meaning", "topic": "what the heron is", "statement": "The heron stands for the dead, who gave to the living before they were asked.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "h2", "kind": "symbol_meaning", "topic": "what a knot is", "statement": "A knot stands for a debt: something received that must be answered.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "h3", "kind": "value", "topic": "how a debt is settled", "statement": "What you were given cannot be paid back to the giver; it is paid forward to those who come after.", "origin": { "type": "myth", "mythId": "m-debt" }, "say": "shown" },
-    { "id": "h4", "kind": "opposition", "topic": "the two directions of the water", "statement": "Upstream belongs to the living and to beginnings; downstream belongs to the dead and to endings.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "h5", "kind": "symbol_meaning", "topic": "what dusk is", "statement": "Dusk is the hour when the dead are near, which is why what is owed to them is given then.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "h6", "kind": "value", "topic": "what a gift does", "statement": "To be given to is to be bound, and to take without answering is the deepest shame.", "origin": { "type": "myth", "mythId": "m-origin" }, "say": "shown" },
-    { "id": "h7", "kind": "symbol_meaning", "topic": "the knot left open", "statement": "The untied knot in every net is the people's memory of Ket's fault: no one's giving is ever complete.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "shown" },
-    { "id": "h8", "kind": "symbol_meaning", "topic": "what the dry country is", "statement": "The dry country stands for a life without debt, which the people regard as no life at all.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "h9", "kind": "custom", "topic": "who eats first", "statement": "The first fish of every catch is carried to the post and left for the heron before anyone eats.", "origin": { "type": "myth", "mythId": "m-origin" }, "say": "anyone" },
-    { "id": "h10", "kind": "saying", "topic": "a thing people say at meals", "statement": "The people say: the heron eats first, we eat after.", "origin": { "type": "myth", "mythId": "m-origin" }, "say": "anyone" },
-    { "id": "h11", "kind": "custom", "topic": "how the first fish is carried", "statement": "No one speaks while the first fish is carried to the post, and the carrier walks back without turning round.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "h12", "kind": "custom", "topic": "how nets are finished", "statement": "Every net has one knot left untied.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "anyone" },
-    { "id": "h13", "kind": "custom", "topic": "what is done at a birth", "statement": "At a birth the eldest of the house ties a knot in the house net and says the child's name into it.", "origin": { "type": "myth", "mythId": "m-debt" }, "say": "anyone" },
-    { "id": "h14", "kind": "custom", "topic": "what is done at a first catch", "statement": "When a grown child brings home a first catch, they tie a second knot beside their birth knot.", "origin": { "type": "myth", "mythId": "m-debt" }, "say": "anyone" },
-    { "id": "h15", "kind": "prohibition", "topic": "the order of eating in a house", "statement": "No one eats before the eldest of their house has eaten.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "anyone" },
-    { "id": "h16", "kind": "fact", "topic": "where the people came from", "statement": "The people came down from the dry country, which lies above the water's edge.", "origin": { "type": "myth", "mythId": "m-origin" }, "say": "anyone" },
-    { "id": "h17", "kind": "person", "topic": "who Ket was", "statement": "Ket was the best net-man of his time and is remembered for eating a first fish himself.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "anyone" },
-    { "id": "h18", "kind": "fact", "topic": "the empty season", "statement": "In the year the fish went down, the nets came up empty for a whole season.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "anyone" },
-    { "id": "h19", "kind": "saying", "topic": "a saying about nets", "statement": "The people say: a net with no knots cut from it has caught nothing.", "origin": { "type": "myth", "mythId": "m-debt" }, "say": "anyone" },
-    { "id": "h20", "kind": "place", "topic": "what the post marks", "statement": "The post with the heron cut into it stands where the first fish was first laid down.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "h21", "kind": "custom", "topic": "how a guest is fed", "statement": "A guest is fed before the house eats, but after the heron.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "h22", "kind": "prohibition", "topic": "being offered food", "statement": "It is shameful to refuse food that is offered.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "h23", "kind": "fact", "topic": "who looks after the nets", "statement": "The net-menders mend every house's net and keep the count of its knots.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "h24", "kind": "obligation", "topic": "taking from another's net", "statement": "Whoever takes fish from another house's net owes that house a day's mending.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "h25", "kind": "custom", "topic": "what is done at a death", "statement": "When someone dies, the house net is carried to the water at dusk and their birth knot is cut out and given to the water, downstream.", "origin": { "type": "myth", "mythId": "m-debt" }, "say": "earned" },
-    { "id": "h26", "kind": "obligation", "topic": "what the eldest owes in a bad season", "statement": "In an empty season the eldest must stand in the water from dusk to dusk without eating or speaking.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "earned" },
-    { "id": "h27", "kind": "prohibition", "topic": "the knots of the dead", "statement": "A house must never keep the knots of its dead.", "origin": { "type": "myth", "mythId": "m-debt" }, "say": "earned" },
-    { "id": "h28", "kind": "fact", "topic": "who ended the empty season", "statement": "Ket's mother stood in the water and brought the fish back, and her name is not spoken.", "origin": { "type": "myth", "mythId": "m-rupture" }, "say": "earned" },
-    { "id": "h29", "kind": "custom", "topic": "children's names", "statement": "The name said into a birth knot is not said aloud again until the child's first catch; until then the child is called by a water-name.", "origin": { "type": "gloss" }, "say": "earned" },
-    { "id": "h30", "kind": "value", "topic": "those who left", "statement": "Those who went back to the dry country are not hated; they are pitied, and they are not spoken of.", "origin": { "type": "myth", "mythId": "m-origin" }, "say": "earned" }
+    {
+      "id": "h1",
+      "kind": "symbol_meaning",
+      "topic": "what the heron is",
+      "statement": "The heron stands for the dead, who gave to the living before they were asked.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h2",
+      "kind": "symbol_meaning",
+      "topic": "what a knot is",
+      "statement": "A knot stands for a debt: something received that must be answered.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h3",
+      "kind": "value",
+      "topic": "how a debt is settled",
+      "statement": "What you were given cannot be paid back to the giver; it is paid forward to those who come after.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-debt"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h4",
+      "kind": "opposition",
+      "topic": "the two directions of the water",
+      "statement": "Upstream belongs to the living and to beginnings; downstream belongs to the dead and to endings.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h5",
+      "kind": "symbol_meaning",
+      "topic": "what dusk is",
+      "statement": "Dusk is the hour when the dead are near, which is why what is owed to them is given then.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h6",
+      "kind": "value",
+      "topic": "what a gift does",
+      "statement": "To be given to is to be bound, and to take without answering is the deepest shame.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-origin"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h7",
+      "kind": "symbol_meaning",
+      "topic": "the knot left open",
+      "statement": "The untied knot in every net is the people's memory of Ket's fault: no one's giving is ever complete.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h8",
+      "kind": "symbol_meaning",
+      "topic": "what the dry country is",
+      "statement": "The dry country stands for a life without debt, which the people regard as no life at all.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "h9",
+      "kind": "custom",
+      "topic": "who eats first",
+      "statement": "The first fish of every catch is carried to the post and left for the heron before anyone eats.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-origin"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h10",
+      "kind": "saying",
+      "topic": "a thing people say at meals",
+      "statement": "The people say: the heron eats first, we eat after.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-origin"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h11",
+      "kind": "custom",
+      "topic": "how the first fish is carried",
+      "statement": "No one speaks while the first fish is carried to the post, and the carrier walks back without turning round.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h12",
+      "kind": "custom",
+      "topic": "how nets are finished",
+      "statement": "Every net has one knot left untied.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h13",
+      "kind": "custom",
+      "topic": "what is done at a birth",
+      "statement": "At a birth the eldest of the house ties a knot in the house net and says the child's name into it.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-debt"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h14",
+      "kind": "custom",
+      "topic": "what is done at a first catch",
+      "statement": "When a grown child brings home a first catch, they tie a second knot beside their birth knot.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-debt"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h15",
+      "kind": "prohibition",
+      "topic": "the order of eating in a house",
+      "statement": "No one eats before the eldest of their house has eaten.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h16",
+      "kind": "fact",
+      "topic": "where the people came from",
+      "statement": "The people came down from the dry country, which lies above the water's edge.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-origin"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h17",
+      "kind": "person",
+      "topic": "who Ket was",
+      "statement": "Ket was the best net-man of his time and is remembered for eating a first fish himself.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h18",
+      "kind": "fact",
+      "topic": "the empty season",
+      "statement": "In the year the fish went down, the nets came up empty for a whole season.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h19",
+      "kind": "saying",
+      "topic": "a saying about nets",
+      "statement": "The people say: a net with no knots cut from it has caught nothing.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-debt"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h20",
+      "kind": "place",
+      "topic": "what the post marks",
+      "statement": "The post with the heron cut into it stands where the first fish was first laid down.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h21",
+      "kind": "custom",
+      "topic": "how a guest is fed",
+      "statement": "A guest is fed before the house eats, but after the heron.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h22",
+      "kind": "prohibition",
+      "topic": "being offered food",
+      "statement": "It is shameful to refuse food that is offered.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h23",
+      "kind": "fact",
+      "topic": "who looks after the nets",
+      "statement": "The net-menders mend every house's net and keep the count of its knots.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h24",
+      "kind": "obligation",
+      "topic": "taking from another's net",
+      "statement": "Whoever takes fish from another house's net owes that house a day's mending.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "h25",
+      "kind": "custom",
+      "topic": "what is done at a death",
+      "statement": "When someone dies, the house net is carried to the water at dusk and their birth knot is cut out and given to the water, downstream.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-debt"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "h26",
+      "kind": "obligation",
+      "topic": "what the eldest owes in a bad season",
+      "statement": "In an empty season the eldest must stand in the water from dusk to dusk without eating or speaking.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "h27",
+      "kind": "prohibition",
+      "topic": "the knots of the dead",
+      "statement": "A house must never keep the knots of its dead.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-debt"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "h28",
+      "kind": "fact",
+      "topic": "who ended the empty season",
+      "statement": "Ket's mother stood in the water and brought the fish back, and her name is not spoken.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-rupture"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "h29",
+      "kind": "custom",
+      "topic": "children's names",
+      "statement": "The name said into a birth knot is not said aloud again until the child's first catch; until then the child is called by a water-name.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "h30",
+      "kind": "value",
+      "topic": "those who left",
+      "statement": "Those who went back to the dry country are not hated; they are pitied, and they are not spoken of.",
+      "origin": {
+        "type": "myth",
+        "mythId": "m-origin"
+      },
+      "say": "earned"
+    }
   ],
   "customs": [
-    { "id": "c-feeding", "name": "Feeding the heron", "visible": "At dusk, whoever has fished carries one fish to the post in silence, lays it at the foot, and walks back without turning round.", "reasons": ["h1", "h5", "h9", "h11"] },
-    { "id": "c-open-knot", "name": "The open knot", "visible": "When a net is finished or mended, the last knot is left loose and hangs open.", "reasons": ["h7", "h12"] },
-    { "id": "c-birth-knot", "name": "The birth knot", "visible": "After a birth, the oldest person of the house ties a knot into a long net that hangs indoors, and whispers into it.", "reasons": ["h2", "h13", "h29"] },
-    { "id": "c-guest", "name": "Feeding the guest", "visible": "A visitor is given food as soon as they sit, before anyone of the house touches theirs, and people watch until the visitor has eaten.", "reasons": ["h6", "h21", "h22"] },
-    { "id": "c-water", "name": "Giving the knot to the water", "visible": "At dusk a house carries a long net to the water; one small piece is cut from it and let go on the current.", "reasons": ["h3", "h4", "h25", "h27"] }
+    {
+      "id": "c-feeding",
+      "name": "Feeding the heron",
+      "visible": "At dusk, whoever has fished carries one fish to the post in silence, lays it at the foot, and walks back without turning round.",
+      "reasons": [
+        "h1",
+        "h5",
+        "h9",
+        "h11"
+      ]
+    },
+    {
+      "id": "c-open-knot",
+      "name": "The open knot",
+      "visible": "When a net is finished or mended, the last knot is left loose and hangs open.",
+      "reasons": [
+        "h7",
+        "h12"
+      ]
+    },
+    {
+      "id": "c-birth-knot",
+      "name": "The birth knot",
+      "visible": "After a birth, the oldest person of the house ties a knot into a long net that hangs indoors, and whispers into it.",
+      "reasons": [
+        "h2",
+        "h13",
+        "h29"
+      ]
+    },
+    {
+      "id": "c-guest",
+      "name": "Feeding the guest",
+      "visible": "A visitor is given food as soon as they sit, before anyone of the house touches theirs, and people watch until the visitor has eaten.",
+      "reasons": [
+        "h6",
+        "h21",
+        "h22"
+      ]
+    },
+    {
+      "id": "c-water",
+      "name": "Giving the knot to the water",
+      "visible": "At dusk a house carries a long net to the water; one small piece is cut from it and let go on the current.",
+      "reasons": [
+        "h3",
+        "h4",
+        "h25",
+        "h27"
+      ]
+    }
   ],
   "villagers": [
     {
-      "id": "maelle", "name": "Maëlle", "role": "net-mender", "age": 41, "temperament": "dry, patient, exact about small things", "doubts": false,
-      "knowsEntries": ["h2", "h3", "h7", "h9", "h10", "h11", "h12", "h13", "h14", "h19", "h23", "h24", "h25", "h27", "h29"],
-      "knowsMyths": [{ "mythId": "m-origin" }, { "mythId": "m-debt" }],
-      "slant": "She tells the stories as stories about work done properly: knots tied right, counts kept. She has no patience for anyone who makes the heron into something to be afraid of.",
-      "lines": { "refusal": "That is for the shaman to say. I mend nets.", "withholding": "That is not for a stranger.", "redirect": "Ask {name}. I only know knots." }
-    },
-    {
-      "id": "tam", "name": "Old Tam", "role": "boat-keeper", "age": 70, "temperament": "gruff, fond of being right, kinder than he sounds", "doubts": true,
-      "knowsEntries": ["h9", "h10", "h12", "h15", "h16", "h17", "h18", "h20", "h26", "h28", "h30"],
-      "knowsMyths": [{ "mythId": "m-rupture" }],
-      "slant": "He was a boy the last time the nets came up empty for a month. Nobody stood in the water that time, and the fish came back anyway. He thinks the fish went down in Ket's year because the water turned cold, and that the story was fitted to it afterwards. He still carries his first fish to the post. He says a man can doubt a story and keep a habit.",
-      "lines": { "refusal": "Ask the shaman, not me.", "withholding": "You have not been here long enough for that.", "redirect": "{name} would know. Go and bother them." }
-    },
-    {
-      "id": "ysolt", "name": "Ysolt", "role": "eldest of the largest house", "age": 78, "temperament": "ceremonious, slow to speak, hard to hurry", "doubts": false,
-      "knowsEntries": ["h1", "h3", "h4", "h5", "h6", "h9", "h13", "h14", "h15", "h16", "h17", "h21", "h22", "h25", "h26", "h27", "h28", "h29", "h30"],
-      "knowsMyths": [{ "mythId": "m-origin" }, { "mythId": "m-rupture" }, { "mythId": "m-debt" }],
-      "slant": "She tells each story the same way every time and dislikes questions in the middle. She believes an empty season could come again, and that it would be hers to answer.",
-      "lines": { "refusal": "That is the shaman's to say, and I will not say it in the shaman's place.", "withholding": "That is not said to a guest.", "redirect": "That is {name}'s to tell." }
-    },
-    {
-      "id": "minnow", "name": "Minnow", "role": "a child of Ysolt's house", "age": 9, "temperament": "quick, easily bored, honest", "doubts": false,
-      "knowsEntries": ["h9", "h10", "h11", "h15", "h20", "h22"],
+      "id": "maelle",
+      "name": "Maëlle",
+      "role": "net-mender",
+      "age": 41,
+      "temperament": "dry, patient, exact about small things",
+      "pronoun": "she",
+      "doubts": false,
+      "knowsEntries": [
+        "h2",
+        "h3",
+        "h7",
+        "h9",
+        "h10",
+        "h11",
+        "h12",
+        "h13",
+        "h14",
+        "h19",
+        "h23",
+        "h24",
+        "h25",
+        "h27",
+        "h29"
+      ],
       "knowsMyths": [
-        { "mythId": "m-origin", "version": "A hungry woman asked the heron for a fish and the heron gave her one, and then another. She was sorry she had nothing to give back, so she made a net and gave the heron the first fish. That is why the heron eats first." },
-        { "mythId": "m-rupture", "version": "A man ate the first fish himself, and all the fish went away for a long time. Then they came back. So nobody does that." }
+        {
+          "mythId": "m-origin"
+        },
+        {
+          "mythId": "m-debt"
+        }
+      ],
+      "slant": "She tells the stories as stories about work done properly: knots tied right, counts kept. She has no patience for anyone who makes the heron into something to be afraid of.",
+      "lines": {
+        "refusal": "That is for the shaman to say. I mend nets.",
+        "withholding": "That is not for a stranger.",
+        "redirect": "Ask {name}. I only know knots."
+      }
+    },
+    {
+      "id": "tam",
+      "name": "Old Tam",
+      "role": "boat-keeper",
+      "age": 70,
+      "temperament": "gruff, fond of being right, kinder than he sounds",
+      "pronoun": "he",
+      "doubts": true,
+      "knowsEntries": [
+        "h9",
+        "h10",
+        "h12",
+        "h15",
+        "h16",
+        "h17",
+        "h18",
+        "h20",
+        "h26",
+        "h28",
+        "h30"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "m-rupture"
+        }
+      ],
+      "slant": "He was a boy the last time the nets came up empty for a month. Nobody stood in the water that time, and the fish came back anyway. He thinks the fish went down in Ket's year because the water turned cold, and that the story was fitted to it afterwards. He still carries his first fish to the post. He says a man can doubt a story and keep a habit.",
+      "lines": {
+        "refusal": "Ask the shaman, not me.",
+        "withholding": "You have not been here long enough for that.",
+        "redirect": "{name} would know. Go and bother them."
+      }
+    },
+    {
+      "id": "ysolt",
+      "name": "Ysolt",
+      "role": "eldest of the largest house",
+      "age": 78,
+      "temperament": "ceremonious, slow to speak, hard to hurry",
+      "pronoun": "she",
+      "doubts": false,
+      "knowsEntries": [
+        "h1",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "h9",
+        "h13",
+        "h14",
+        "h15",
+        "h16",
+        "h17",
+        "h21",
+        "h22",
+        "h25",
+        "h26",
+        "h27",
+        "h28",
+        "h29",
+        "h30"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "m-origin"
+        },
+        {
+          "mythId": "m-rupture"
+        },
+        {
+          "mythId": "m-debt"
+        }
+      ],
+      "slant": "She tells each story the same way every time and dislikes questions in the middle. She believes an empty season could come again, and that it would be hers to answer.",
+      "lines": {
+        "refusal": "That is the shaman's to say, and I will not say it in the shaman's place.",
+        "withholding": "That is not said to a guest.",
+        "redirect": "That is {name}'s to tell."
+      }
+    },
+    {
+      "id": "minnow",
+      "name": "Minnow",
+      "role": "a child of Ysolt's house",
+      "age": 9,
+      "temperament": "quick, easily bored, honest",
+      "pronoun": "they",
+      "doubts": false,
+      "knowsEntries": [
+        "h9",
+        "h10",
+        "h11",
+        "h15",
+        "h20",
+        "h22"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "m-origin",
+          "version": "A hungry woman asked the heron for a fish and the heron gave her one, and then another. She was sorry she had nothing to give back, so she made a net and gave the heron the first fish. That is why the heron eats first."
+        },
+        {
+          "mythId": "m-rupture",
+          "version": "A man ate the first fish himself, and all the fish went away for a long time. Then they came back. So nobody does that."
+        }
       ],
       "slant": "Minnow finds carrying the first fish boring and the silence hard, and wonders out loud whether the heron is ever full. Minnow repeats what grown-ups say without always knowing why.",
-      "lines": { "refusal": "I don't know. You'd have to ask the shaman.", "withholding": "I'm not supposed to say.", "redirect": "Ask {name}!" }
+      "lines": {
+        "refusal": "I don't know. You'd have to ask the shaman.",
+        "withholding": "I'm not supposed to say.",
+        "redirect": "Ask {name}!"
+      }
     },
     {
-      "id": "corin", "name": "Corin", "role": "a young fisher", "age": 19, "temperament": "restless, proud of his first catch, quick to take offence", "doubts": false,
-      "knowsEntries": ["h8", "h9", "h10", "h12", "h14", "h16", "h18", "h19", "h21", "h24"],
-      "knowsMyths": [{ "mythId": "m-origin" }, { "mythId": "m-rupture" }],
+      "id": "corin",
+      "name": "Corin",
+      "role": "a young fisher",
+      "age": 19,
+      "temperament": "restless, proud of his first catch, quick to take offence",
+      "pronoun": "he",
+      "doubts": false,
+      "knowsEntries": [
+        "h8",
+        "h9",
+        "h10",
+        "h12",
+        "h14",
+        "h16",
+        "h18",
+        "h19",
+        "h21",
+        "h24"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "m-origin"
+        },
+        {
+          "mythId": "m-rupture"
+        }
+      ],
       "slant": "He thinks about the dry country more than he lets on, and wonders what the ones who went back found there. He tells the first story with more interest in those who left than in those who stayed.",
-      "lines": { "refusal": "Nobody ever told me that. The shaman would know.", "withholding": "Not yet. Stay a season.", "redirect": "{name} knows that better than I do." }
+      "lines": {
+        "refusal": "Nobody ever told me that. The shaman would know.",
+        "withholding": "Not yet. Stay a season.",
+        "redirect": "{name} knows that better than I do."
+      }
     },
     {
-      "id": "besa", "name": "Besa", "role": "keeper of the guest hearth", "age": 55, "temperament": "warm, talkative, watchful", "doubts": false,
-      "knowsEntries": ["h5", "h6", "h9", "h10", "h11", "h13", "h15", "h20", "h21", "h22", "h23"],
-      "knowsMyths": [{ "mythId": "m-origin" }],
+      "id": "besa",
+      "name": "Besa",
+      "role": "keeper of the guest hearth",
+      "age": 55,
+      "temperament": "warm, talkative, watchful",
+      "pronoun": "she",
+      "doubts": false,
+      "knowsEntries": [
+        "h5",
+        "h6",
+        "h9",
+        "h10",
+        "h11",
+        "h13",
+        "h15",
+        "h20",
+        "h21",
+        "h22",
+        "h23"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "m-origin"
+        }
+      ],
       "slant": "She tells the first story as a story about shame: the woman's shame at eating twice and giving nothing. She presses food on a visitor and takes a refusal personally.",
-      "lines": { "refusal": "Ah, that one is for the shaman.", "withholding": "That is not for a guest's ears, forgive me.", "redirect": "Go and ask {name}, and then come back and eat." }
+      "lines": {
+        "refusal": "Ah, that one is for the shaman.",
+        "withholding": "That is not for a guest's ears, forgive me.",
+        "redirect": "Go and ask {name}, and then come back and eat."
+      }
     }
   ],
-  "heart": ["h1", "h3", "h4", "h6"],
+  "heart": [
+    "h1",
+    "h3",
+    "h4",
+    "h6"
+  ],
   "silences": [
     "What is done when a heron dies.",
     "Whether a heron may ever be killed or eaten.",

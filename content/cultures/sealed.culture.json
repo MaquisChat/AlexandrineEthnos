@@ -22,91 +22,589 @@
     }
   ],
   "entries": [
-    { "id": "s1", "kind": "symbol_meaning", "topic": "what salt is", "statement": "Salt stands for a word that is kept: a promise that holds.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "s2", "kind": "symbol_meaning", "topic": "what the wind is", "statement": "The wind stands for forgetting, which the people hold to be a mercy and not a loss.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "s3", "kind": "symbol_meaning", "topic": "what a cairn is", "statement": "A cairn stands for trust made visible: each stone is a word someone kept.", "origin": { "type": "myth", "mythId": "s-origin" }, "say": "shown" },
-    { "id": "s4", "kind": "opposition", "topic": "stone and wind", "statement": "Stone is for what must be remembered and wind is for what must be let go, and a good life keeps the two apart.", "origin": { "type": "gloss" }, "say": "shown" },
-    { "id": "s5", "kind": "symbol_meaning", "topic": "what the hare is", "statement": "The hare stands for the one who breaks a word and runs from it.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "shown" },
-    { "id": "s6", "kind": "value", "topic": "what holds the people together", "statement": "The people are one people only because words are kept, so a broken word harms everyone and not only the one it was given to.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "shown" },
-    { "id": "s7", "kind": "symbol_meaning", "topic": "the hearthstone on the cairn", "statement": "A hearthstone on a cairn means a house has staked itself on a promise made for everyone.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "shown" },
-    { "id": "s8", "kind": "value", "topic": "what a grievance is", "statement": "A grievance kept past the spring is treated as a theft, because it belongs to the wind.", "origin": { "type": "myth", "mythId": "s-debt" }, "say": "shown" },
-    { "id": "s9", "kind": "custom", "topic": "how a promise is made", "statement": "A promise is spoken with a pinch of salt on the tongue.", "origin": { "type": "myth", "mythId": "s-origin" }, "say": "anyone" },
-    { "id": "s10", "kind": "custom", "topic": "what is done when a promise is kept", "statement": "When a promise has been kept, the one who kept it adds a stone to the nearest cairn.", "origin": { "type": "myth", "mythId": "s-origin" }, "say": "anyone" },
-    { "id": "s11", "kind": "saying", "topic": "a saying about words", "statement": "The people say: without salt, the wind has it.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "s12", "kind": "custom", "topic": "the spring crossing", "statement": "At the spring crossing each person goes alone to the edge of the high ground and speaks their grievances into the wind.", "origin": { "type": "myth", "mythId": "s-debt" }, "say": "anyone" },
-    { "id": "s13", "kind": "prohibition", "topic": "old quarrels", "statement": "It is the worst rudeness to mention a matter that has been given to the wind.", "origin": { "type": "myth", "mythId": "s-debt" }, "say": "anyone" },
-    { "id": "s14", "kind": "person", "topic": "who Ane was", "statement": "Ane was the first to speak a word with salt, and she waited at the far well.", "origin": { "type": "myth", "mythId": "s-origin" }, "say": "anyone" },
-    { "id": "s15", "kind": "person", "topic": "who Oru was", "statement": "Oru sold the far camp's winter salt for two goats and went another way.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "anyone" },
-    { "id": "s16", "kind": "fact", "topic": "the winter the cairn fell", "statement": "In the winter of the hare the great cairn at the crossing fell, and families ate alone.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "anyone" },
-    { "id": "s17", "kind": "place", "topic": "the two wells", "statement": "The camps move between the near well and the far well along the salt road.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "s18", "kind": "custom", "topic": "how a guest is greeted", "statement": "A guest is offered salt before anything else, and takes it with the left hand.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "s19", "kind": "prohibition", "topic": "passing salt", "statement": "Salt is never passed with the right hand.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "s20", "kind": "saying", "topic": "a saying about hares", "statement": "The people say of someone unreliable: he leaves hare tracks.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "anyone" },
-    { "id": "s21", "kind": "custom", "topic": "walking past a cairn", "statement": "No one walks past a cairn without touching it.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "s22", "kind": "fact", "topic": "who keeps the cairns", "statement": "The cairn-keeper mends the cairns after storms and knows which stone was whose.", "origin": { "type": "gloss" }, "say": "anyone" },
-    { "id": "s23", "kind": "obligation", "topic": "eating together", "statement": "Every family eats at the shared fire at least once in every moon.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "anyone" },
-    { "id": "s24", "kind": "fact", "topic": "what Sefa did", "statement": "Sefa, Oru's daughter, carried her own house's salt across in winter and lost two fingers doing it.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "earned" },
-    { "id": "s25", "kind": "custom", "topic": "a promise for the whole camp", "statement": "When a promise is made on behalf of the whole camp, a stone from the promiser's own hearth goes on the cairn.", "origin": { "type": "myth", "mythId": "s-rupture" }, "say": "earned" },
-    { "id": "s26", "kind": "prohibition", "topic": "Oru's descendants", "statement": "No one asks a descendant of Oru to give their word with salt; they are trusted without it or not at all.", "origin": { "type": "gloss" }, "say": "earned" },
-    { "id": "s27", "kind": "custom", "topic": "a stone taken down", "statement": "When someone breaks a salted word, their stone is taken down from the cairn at night, and no one says who did it.", "origin": { "type": "gloss" }, "say": "earned" },
-    { "id": "s28", "kind": "obligation", "topic": "what the dying owe", "statement": "A dying person is carried to the edge to give their last grievances to the wind, so that none are left with the living.", "origin": { "type": "gloss" }, "say": "earned" },
-    { "id": "s29", "kind": "fact", "topic": "the old woman's name", "statement": "The old woman who led the brothers to the edge has no name because she asked the wind to take that too.", "origin": { "type": "myth", "mythId": "s-debt" }, "say": "earned" }
+    {
+      "id": "s1",
+      "kind": "symbol_meaning",
+      "topic": "what salt is",
+      "statement": "Salt stands for a word that is kept: a promise that holds.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s2",
+      "kind": "symbol_meaning",
+      "topic": "what the wind is",
+      "statement": "The wind stands for forgetting, which the people hold to be a mercy and not a loss.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s3",
+      "kind": "symbol_meaning",
+      "topic": "what a cairn is",
+      "statement": "A cairn stands for trust made visible: each stone is a word someone kept.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-origin"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s4",
+      "kind": "opposition",
+      "topic": "stone and wind",
+      "statement": "Stone is for what must be remembered and wind is for what must be let go, and a good life keeps the two apart.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s5",
+      "kind": "symbol_meaning",
+      "topic": "what the hare is",
+      "statement": "The hare stands for the one who breaks a word and runs from it.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s6",
+      "kind": "value",
+      "topic": "what holds the people together",
+      "statement": "The people are one people only because words are kept, so a broken word harms everyone and not only the one it was given to.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s7",
+      "kind": "symbol_meaning",
+      "topic": "the hearthstone on the cairn",
+      "statement": "A hearthstone on a cairn means a house has staked itself on a promise made for everyone.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s8",
+      "kind": "value",
+      "topic": "what a grievance is",
+      "statement": "A grievance kept past the spring is treated as a theft, because it belongs to the wind.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-debt"
+      },
+      "say": "shown"
+    },
+    {
+      "id": "s9",
+      "kind": "custom",
+      "topic": "how a promise is made",
+      "statement": "A promise is spoken with a pinch of salt on the tongue.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-origin"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s10",
+      "kind": "custom",
+      "topic": "what is done when a promise is kept",
+      "statement": "When a promise has been kept, the one who kept it adds a stone to the nearest cairn.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-origin"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s11",
+      "kind": "saying",
+      "topic": "a saying about words",
+      "statement": "The people say: without salt, the wind has it.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s12",
+      "kind": "custom",
+      "topic": "the spring crossing",
+      "statement": "At the spring crossing each person goes alone to the edge of the high ground and speaks their grievances into the wind.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-debt"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s13",
+      "kind": "prohibition",
+      "topic": "old quarrels",
+      "statement": "It is the worst rudeness to mention a matter that has been given to the wind.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-debt"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s14",
+      "kind": "person",
+      "topic": "who Ane was",
+      "statement": "Ane was the first to speak a word with salt, and she waited at the far well.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-origin"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s15",
+      "kind": "person",
+      "topic": "who Oru was",
+      "statement": "Oru sold the far camp's winter salt for two goats and went another way.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s16",
+      "kind": "fact",
+      "topic": "the winter the cairn fell",
+      "statement": "In the winter of the hare the great cairn at the crossing fell, and families ate alone.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s17",
+      "kind": "place",
+      "topic": "the two wells",
+      "statement": "The camps move between the near well and the far well along the salt road.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s18",
+      "kind": "custom",
+      "topic": "how a guest is greeted",
+      "statement": "A guest is offered salt before anything else, and takes it with the left hand.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s19",
+      "kind": "prohibition",
+      "topic": "passing salt",
+      "statement": "Salt is never passed with the right hand.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s20",
+      "kind": "saying",
+      "topic": "a saying about hares",
+      "statement": "The people say of someone unreliable: he leaves hare tracks.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s21",
+      "kind": "custom",
+      "topic": "walking past a cairn",
+      "statement": "No one walks past a cairn without touching it.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s22",
+      "kind": "fact",
+      "topic": "who keeps the cairns",
+      "statement": "The cairn-keeper mends the cairns after storms and knows which stone was whose.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s23",
+      "kind": "obligation",
+      "topic": "eating together",
+      "statement": "Every family eats at the shared fire at least once in every moon.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "anyone"
+    },
+    {
+      "id": "s24",
+      "kind": "fact",
+      "topic": "what Sefa did",
+      "statement": "Sefa, Oru's daughter, carried her own house's salt across in winter and lost two fingers doing it.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "s25",
+      "kind": "custom",
+      "topic": "a promise for the whole camp",
+      "statement": "When a promise is made on behalf of the whole camp, a stone from the promiser's own hearth goes on the cairn.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-rupture"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "s26",
+      "kind": "prohibition",
+      "topic": "Oru's descendants",
+      "statement": "No one asks a descendant of Oru to give their word with salt; they are trusted without it or not at all.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "s27",
+      "kind": "custom",
+      "topic": "a stone taken down",
+      "statement": "When someone breaks a salted word, their stone is taken down from the cairn at night, and no one says who did it.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "s28",
+      "kind": "obligation",
+      "topic": "what the dying owe",
+      "statement": "A dying person is carried to the edge to give their last grievances to the wind, so that none are left with the living.",
+      "origin": {
+        "type": "gloss"
+      },
+      "say": "earned"
+    },
+    {
+      "id": "s29",
+      "kind": "fact",
+      "topic": "the old woman's name",
+      "statement": "The old woman who led the brothers to the edge has no name because she asked the wind to take that too.",
+      "origin": {
+        "type": "myth",
+        "mythId": "s-debt"
+      },
+      "say": "earned"
+    }
   ],
   "customs": [
-    { "id": "k-salt", "name": "Speaking with salt", "visible": "Before saying something they mean to be held to, a person takes a pinch of white grains from a pouch and puts it on their tongue.", "reasons": ["s1", "s9"] },
-    { "id": "k-stone", "name": "Adding a stone", "visible": "Now and then someone walks to a cairn carrying a stone, sets it on top, and stands a moment with a hand on it.", "reasons": ["s3", "s10", "s21"] },
-    { "id": "k-crossing", "name": "The spring crossing", "visible": "On one day in spring, people walk out one at a time to the edge of the high ground, shout into the wind for a while, and come back quiet.", "reasons": ["s2", "s8", "s12", "s13"] },
-    { "id": "k-guest", "name": "Salt for a guest", "visible": "A visitor is handed a small dish of salt before food or drink, always with the giver's left hand.", "reasons": ["s1", "s18", "s19"] },
-    { "id": "k-fire", "name": "The shared fire", "visible": "Once in a moon every family carries its food to one fire in the middle of the camp and eats there.", "reasons": ["s6", "s23"] }
+    {
+      "id": "k-salt",
+      "name": "Speaking with salt",
+      "visible": "Before saying something they mean to be held to, a person takes a pinch of white grains from a pouch and puts it on their tongue.",
+      "reasons": [
+        "s1",
+        "s9"
+      ]
+    },
+    {
+      "id": "k-stone",
+      "name": "Adding a stone",
+      "visible": "Now and then someone walks to a cairn carrying a stone, sets it on top, and stands a moment with a hand on it.",
+      "reasons": [
+        "s3",
+        "s10",
+        "s21"
+      ]
+    },
+    {
+      "id": "k-crossing",
+      "name": "The spring crossing",
+      "visible": "On one day in spring, people walk out one at a time to the edge of the high ground, shout into the wind for a while, and come back quiet.",
+      "reasons": [
+        "s2",
+        "s8",
+        "s12",
+        "s13"
+      ]
+    },
+    {
+      "id": "k-guest",
+      "name": "Salt for a guest",
+      "visible": "A visitor is handed a small dish of salt before food or drink, always with the giver's left hand.",
+      "reasons": [
+        "s1",
+        "s18",
+        "s19"
+      ]
+    },
+    {
+      "id": "k-fire",
+      "name": "The shared fire",
+      "visible": "Once in a moon every family carries its food to one fire in the middle of the camp and eats there.",
+      "reasons": [
+        "s6",
+        "s23"
+      ]
+    }
   ],
   "villagers": [
     {
-      "id": "oreth", "name": "Oreth", "role": "cairn-keeper", "age": 63, "temperament": "careful, literal, proud of his memory", "doubts": false,
-      "knowsEntries": ["s3", "s7", "s9", "s10", "s11", "s14", "s16", "s21", "s22", "s24", "s25", "s27"],
-      "knowsMyths": [{ "mythId": "s-origin" }, { "mythId": "s-rupture" }],
-      "slant": "He tells the stories as an account of which stones went where. He can say who added what to the crossing cairn for three generations, and he sometimes seems to care more for the cairns than for the people who built them.",
-      "lines": { "refusal": "That is for the shaman. I keep stones, not answers.", "withholding": "That is not told to someone passing through.", "redirect": "{name} keeps that. Ask there." }
-    },
-    {
-      "id": "dasa", "name": "Dasa", "role": "salt-carrier", "age": 34, "temperament": "brisk, funny, always about to leave", "doubts": false,
-      "knowsEntries": ["s1", "s5", "s9", "s11", "s15", "s17", "s18", "s19", "s20", "s23", "s26"],
-      "knowsMyths": [{ "mythId": "s-rupture" }],
-      "slant": "She carries the winter salt herself, and she tells Oru's story as a warning aimed at herself. She makes jokes about hares and does not find them entirely funny.",
-      "lines": { "refusal": "Don't ask me, ask the shaman. I only carry.", "withholding": "Not for a guest. Not yet.", "redirect": "{name} is the one to ask, if you can catch them." }
-    },
-    {
-      "id": "imme", "name": "Old Imme", "role": "eldest of the near camp", "age": 81, "temperament": "soft-spoken, exact, quickly tired", "doubts": false,
-      "knowsEntries": ["s2", "s4", "s6", "s8", "s10", "s12", "s13", "s14", "s15", "s16", "s23", "s24", "s27", "s28", "s29"],
-      "knowsMyths": [{ "mythId": "s-origin" }, { "mythId": "s-rupture" }, { "mythId": "s-debt" }],
-      "slant": "She tells the three stories as one story about what to hold and what to let go. She will not be drawn on any quarrel that has been given to the wind, however old it is.",
-      "lines": { "refusal": "That is the shaman's to say.", "withholding": "That is kept from those who have not wintered here.", "redirect": "Go to {name} for that." }
-    },
-    {
-      "id": "tavi", "name": "Tavi", "role": "a child of the near camp", "age": 10, "temperament": "bold, literal, always asking why", "doubts": false,
-      "knowsEntries": ["s9", "s11", "s18", "s19", "s20", "s21"],
+      "id": "oreth",
+      "name": "Oreth",
+      "role": "cairn-keeper",
+      "age": 63,
+      "temperament": "careful, literal, proud of his memory",
+      "pronoun": "he",
+      "doubts": false,
+      "knowsEntries": [
+        "s3",
+        "s7",
+        "s9",
+        "s10",
+        "s11",
+        "s14",
+        "s16",
+        "s21",
+        "s22",
+        "s24",
+        "s25",
+        "s27"
+      ],
       "knowsMyths": [
-        { "mythId": "s-origin", "version": "A long time ago the wind took everybody's words away, so nobody could promise anything. Then Ane put salt in her mouth and said she would wait at the well, and the wind couldn't take it. So we use salt." },
-        { "mythId": "s-debt", "version": "Two brothers were angry about a well for a long time. An old woman made them shout it all at the wind. After that nobody was allowed to talk about it." }
+        {
+          "mythId": "s-origin"
+        },
+        {
+          "mythId": "s-rupture"
+        }
+      ],
+      "slant": "He tells the stories as an account of which stones went where. He can say who added what to the crossing cairn for three generations, and he sometimes seems to care more for the cairns than for the people who built them.",
+      "lines": {
+        "refusal": "That is for the shaman. I keep stones, not answers.",
+        "withholding": "That is not told to someone passing through.",
+        "redirect": "{name} keeps that. Ask there."
+      }
+    },
+    {
+      "id": "dasa",
+      "name": "Dasa",
+      "role": "salt-carrier",
+      "age": 34,
+      "temperament": "brisk, funny, always about to leave",
+      "pronoun": "she",
+      "doubts": false,
+      "knowsEntries": [
+        "s1",
+        "s5",
+        "s9",
+        "s11",
+        "s15",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s23",
+        "s26"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "s-rupture"
+        }
+      ],
+      "slant": "She carries the winter salt herself, and she tells Oru's story as a warning aimed at herself. She makes jokes about hares and does not find them entirely funny.",
+      "lines": {
+        "refusal": "Don't ask me, ask the shaman. I only carry.",
+        "withholding": "Not for a guest. Not yet.",
+        "redirect": "{name} is the one to ask, if you can catch them."
+      }
+    },
+    {
+      "id": "imme",
+      "name": "Old Imme",
+      "role": "eldest of the near camp",
+      "age": 81,
+      "temperament": "soft-spoken, exact, quickly tired",
+      "pronoun": "she",
+      "doubts": false,
+      "knowsEntries": [
+        "s2",
+        "s4",
+        "s6",
+        "s8",
+        "s10",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s23",
+        "s24",
+        "s27",
+        "s28",
+        "s29"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "s-origin"
+        },
+        {
+          "mythId": "s-rupture"
+        },
+        {
+          "mythId": "s-debt"
+        }
+      ],
+      "slant": "She tells the three stories as one story about what to hold and what to let go. She will not be drawn on any quarrel that has been given to the wind, however old it is.",
+      "lines": {
+        "refusal": "That is the shaman's to say.",
+        "withholding": "That is kept from those who have not wintered here.",
+        "redirect": "Go to {name} for that."
+      }
+    },
+    {
+      "id": "tavi",
+      "name": "Tavi",
+      "role": "a child of the near camp",
+      "age": 10,
+      "temperament": "bold, literal, always asking why",
+      "pronoun": "they",
+      "doubts": false,
+      "knowsEntries": [
+        "s9",
+        "s11",
+        "s18",
+        "s19",
+        "s20",
+        "s21"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "s-origin",
+          "version": "A long time ago the wind took everybody's words away, so nobody could promise anything. Then Ane put salt in her mouth and said she would wait at the well, and the wind couldn't take it. So we use salt."
+        },
+        {
+          "mythId": "s-debt",
+          "version": "Two brothers were angry about a well for a long time. An old woman made them shout it all at the wind. After that nobody was allowed to talk about it."
+        }
       ],
       "slant": "Tavi likes touching the cairns, dislikes the taste of salt, and thinks the spring crossing sounds like fun because of the shouting. Tavi repeats rules exactly and gets cross when grown-ups break them.",
-      "lines": { "refusal": "I don't know! Ask the shaman.", "withholding": "I'm not allowed to tell that.", "redirect": "{name} knows. Ask {name}." }
+      "lines": {
+        "refusal": "I don't know! Ask the shaman.",
+        "withholding": "I'm not allowed to tell that.",
+        "redirect": "{name} knows. Ask {name}."
+      }
     },
     {
-      "id": "rusk", "name": "Rusk", "role": "goat-herd", "age": 27, "temperament": "dry, sceptical, stubborn", "doubts": true,
-      "knowsEntries": ["s9", "s10", "s12", "s13", "s15", "s16", "s17", "s20", "s21"],
-      "knowsMyths": [{ "mythId": "s-rupture" }, { "mythId": "s-debt" }],
+      "id": "rusk",
+      "name": "Rusk",
+      "role": "goat-herd",
+      "age": 27,
+      "temperament": "dry, sceptical, stubborn",
+      "pronoun": "he",
+      "doubts": true,
+      "knowsEntries": [
+        "s9",
+        "s10",
+        "s12",
+        "s13",
+        "s15",
+        "s16",
+        "s17",
+        "s20",
+        "s21"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "s-rupture"
+        },
+        {
+          "mythId": "s-debt"
+        }
+      ],
       "slant": "His grandmother came from the traders' country, and he has heard their side: that Oru was cheated, not faithless, and that the cairn fell because it was badly built. He thinks stones fall when the ground freezes, and that the people would sooner blame a man than a frost. He salts his own words like anyone else because, he says, it costs nothing and people sleep better.",
-      "lines": { "refusal": "No idea. The shaman will have an answer; the shaman always does.", "withholding": "You haven't earned that one.", "redirect": "{name} cares about that more than I do." }
+      "lines": {
+        "refusal": "No idea. The shaman will have an answer; the shaman always does.",
+        "withholding": "You haven't earned that one.",
+        "redirect": "{name} cares about that more than I do."
+      }
     },
     {
-      "id": "lio", "name": "Lio", "role": "well-keeper", "age": 48, "temperament": "calm, hospitable, a peacemaker", "doubts": false,
-      "knowsEntries": ["s2", "s8", "s9", "s12", "s13", "s17", "s18", "s19", "s22", "s23", "s28"],
-      "knowsMyths": [{ "mythId": "s-origin" }, { "mythId": "s-debt" }],
+      "id": "lio",
+      "name": "Lio",
+      "role": "well-keeper",
+      "age": 48,
+      "temperament": "calm, hospitable, a peacemaker",
+      "pronoun": "she",
+      "doubts": false,
+      "knowsEntries": [
+        "s2",
+        "s8",
+        "s9",
+        "s12",
+        "s13",
+        "s17",
+        "s18",
+        "s19",
+        "s22",
+        "s23",
+        "s28"
+      ],
+      "knowsMyths": [
+        {
+          "mythId": "s-origin"
+        },
+        {
+          "mythId": "s-debt"
+        }
+      ],
       "slant": "She tells the brothers' story more often than any other, because the wells are hers to keep and quarrels start at wells. She thinks the wind is the kindest thing the people have.",
-      "lines": { "refusal": "That one belongs to the shaman, not to me.", "withholding": "That is not for a guest, with respect.", "redirect": "{name} can tell you. Sit a while first." }
+      "lines": {
+        "refusal": "That one belongs to the shaman, not to me.",
+        "withholding": "That is not for a guest, with respect.",
+        "redirect": "{name} can tell you. Sit a while first."
+      }
     }
   ],
-  "heart": ["s1", "s2", "s4", "s6"],
+  "heart": [
+    "s1",
+    "s2",
+    "s4",
+    "s6"
+  ],
   "silences": [
     "What is done when a cairn is struck by lightning.",
     "Whether a promise made without salt binds at all.",
@@ -117,7 +615,7 @@
     "Who may marry whom between the near camp and the far camp.",
     "Whether a hare may be hunted or eaten.",
     "What is done if someone speaks a grievance at the edge and the wind drops.",
-    "Where the salt comes from and who may gather it.",
+    "Who may gather salt, and whether anyone owns it.",
     "Whether a stone taken down from a cairn can ever be put back.",
     "What the people did before they had wells."
   ]

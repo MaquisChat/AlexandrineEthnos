@@ -46,7 +46,8 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 
 ## Tooling notes
 
-- What M0 delivered, what was decided along the way and what was left for later: `docs/m0-report.md`.
+- What M0 delivered, what was decided along the way and what was left for later: `docs/m0-report.md`. For M1a (villagers): `docs/m1a-report.md`.
+- The trial page is published at https://claude.ai/artifact/GP9yXT7i4t9MY3u3gCucje. To update it, run `pnpm trial:build` and publish `apps/trial/dist/villager-trial.html` to that address with the Artifact tool.
 - The trial page reaches Claude only when opened on claude.ai (`claude.use("sample")`). Here it is tested with `apps/trial/e2e/fakeRuntime.ts`. Its saved data lives in the page's `db` capability: collections `conversations` and `flags`, document `meta/revealed`.
 - TypeScript is pinned to 6.0.x. typescript-eslint does not support TypeScript 7 yet; move up when it does.
 - Packages export their TypeScript source directly (`exports` points at `src/index.ts`); there is no build step between packages.

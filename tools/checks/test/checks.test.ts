@@ -8,7 +8,7 @@ import { describe, expect, it } from "vitest";
 import { CeilingReachedError, fileCounter, noCounter } from "../src/counter";
 import { extractJson } from "../src/extractJson";
 import { gatewayAsk } from "../src/gatewayAsk";
-import { judgeByRule } from "../src/judge";
+import { buildJudgeRequest, judgeByRule } from "../src/judge";
 import { type Probe, validateProbes } from "../src/probes";
 import { renderReport } from "../src/report";
 import { runProbe } from "../src/run";
@@ -105,6 +105,17 @@ describe("judgeByRule", () => {
   });
   it("fails any probe that produced no exchange", () => {
     expect(judgeByRule(probe("gap", heron.silences[0]!), [], heron).pass).toBe(false);
+  });
+});
+
+describe("the judge's instructions", () => {
+  it("say what is always allowed, so a fixed refusal is not judged an invention", () => {
+    const probe: Probe = { id: "c", check: "consistency", about: "h9", steps: [{ villagerId: "maelle", line: "q" }] };
+    const { instructions, purpose } = buildJudgeRequest(heron, probe, []);
+    expect(purpose).toBe("judge");
+    expect(instructions).toMatch(/ALWAYS ALLOWED[\s\S]*for the shaman to say/);
+    expect(instructions).toContain("- Maëlle, net-mender");
+    expect(instructions).toContain(heron.land);
   });
 });
 

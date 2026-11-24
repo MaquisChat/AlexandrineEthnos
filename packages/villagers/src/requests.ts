@@ -3,10 +3,10 @@ import type { Culture, CultureEntry, CultureVillager } from "@fieldwork/contract
 import type { Draft } from "./draft";
 import { type AskRequest, type AskTurn, HISTORY_LIMIT, type ModelClass, type VillagerState } from "./types";
 
-export const ANSWER_RULES = `1. Never invent anything about your people: no belief, custom, meaning, rule about family, or piece of history that is not written above. If the visitor asks about something your people's ways do not settle, or that you cannot answer from what is written above, say in your own words that it is not yours to say and that the shaman would have to be asked. Use basis "deferral" and put the question, as you would put it to the shaman, in "question".
+export const ANSWER_RULES = `1. Never invent anything about your people: no belief, custom, meaning, rule about family, or piece of history that is not written above. If the visitor asks about something your people's ways do not settle, or that you cannot answer from what is written above, say in your own words that it is not yours to say and that the shaman would have to be asked. Use basis "deferral" and put the question, as you would put it to the shaman, in "question". Do not reason your way to an answer either: a saying or a custom tells you what it says and no more, so do not stretch one to settle a question it does not itself settle.
 2. Never explain what anything stands for or means. You live inside these ways; you do not look at them from outside. Speak of what is done, what is said, what happened in the stories, and how you feel about it. Asked what something means, answer the way a person would who has never needed to put it into words.
 3. The things listed as never put into words must never be said, hinted at as a meaning, or paraphrased. The things listed as not for a stranger must not be told to this visitor: say, in your own words, that it is not for them yet. Use basis "withheld".
-4. If the visitor asks about something that someone else knows and you do not, send them to that person by name. Say nothing of the matter yourself. Use basis "redirect", put that person's id in "redirect" and the ids of what they should be asked about in "entries".
+4. If the visitor asks about something that someone else knows and you do not, send them to that person by name. Say nothing of the matter yourself, and nothing else about your people's ways in that reply. Use basis "redirect", put that person's id in "redirect" and the ids of what they should be asked about in "entries".
 5. You may tell a story you know, in your own words and your own way, in no more than about 120 words, and only the part you know. Add no event, person or rule the story does not contain. Do not say what the story means.
 6. You may talk freely about your own life, work and opinions, and make up small details about yourself. Keep to what you have already said about yourself. Never let a made-up detail carry something new about your people's ways. List anything new you said about your own life in "personalFacts". Use basis "small_talk" when the reply draws on nothing written above.
 7. When you speak from what is written above, use basis "canon" and list the ids of every entry and story you drew on in "entries" and "myths".
@@ -19,9 +19,11 @@ export const ANSWER_FORMAT = `Reply with only one JSON object and nothing else:
 export const CHECK_RULES = `You are checking one reply spoken by a character in a game about an invented culture. The character may only state things about the culture that the SOURCES support. Judge the REPLY strictly but fairly.
 
 Report three things:
-- "unsupported": every statement in the reply about the culture (a belief, custom, meaning, rule, person or piece of history of this people) that the SOURCES do not support. Small talk about the speaker's own life, feelings and opinions is allowed and is not unsupported, unless it smuggles in a new fact about the people's ways. Declining to answer, or sending the visitor to someone else, is not unsupported.
+- "unsupported": every statement in the reply about the culture (a belief, custom, meaning, rule, person or piece of history of this people) that the SOURCES do not support. Small talk about the speaker's own life, feelings and opinions is allowed and is not unsupported, unless it smuggles in a new fact about the people's ways. Declining to answer, or sending the visitor to someone else, is not unsupported. A conclusion the speaker draws from the SOURCES that the SOURCES do not themselves state is unsupported: for example, taking a saying and using it to settle a question the saying does not settle. Do not report colour that adds no fact about the people: how the speaker feels, how they phrase a source, or a detail that only restates a source in other words.
 - "explains": every place where the reply says, or plainly implies, what something stands for or means, including any statement from the NEVER SAID list in any wording.
 - "earned": every place where the reply tells the visitor something from the NOT FOR A STRANGER list. Merely refusing to tell it is fine.
+
+Always allowed, and never to be reported: saying that a matter is for the shaman to say (this people has a shaman, who settles what their ways leave open); naming another person listed under WHO LIVES HERE, their work, and that they are the one to ask; and describing what anyone can see people doing.
 
 Quote or paraphrase each finding briefly. If there is nothing to report under a heading, give an empty list.
 
@@ -64,7 +66,7 @@ export function buildAnswerRequest(
       const topics = culture.entries
         .filter((e) => other.knowsEntries.includes(e.id) && !villager.knowsEntries.includes(e.id))
         .map((e) => `${e.topic} [${e.id}]`);
-      return topics.length > 0 ? `- ${other.name} [${other.id}], ${other.role}: ${topics.join("; ")}` : null;
+      return topics.length > 0 ? `- ${other.name} [${other.id}], ${other.role} (${other.pronoun}): ${topics.join("; ")}` : null;
     })
     .filter((text): text is string => text !== null);
 
@@ -140,8 +142,8 @@ export function buildCheckRequest(
   // A redirect names what to ask about, not what is true of it, so its sources are topics only.
   const citedLines =
     draft.basis === "redirect"
-      ? cited.map((e) => `- The speaker knows that someone else can speak about: ${e.topic}`)
-      : cited.map((e) => `- ${e.statement}`);
+      ? cited.map((e) => `- ${culture.villagers.find((v) => v.id === draft.redirect)?.name ?? "Someone else"} can speak about: ${e.topic}`)
+      : cited.map((e) => `- (${e.topic}) ${e.statement}`);
   const stories = draft.myths
     .map((mythId) => mythAsKnown(culture, villager, mythId))
     .filter((text): text is string => text !== null);
@@ -153,6 +155,9 @@ export function buildCheckRequest(
 
 ## The place
 ${culture.land}
+
+## Who lives here
+${bullets(culture.villagers.map((v) => `- ${v.name}, ${v.role} (${v.pronoun})`))}
 
 ## What anyone can see people doing
 ${bullets(culture.customs.map((c) => `- ${c.name}: ${c.visible}`))}

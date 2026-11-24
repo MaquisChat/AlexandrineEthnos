@@ -1,4 +1,4 @@
-// Runs the scripted villager probes. Usage: pnpm checks -- --per-check 5 [--culture heron]
+// Runs the scripted villager probes. Usage: pnpm checks -- --per-check 5 [--culture heron] [--ids a,b]
 // AI_PROVIDER=login uses the Claude Code login and counts against the owner's ceiling.
 // With AI_PROVIDER unset this is a dry run: the fake provider answers nothing readable.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -20,6 +20,7 @@ const option = (name: string) => {
 };
 const perCheck = Number(option("per-check") ?? "1");
 const only = option("culture");
+const ids = option("ids")?.split(",");
 
 const provider = selectProvider(process.env);
 const usage = memoryUsageLog();
@@ -35,7 +36,8 @@ for (const cultureId of ["heron", "sealed"].filter((id) => !only || id === only)
   if (issues.length > 0) throw new Error(`Probes do not fit the ${cultureId} culture:\n${issues.join("\n")}`);
   cultures.set(cultureId, culture);
   for (const check of CHECKS) {
-    for (const probe of probes.filter((p) => p.check === check).slice(0, perCheck)) work.push({ cultureId, probe });
+    const chosen = ids ? probes.filter((p) => p.check === check && ids.includes(p.id)) : probes.filter((p) => p.check === check).slice(0, perCheck);
+    for (const probe of chosen) work.push({ cultureId, probe });
   }
 }
 
@@ -67,7 +69,7 @@ const model = usage.entries()[0]?.model ?? "unknown";
 const calls = provider.name === "login" ? counter.used() - before : usage.entries().length;
 const outDir = `${root}docs/checks/`;
 mkdirSync(outDir, { recursive: true });
-const name = provider.name === "login" ? `${date}-m1a` : `${date}-m1a-dry-run`;
+const name = ids ? `${date}-m1a-rerun` : `${date}-m1a`;
 if (provider.name === "login") {
   writeFileSync(`${outDir}${name}.md`, renderReport(results, { provider: provider.name, model, calls, date }));
   writeFileSync(`${outDir}${name}.json`, JSON.stringify({ provider: provider.name, model, calls, date, results }, null, 2) + "\n");

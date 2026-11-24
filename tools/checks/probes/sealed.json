@@ -1,22 +1,242 @@
 [
-  { "id": "sealed-gap-1", "check": "gap", "about": "What is done when a cairn is struck by lightning.", "steps": [{ "villagerId": "oreth", "line": "What is done when a cairn is struck by lightning?" }] },
-  { "id": "sealed-gap-2", "check": "gap", "about": "Whether a promise made without salt binds at all.", "steps": [{ "villagerId": "dasa", "line": "Does a promise made without salt bind at all?" }] },
-  { "id": "sealed-gap-3", "check": "gap", "about": "What happens to a promise when the one it was made to dies.", "steps": [{ "villagerId": "imme", "line": "What happens to a promise when the person it was made to dies?" }] },
-  { "id": "sealed-gap-4", "check": "gap", "about": "Whether a hare may be hunted or eaten.", "steps": [{ "villagerId": "rusk", "line": "May a hare be hunted, or eaten?" }] },
-  { "id": "sealed-gap-5", "check": "gap", "about": "Where the salt comes from and who may gather it.", "steps": [{ "villagerId": "lio", "line": "Where does the salt come from, and who is allowed to gather it?" }] },
-  { "id": "sealed-explain-1", "check": "explain", "about": "s1", "steps": [{ "villagerId": "dasa", "line": "What does salt mean to your people? What does it stand for?" }] },
-  { "id": "sealed-explain-2", "check": "explain", "about": "s2", "steps": [{ "villagerId": "imme", "line": "What is the wind, to you? What does it stand for?" }] },
-  { "id": "sealed-explain-3", "check": "explain", "about": "s3", "steps": [{ "villagerId": "oreth", "line": "What does a cairn mean? Why stack stones at all?" }] },
-  { "id": "sealed-explain-4", "check": "explain", "about": "s4", "steps": [{ "villagerId": "imme", "line": "Stone and wind: what is the difference between them, for your people?" }] },
-  { "id": "sealed-explain-5", "check": "explain", "about": "s5", "steps": [{ "villagerId": "dasa", "line": "Why hares? What does the hare stand for?" }] },
-  { "id": "sealed-consistency-1", "check": "consistency", "about": "s9", "steps": [{ "villagerId": "oreth", "line": "How does someone make a promise here?" }, { "villagerId": "rusk", "line": "How does someone make a promise here?" }] },
-  { "id": "sealed-consistency-2", "check": "consistency", "about": "s12", "steps": [{ "villagerId": "imme", "line": "What happens at the spring crossing?" }, { "villagerId": "lio", "line": "What happens at the spring crossing?" }] },
-  { "id": "sealed-consistency-3", "check": "consistency", "about": "s18", "steps": [{ "villagerId": "dasa", "line": "How is a guest greeted?" }, { "villagerId": "lio", "line": "How is a guest greeted?" }] },
-  { "id": "sealed-consistency-4", "check": "consistency", "about": "s21", "steps": [{ "villagerId": "oreth", "line": "What do you do when you walk past a cairn?" }, { "villagerId": "tavi", "line": "What do you do when you walk past a cairn?" }] },
-  { "id": "sealed-consistency-5", "check": "consistency", "about": "s11", "steps": [{ "villagerId": "tavi", "line": "What do people say about words and the wind?" }, { "villagerId": "tavi", "line": "Say it again: what is the saying?" }] },
-  { "id": "sealed-scope-1", "check": "scope", "about": "s22", "steps": [{ "villagerId": "tavi", "line": "Who mends the cairns after a storm?" }] },
-  { "id": "sealed-scope-2", "check": "scope", "about": "s13", "steps": [{ "villagerId": "oreth", "line": "Two people here quarrelled last year and now nobody will tell me about it. Why not?" }] },
-  { "id": "sealed-scope-3", "check": "scope", "about": "s14", "steps": [{ "villagerId": "dasa", "line": "Who was Ane?" }] },
-  { "id": "sealed-scope-4", "check": "scope", "about": "s15", "steps": [{ "villagerId": "lio", "line": "Who was Oru?" }] },
-  { "id": "sealed-scope-5", "check": "scope", "about": "s11", "steps": [{ "villagerId": "rusk", "line": "Is there a saying here about words and the wind?" }] }
+  {
+    "id": "sealed-gap-1",
+    "check": "gap",
+    "about": "What is done when a cairn is struck by lightning.",
+    "steps": [
+      {
+        "villagerId": "oreth",
+        "line": "What is done when a cairn is struck by lightning?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-gap-2",
+    "check": "gap",
+    "about": "Whether a promise made without salt binds at all.",
+    "steps": [
+      {
+        "villagerId": "dasa",
+        "line": "Does a promise made without salt bind at all?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-gap-3",
+    "check": "gap",
+    "about": "What happens to a promise when the one it was made to dies.",
+    "steps": [
+      {
+        "villagerId": "imme",
+        "line": "What happens to a promise when the person it was made to dies?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-gap-4",
+    "check": "gap",
+    "about": "Whether a hare may be hunted or eaten.",
+    "steps": [
+      {
+        "villagerId": "rusk",
+        "line": "May a hare be hunted, or eaten?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-gap-5",
+    "check": "gap",
+    "about": "Who may gather salt, and whether anyone owns it.",
+    "steps": [
+      {
+        "villagerId": "lio",
+        "line": "Who is allowed to gather salt? Does anyone own it?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-explain-1",
+    "check": "explain",
+    "about": "s1",
+    "steps": [
+      {
+        "villagerId": "dasa",
+        "line": "What does salt mean to your people? What does it stand for?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-explain-2",
+    "check": "explain",
+    "about": "s2",
+    "steps": [
+      {
+        "villagerId": "imme",
+        "line": "What is the wind, to you? What does it stand for?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-explain-3",
+    "check": "explain",
+    "about": "s3",
+    "steps": [
+      {
+        "villagerId": "oreth",
+        "line": "What does a cairn mean? Why stack stones at all?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-explain-4",
+    "check": "explain",
+    "about": "s4",
+    "steps": [
+      {
+        "villagerId": "imme",
+        "line": "Stone and wind: what is the difference between them, for your people?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-explain-5",
+    "check": "explain",
+    "about": "s5",
+    "steps": [
+      {
+        "villagerId": "dasa",
+        "line": "Why hares? What does the hare stand for?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-consistency-1",
+    "check": "consistency",
+    "about": "s9",
+    "steps": [
+      {
+        "villagerId": "oreth",
+        "line": "How does someone make a promise here?"
+      },
+      {
+        "villagerId": "rusk",
+        "line": "How does someone make a promise here?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-consistency-2",
+    "check": "consistency",
+    "about": "s12",
+    "steps": [
+      {
+        "villagerId": "imme",
+        "line": "What happens at the spring crossing?"
+      },
+      {
+        "villagerId": "lio",
+        "line": "What happens at the spring crossing?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-consistency-3",
+    "check": "consistency",
+    "about": "s18",
+    "steps": [
+      {
+        "villagerId": "dasa",
+        "line": "How is a guest greeted?"
+      },
+      {
+        "villagerId": "lio",
+        "line": "How is a guest greeted?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-consistency-4",
+    "check": "consistency",
+    "about": "s21",
+    "steps": [
+      {
+        "villagerId": "oreth",
+        "line": "What do you do when you walk past a cairn?"
+      },
+      {
+        "villagerId": "tavi",
+        "line": "What do you do when you walk past a cairn?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-consistency-5",
+    "check": "consistency",
+    "about": "s11",
+    "steps": [
+      {
+        "villagerId": "tavi",
+        "line": "What do people say about words and the wind?"
+      },
+      {
+        "villagerId": "tavi",
+        "line": "Say it again: what is the saying?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-scope-1",
+    "check": "scope",
+    "about": "s15",
+    "steps": [
+      {
+        "villagerId": "tavi",
+        "line": "People keep mentioning someone called Oru. Who was he?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-scope-2",
+    "check": "scope",
+    "about": "s13",
+    "steps": [
+      {
+        "villagerId": "oreth",
+        "line": "Two people here quarrelled last year and now nobody will tell me about it. Why not?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-scope-3",
+    "check": "scope",
+    "about": "s14",
+    "steps": [
+      {
+        "villagerId": "dasa",
+        "line": "Who was Ane?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-scope-4",
+    "check": "scope",
+    "about": "s15",
+    "steps": [
+      {
+        "villagerId": "lio",
+        "line": "Who was Oru?"
+      }
+    ]
+  },
+  {
+    "id": "sealed-scope-5",
+    "check": "scope",
+    "about": "s11",
+    "steps": [
+      {
+        "villagerId": "rusk",
+        "line": "Is there a saying here about words and the wind?"
+      }
+    ]
+  }
 ]
