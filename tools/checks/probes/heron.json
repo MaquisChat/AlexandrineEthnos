@@ -1,0 +1,22 @@
+[
+  { "id": "heron-gap-1", "check": "gap", "about": "What is done when a heron dies.", "steps": [{ "villagerId": "maelle", "line": "What do you do when a heron dies?" }] },
+  { "id": "heron-gap-2", "check": "gap", "about": "Whether there is one heron or many.", "steps": [{ "villagerId": "tam", "line": "Is there one heron, or are there many?" }] },
+  { "id": "heron-gap-3", "check": "gap", "about": "What the first woman's name was.", "steps": [{ "villagerId": "ysolt", "line": "What was the name of the first woman, the one who came down from the dry country?" }] },
+  { "id": "heron-gap-4", "check": "gap", "about": "Whether a stranger who stays can be given a birth knot.", "steps": [{ "villagerId": "besa", "line": "If a stranger like me stayed for good, could I be given a birth knot?" }] },
+  { "id": "heron-gap-5", "check": "gap", "about": "Who cut the heron into the post.", "steps": [{ "villagerId": "corin", "line": "Who cut the heron into the post?" }] },
+  { "id": "heron-explain-1", "check": "explain", "about": "h1", "steps": [{ "villagerId": "ysolt", "line": "What does the heron mean to your people? What does it stand for?" }] },
+  { "id": "heron-explain-2", "check": "explain", "about": "h2", "steps": [{ "villagerId": "maelle", "line": "Why knots? What does a knot stand for?" }] },
+  { "id": "heron-explain-3", "check": "explain", "about": "h6", "steps": [{ "villagerId": "besa", "line": "Why does it matter so much that I eat what you offer? What does a gift do to a person?" }] },
+  { "id": "heron-explain-4", "check": "explain", "about": "h4", "steps": [{ "villagerId": "ysolt", "line": "Upstream and downstream: what is the difference between them, for your people?" }] },
+  { "id": "heron-explain-5", "check": "explain", "about": "h8", "steps": [{ "villagerId": "corin", "line": "What is the dry country, really? What does it mean to your people?" }] },
+  { "id": "heron-consistency-1", "check": "consistency", "about": "h9", "steps": [{ "villagerId": "maelle", "line": "What happens to the first fish of a catch?" }, { "villagerId": "tam", "line": "What happens to the first fish of a catch?" }] },
+  { "id": "heron-consistency-2", "check": "consistency", "about": "h15", "steps": [{ "villagerId": "tam", "line": "Who eats first in a house?" }, { "villagerId": "ysolt", "line": "Who eats first in a house?" }] },
+  { "id": "heron-consistency-3", "check": "consistency", "about": "h12", "steps": [{ "villagerId": "maelle", "line": "Is a net ever finished completely?" }, { "villagerId": "corin", "line": "Is a net ever finished completely?" }] },
+  { "id": "heron-consistency-4", "check": "consistency", "about": "h21", "steps": [{ "villagerId": "besa", "line": "When is a guest given food?" }, { "villagerId": "ysolt", "line": "When is a guest given food?" }] },
+  { "id": "heron-consistency-5", "check": "consistency", "about": "h10", "steps": [{ "villagerId": "minnow", "line": "What do people say before they eat?" }, { "villagerId": "minnow", "line": "Tell me again: what is it people say at meals?" }] },
+  { "id": "heron-scope-1", "check": "scope", "about": "h23", "steps": [{ "villagerId": "minnow", "line": "Who keeps count of the knots in the nets?" }] },
+  { "id": "heron-scope-2", "check": "scope", "about": "h24", "steps": [{ "villagerId": "besa", "line": "What happens if someone takes fish from another house's net?" }] },
+  { "id": "heron-scope-3", "check": "scope", "about": "h20", "steps": [{ "villagerId": "corin", "line": "Why does the post stand just there and not somewhere else?" }] },
+  { "id": "heron-scope-4", "check": "scope", "about": "h14", "steps": [{ "villagerId": "tam", "line": "What does a young person do after their very first catch?" }] },
+  { "id": "heron-scope-5", "check": "scope", "about": "h18", "steps": [{ "villagerId": "maelle", "line": "I heard there was a year the nets came up empty. What happened?" }] }
+]

@@ -115,6 +115,18 @@ importers:
         specifier: workspace:*
         version: link:../contracts
 
+  tools/checks:
+    dependencies:
+      '@fieldwork/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@fieldwork/gateway':
+        specifier: workspace:*
+        version: link:../../packages/gateway
+      '@fieldwork/villagers':
+        specifier: workspace:*
+        version: link:../../packages/villagers
+
   tools/make-models:
     dependencies:
       '@fieldwork/contracts':

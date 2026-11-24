@@ -16,7 +16,8 @@
     "build": "pnpm --filter @fieldwork/client run build",
     "dev": "pnpm --filter @fieldwork/client run dev",
     "e2e": "pnpm --filter @fieldwork/client run e2e",
-    "shots": "pnpm --filter @fieldwork/client run shots"
+    "shots": "pnpm --filter @fieldwork/client run shots",
+    "checks": "pnpm --filter @fieldwork/checks run checks"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

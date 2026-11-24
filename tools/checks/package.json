@@ -1,0 +1,12 @@
+{
+  "name": "@fieldwork/checks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "typecheck": "tsc --noEmit", "checks": "tsx src/main.ts" },
+  "dependencies": {
+    "@fieldwork/contracts": "workspace:*",
+    "@fieldwork/gateway": "workspace:*",
+    "@fieldwork/villagers": "workspace:*"
+  }
+}

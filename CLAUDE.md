@@ -19,6 +19,7 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `pnpm dev` | Run the client with live reload (Vite) |
 | `pnpm build` | Build the client into `apps/client/dist` |
 | `pnpm e2e` | Build, serve and run the browser tests (Playwright) |
+| `pnpm checks -- --per-check <n>` | Run scripted villager probes. Dry run on the fake provider by default; `AI_PROVIDER=login` makes real calls on the owner's Claude plan, counted in `.fieldwork/login-calls.json` against a ceiling of 600 |
 | `pnpm shots` | Build and save 2x screenshots of the look into `docs/look/` |
 
 ## Running and looking
@@ -36,6 +37,9 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `packages/gateway` | The single door to AI: providers, models per job, usage log |
 | `tools/make-models` | Scripts that generate the glTF files the game loads |
 | `apps/client` | The web client: Three.js scene with ordinary web text laid over it |
+| `packages/villagers` | How a villager answers: one checked turn of conversation, given an "ask a model" function. Pure; no network |
+| `tools/checks` | Scripted probes of the villager rules, run through the gateway |
+| `content/cultures` | Invented cultures as JSON, checked by `parseCulture` |
 
 ## Tooling notes
 
