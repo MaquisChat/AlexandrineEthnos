@@ -114,6 +114,37 @@
                   "type"
                 ],
                 "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "consult"
+                  },
+                  "by": {
+                    "type": "string",
+                    "enum": [
+                      "shaman",
+                      "spirits"
+                    ]
+                  },
+                  "question": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "askedBy": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "type",
+                  "by",
+                  "question",
+                  "askedBy"
+                ],
+                "additionalProperties": false
               }
             ]
           },
@@ -316,5 +347,5 @@
   "additionalProperties": false,
   "$id": "https://fieldwork.invalid/schemas/culture.schema.json",
   "title": "Fieldwork culture",
-  "description": "An invented culture: its myths, what is true in it, its customs and its people. This schema checks shape only. The parser in @fieldwork/contracts also checks rules that link parts together: ids are unique within each list; every myth, entry and reason that is referred to exists; every heart entry exists."
+  "description": "An invented culture: its myths, what is true in it, its customs and its people. This schema checks shape only. The parser in @fieldwork/contracts also checks rules that link parts together: ids are unique within each list; every myth, entry, reason and villager that is referred to exists; every heart entry exists."
 }

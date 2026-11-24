@@ -24,7 +24,7 @@ const schemas = {
     description:
       "An invented culture: its myths, what is true in it, its customs and its people. " +
       NOTE +
-      "ids are unique within each list; every myth, entry and reason that is referred to exists; " +
+      "ids are unique within each list; every myth, entry, reason and villager that is referred to exists; " +
       "every heart entry exists.",
   },
 };

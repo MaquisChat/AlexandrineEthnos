@@ -41,6 +41,39 @@ describe("parseCulture", () => {
   });
 });
 
+describe("an entry that came from a consult", () => {
+  const consult = (over: Record<string, unknown> = {}) =>
+    broken((c: any) => (c.entries[3].origin = { type: "consult", by: "spirits", question: "What is done when a heron dies?", askedBy: "tam", ...over }));
+
+  it("is accepted", () => {
+    expect(parseCulture(consult()).entries[3]!.origin).toEqual({
+      type: "consult",
+      by: "spirits",
+      question: "What is done when a heron dies?",
+      askedBy: "tam",
+    });
+  });
+
+  it("is rejected when carried by a villager who does not exist", () => {
+    let error: unknown;
+    try {
+      parseCulture(consult({ askedBy: "nobody" }));
+    } catch (e) {
+      error = e;
+    }
+    expect((error as CultureParseError).issues).toContain('entries.3.origin.askedBy: names a villager that does not exist: "nobody"');
+  });
+
+  it("is rejected when answered by anyone but the shaman or the spirits", () => {
+    expect(() => parseCulture(consult({ by: "apprentice" }))).toThrow(CultureParseError);
+  });
+
+  it("is published in the JSON Schema", () => {
+    expect(JSON.stringify(cultureJsonSchema)).toContain('"consult"');
+    expect(new Ajv2020({ strict: false }).compile(cultureJsonSchema)(consult())).toBe(true);
+  });
+});
+
 describe("published culture JSON Schema", () => {
   const validate = new Ajv2020({ strict: false }).compile(cultureJsonSchema);
   it("accepts what the parser accepts", () => expect(validate(valid)).toBe(true));

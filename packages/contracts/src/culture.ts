@@ -27,6 +27,13 @@ export interface CultureMyth {
   text: string;
 }
 
+/** Where an entry comes from: a myth, the author's own note, or an answer given after the culture was written. */
+export type EntryOrigin =
+  | { type: "myth"; mythId: string }
+  | { type: "gloss" }
+  /** An answer to a question a villager carried to the shaman. `askedBy` is that villager's id. */
+  | { type: "consult"; by: "shaman" | "spirits"; question: string; askedBy: string };
+
 export interface CultureEntry {
   id: string;
   kind: EntryKind;
@@ -34,7 +41,7 @@ export interface CultureEntry {
   topic: string;
   /** What is true, as one plain sentence. */
   statement: string;
-  origin: { type: "myth"; mythId: string } | { type: "gloss" };
+  origin: EntryOrigin;
   say: Say;
   variation?: string;
 }
@@ -86,6 +93,23 @@ export interface Culture {
 const id = z.string().min(1);
 const text = z.string().min(1);
 
+const entryShape = z.strictObject({
+  id,
+  kind: z.enum(ENTRY_KINDS),
+  topic: text,
+  statement: text,
+  origin: z.union([
+    z.strictObject({ type: z.literal("myth"), mythId: id }),
+    z.strictObject({ type: z.literal("gloss") }),
+    z.strictObject({ type: z.literal("consult"), by: z.enum(["shaman", "spirits"]), question: text, askedBy: id }),
+  ]),
+  say: z.enum(["anyone", "earned", "shown"]),
+  variation: text.optional(),
+});
+
+/** One entry, without the rules that link it to the rest of a culture. */
+export const CultureEntrySchema: z.ZodType<CultureEntry> = entryShape;
+
 const shape = z.strictObject({
   schemaVersion: z.literal(1),
   id,
@@ -93,22 +117,7 @@ const shape = z.strictObject({
   language: z.literal("en"),
   land: text,
   myths: z.array(z.strictObject({ id, title: text, text })).min(1),
-  entries: z
-    .array(
-      z.strictObject({
-        id,
-        kind: z.enum(ENTRY_KINDS),
-        topic: text,
-        statement: text,
-        origin: z.union([
-          z.strictObject({ type: z.literal("myth"), mythId: id }),
-          z.strictObject({ type: z.literal("gloss") }),
-        ]),
-        say: z.enum(["anyone", "earned", "shown"]),
-        variation: text.optional(),
-      }),
-    )
-    .min(1),
+  entries: z.array(entryShape).min(1),
   customs: z.array(z.strictObject({ id, name: text, visible: text, reasons: z.array(id) })),
   villagers: z
     .array(
@@ -157,10 +166,14 @@ function crossReferenceIssues(culture: Culture): Issue[] {
 
   const myths = new Set(culture.myths.map((m) => m.id));
   const entries = new Set(culture.entries.map((e) => e.id));
+  const villagers = new Set(culture.villagers.map((v) => v.id));
 
   culture.entries.forEach((entry, i) => {
     if (entry.origin.type === "myth" && !myths.has(entry.origin.mythId)) {
       issues.push({ path: ["entries", i, "origin", "mythId"], message: missing("a myth", entry.origin.mythId) });
+    }
+    if (entry.origin.type === "consult" && !villagers.has(entry.origin.askedBy)) {
+      issues.push({ path: ["entries", i, "origin", "askedBy"], message: missing("a villager", entry.origin.askedBy) });
     }
   });
   culture.customs.forEach((custom, i) => {
