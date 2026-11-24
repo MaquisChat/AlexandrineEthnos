@@ -53,6 +53,13 @@ describe("gatewayAsk", () => {
     expect(fake.calls.map((c) => c.job)).toEqual(["villager", "grounding_check", "pre_read"]);
     expect(fake.calls[0]).toMatchObject({ system: "RULES", messages: [{ role: "user", content: "hello" }] });
   });
+  it("sends the spirits' purposes to the right gateway jobs", async () => {
+    const fake = new FakeProvider([{ reply: "{}" }]);
+    const ask = gatewayAsk({ gateway: createGateway({ provider: fake }), counter: noCounter, provider: "fake" });
+    for (const purpose of ["spirits", "spirits_check"] as const) await ask({ ...request("answer"), purpose });
+    expect(fake.calls.map((c) => c.job)).toEqual(["spirits", "grounding_check"]);
+    expect(fake.calls.map((c) => c.maxTokens)).toEqual([700, 700]);
+  });
   it("counts calls only when the provider is the login", async () => {
     const path = join(mkdtempSync(join(tmpdir(), "fw-")), "calls.json");
     const gateway = createGateway({ provider: new FakeProvider([{ reply: "{}" }]) });

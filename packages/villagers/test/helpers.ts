@@ -19,11 +19,30 @@ export const draft = (over: Record<string, unknown> = {}) => ({
   ...over,
 });
 
+export const SPIRIT_CLEAN = { contradicts: [], explains: [], unfit: [] };
+
+export const spiritDraft = (over: Record<string, unknown> = {}) => ({
+  kind: "answer",
+  statement: "When a heron dies it is left where it falls, and no one touches it.",
+  topic: "a dead heron",
+  entryKind: "custom",
+  say: "anyone",
+  entries: ["e2"],
+  ...over,
+});
+
 /** A stand-in for a model: answers in order by purpose and remembers every request it was sent. */
-export function scripted(answers: unknown[], verdicts: unknown[] = []) {
+export function scripted(answers: unknown[], verdicts: unknown[] = [], more: { spirits?: unknown[]; spiritVerdicts?: unknown[] } = {}) {
   const requests: AskRequest[] = [];
+  const spirits = [...(more.spirits ?? [])];
+  const spiritVerdicts = [...(more.spiritVerdicts ?? [])];
   const ask: Ask = async (request) => {
     requests.push(request);
+    if (request.purpose === "spirits") {
+      if (spirits.length === 0) throw new Error("the script has no more spirit answers");
+      return spirits.shift();
+    }
+    if (request.purpose === "spirits_check") return spiritVerdicts.length > 0 ? spiritVerdicts.shift() : SPIRIT_CLEAN;
     if (request.purpose === "answer") {
       if (answers.length === 0) throw new Error("the script has no more answers");
       return answers.shift();

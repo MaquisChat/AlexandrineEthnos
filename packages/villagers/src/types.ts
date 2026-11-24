@@ -1,7 +1,7 @@
 /** How much model to spend on an answer. The caller maps these to whatever it can reach. */
 export type ModelClass = "quick" | "balanced" | "careful";
 
-export type AskPurpose = "answer" | "check" | "judge";
+export type AskPurpose = "answer" | "check" | "judge" | "spirits" | "spirits_check";
 
 export interface AskTurn {
   role: "user" | "assistant";

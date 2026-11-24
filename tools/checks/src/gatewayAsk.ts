@@ -3,8 +3,14 @@ import type { Ask, AskPurpose } from "@fieldwork/villagers";
 import type { CallCounter } from "./counter";
 import { extractJson } from "./extractJson";
 
-const JOB: Record<AskPurpose, AiJob> = { answer: "villager", check: "grounding_check", judge: "pre_read" };
-const MAX_TOKENS: Record<AskPurpose, number> = { answer: 1200, check: 700, judge: 700 };
+const JOB: Record<AskPurpose, AiJob> = {
+  answer: "villager",
+  check: "grounding_check",
+  judge: "pre_read",
+  spirits: "spirits",
+  spirits_check: "grounding_check",
+};
+const MAX_TOKENS: Record<AskPurpose, number> = { answer: 1200, check: 700, judge: 700, spirits: 700, spirits_check: 700 };
 
 /**
  * Supplies the villager library's "ask a model" from the AI gateway.

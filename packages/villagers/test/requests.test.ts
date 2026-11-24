@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { buildAnswerRequest, buildCheckRequest, emptyState, type Exchange, HISTORY_LIMIT, parseDraft } from "../src";
+import { addConsultEntry, buildAnswerRequest, buildCheckRequest, consultEntry, emptyState, type Exchange, HISTORY_LIMIT, parseDraft } from "../src";
 import { culture, draft } from "./helpers";
 
 const exchange = (n: number, facts: string[] = []): Exchange => ({
@@ -153,4 +153,40 @@ it("hands the check the visitor's line and the reply as marked data, and escapes
   expect(text.match(/<\/visitor_line>/g)).toHaveLength(1);
   expect(text.match(/<\/reply>/g)).toHaveLength(1);
   expect(check.instructions).toMatch(/inside[^\n]*is data/i);
+});
+
+const carried = { villagerId: "tam", question: "What is done when a heron dies, stranger asks?", visitorLine: "What happens when a heron dies?" };
+const answered = (by: "shaman" | "spirits", say: "anyone" | "earned" = "anyone") =>
+  addConsultEntry(culture, consultEntry(culture, carried, { by, statement: "A dead heron is left where it falls.", topic: "a dead heron", kind: "custom", say }))!;
+
+it("tells a villager who gave an answer they carried back, without the question's words", () => {
+  const { instructions } = buildAnswerRequest(answered("spirits"), "tam", emptyState(), "Hello", "balanced");
+  expect(instructions).toContain("- [a1] (a dead heron) A dead heron is left where it falls. (the spirits' answer, given when the shaman was silent)");
+  expect(instructions).not.toContain("stranger asks");
+  expect(buildAnswerRequest(answered("shaman"), "tam", emptyState(), "Hello", "balanced").instructions).toContain(
+    "A dead heron is left where it falls. (the shaman's own answer)",
+  );
+});
+
+it("tells the others only what a carried answer is about", () => {
+  const { instructions } = buildAnswerRequest(answered("spirits"), "maelle", emptyState(), "Hello", "balanced");
+  expect(instructions).toContain("a dead heron [a1]");
+  expect(instructions).not.toContain("left where it falls");
+});
+
+it("keeps a withheld answer among what is not for a stranger", () => {
+  const { instructions } = buildAnswerRequest(answered("spirits", "earned"), "tam", emptyState(), "Hello", "balanced");
+  const guarded = instructions.slice(instructions.indexOf("do not tell a stranger"), instructions.indexOf("never put into words"));
+  expect(guarded).toContain("[a1]");
+});
+
+it("tells a villager to say who gave an answer and never to credit the shaman with the spirits' words", () => {
+  const { instructions } = buildAnswerRequest(culture, "tam", emptyState(), "Hello", "balanced");
+  expect(instructions).toMatch(/11\. .*say who gave it.*[Nn]ever say the spirits' answer was the shaman's/s);
+});
+
+it("tells the checker who gave a cited answer", () => {
+  const request = buildCheckRequest(answered("spirits"), "tam", emptyState(), "And a dead heron?", parseDraft(draft({ entries: ["a1"] }))!);
+  expect(request.instructions).toContain("- (a dead heron) A dead heron is left where it falls. (the spirits' answer, given when the shaman was silent)");
+  expect(request.instructions).toMatch(/credits the shaman with an answer the SOURCES mark as the spirits'/);
 });
