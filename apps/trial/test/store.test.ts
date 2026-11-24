@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { parseCulture } from "@fieldwork/contracts";
 import { emptyState, type Exchange } from "@fieldwork/villagers";
 import { expect, it } from "vitest";
+import type { ConsultRecord } from "../src/consults";
 import { connectStore, memoryStore } from "../src/store";
 
 const cultures = ["heron", "sealed"].map((id) =>
@@ -53,7 +54,7 @@ it("keeps conversations, marks and reveals in memory when there is nowhere to sa
 });
 
 it("memoryStore starts empty", async () => {
-  expect(await memoryStore().load()).toEqual({ conversations: {}, flags: [], revealed: [], ok: true });
+  expect(await memoryStore().load()).toEqual({ conversations: {}, flags: [], revealed: [], consults: [], ok: true });
 });
 
 it("saves through the page's database when there is one", async () => {
@@ -90,7 +91,7 @@ it("skips saved conversations it cannot use and keeps the rest", async () => {
 it("loads nothing, without failing, when the database cannot be read", async () => {
   const broken = { doc: () => ({ get: async () => Promise.reject({ code: "unavailable" }) }), collection: () => ({ get: async () => Promise.reject({ code: "unavailable" }) }) };
   const saved = await (await connectStore(withDb(broken), cultures)).load();
-  expect(saved).toEqual({ conversations: {}, flags: [], revealed: [], ok: false }); // not ok: the page must not write over what it never read
+  expect(saved).toEqual({ conversations: {}, flags: [], revealed: [], consults: [], ok: false }); // not ok: the page must not write over what it never read
   expect(emptyState()).toEqual({ history: [], personalFacts: [] });
 });
 
@@ -127,4 +128,84 @@ it("writes to one document one at a time, in the order asked", async () => {
   const store = await connectStore(withDb(db), cultures);
   await Promise.all([store.saveConversation("heron/maelle", state), store.clearConversation("heron/maelle")]);
   expect(order).toEqual(["set start conversations/heron__maelle", "set end conversations/heron__maelle", "delete conversations/heron__maelle"]);
+});
+
+const consult = (over: Partial<ConsultRecord> = {}): ConsultRecord => ({
+  cultureId: "heron",
+  villagerId: "maelle",
+  question: "What is done when a heron dies?",
+  at: "2026-11-24T09:00:00Z",
+  outcome: {
+    status: "answered",
+    by: "spirits",
+    entry: {
+      id: "a1",
+      kind: "custom",
+      topic: "a dead heron",
+      statement: "A dead heron is left where it falls.",
+      origin: { type: "consult", by: "spirits", question: "What is done when a heron dies?", askedBy: "maelle" },
+      say: "anyone",
+    },
+  },
+  ...over,
+});
+
+it.each([
+  ["memory", () => connectStore(undefined, cultures)],
+  ["the database", () => connectStore(withDb(fakeDb()), cultures)],
+])("saves an outcome in %s and loads it back", async (_name, connect) => {
+  const store = await connect();
+  await store.saveConsult(consult());
+  expect((await store.load()).consults).toEqual([consult()]);
+});
+
+it("replaces an earlier outcome for the same question", async () => {
+  const db = fakeDb();
+  const store = await connectStore(withDb(db), cultures);
+  await store.saveConsult(consult({ outcome: { status: "silent", reasons: ["contradicts the culture: x"], discarded: "A dead heron is eaten." } }));
+  await store.saveConsult(consult());
+  const { consults } = await store.load();
+  expect(consults).toHaveLength(1);
+  expect(consults[0]!.outcome.status).toBe("answered");
+  expect([...db.docs.keys()].filter((path) => path.startsWith("consults/"))).toHaveLength(1);
+});
+
+it("removes an outcome", async () => {
+  for (const store of [await connectStore(undefined, cultures), await connectStore(withDb(fakeDb()), cultures)]) {
+    await store.saveConsult(consult());
+    const tams = consult({ villagerId: "tam" });
+    if (tams.outcome.status === "answered") tams.outcome = { ...tams.outcome, entry: { ...tams.outcome.entry, id: "a2", origin: { type: "consult", by: "spirits", question: tams.question, askedBy: "tam" } } };
+    await store.saveConsult(tams);
+    await store.removeConsult(consult());
+    expect((await store.load()).consults.map((c) => c.villagerId)).toEqual(["tam"]);
+  }
+});
+
+it("skips a saved outcome it cannot use and keeps the rest", async () => {
+  const good = consult();
+  const answeredWith = (entry: unknown) => ({ ...good, outcome: { status: "answered", by: "spirits", entry } });
+  const db = fakeDb({
+    "consults/good": good as unknown as Record<string, unknown>,
+    "consults/settled": { ...good, question: "s", outcome: { status: "settled", entries: ["h9"] } },
+    "consults/silent": { ...good, question: "t", outcome: { status: "silent", reasons: ["x"] } },
+    "consults/no-entry": { ...good, question: "a", outcome: { status: "answered", by: "spirits" } },
+    "consults/damaged-entry": answeredWith({ id: "a2", statement: 7 }),
+    "consults/not-a-consult": answeredWith({ ...(good.outcome as { entry: object }).entry, origin: { type: "gloss" } }),
+    "consults/wrong-asker": { ...answeredWith({ ...(good.outcome as { entry: object }).entry }), villagerId: "tam" },
+    "consults/gone": { ...good, villagerId: "nobody" },
+    "consults/unknown-status": { ...good, question: "b", outcome: { status: "prophecy" } },
+    "consults/by-nobody": { ...good, question: "c", outcome: { ...good.outcome, by: "apprentice" } },
+    "consults/bad-reasons": { ...good, question: "d", outcome: { status: "silent", reasons: "x" } },
+    "consults/no-question": { ...good, question: 3 },
+  });
+  const { consults, ok } = await (await connectStore(withDb(db), cultures)).load();
+  expect(ok).toBe(true);
+  expect(consults.map((c) => c.outcome.status).sort()).toEqual(["answered", "settled", "silent"]);
+});
+
+it("loads as before when nothing has ever been asked of the shaman", async () => {
+  const db = fakeDb({ "conversations/heron__maelle": { cultureId: "heron", villagerId: "maelle", state } });
+  const saved = await (await connectStore(withDb(db), cultures)).load();
+  expect(saved).toMatchObject({ ok: true, consults: [] });
+  expect(saved.conversations["heron/maelle"]).toEqual(state);
 });

@@ -162,7 +162,7 @@ function Trial({ claude }: { claude: unknown }) {
   askRef.current ??= connectAsk(claude);
   storeRef.current ??= connectStore(claude, CULTURES);
 
-  const [saved, setSaved] = useState<Saved>({ conversations: {}, flags: [], revealed: [] });
+  const [saved, setSaved] = useState<Saved>({ conversations: {}, flags: [], revealed: [], consults: [] });
   const [loaded, setLoaded] = useState(false);
   const [durable, setDurable] = useState(true);
   const [cultureId, setCultureId] = useState(OPEN_CULTURE);

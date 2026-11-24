@@ -1,7 +1,8 @@
-// Where the trial keeps conversations, marks and reveals: the page's database when there is one,
+// Where the trial keeps conversations, marks, reveals and answered questions: the page's database when there is one,
 // otherwise memory. Saved data is the owner's own; the builder can read it back when asked.
-import type { Culture } from "@fieldwork/contracts";
+import { type Culture, CultureEntrySchema } from "@fieldwork/contracts";
 import { BASES, type Exchange, type VillagerState } from "@fieldwork/villagers";
+import { type ConsultRecord, consultId } from "./consults";
 
 /** A reply the owner marked as wrong. */
 export interface Flag {
@@ -18,6 +19,8 @@ export interface Saved {
   flags: Flag[];
   /** Ids of cultures whose blind play has been ended. */
   revealed: string[];
+  /** What became of each question carried to the shaman: at most one outcome per question per villager. */
+  consults: ConsultRecord[];
 }
 
 /** What was loaded. `ok` is false when the saved data could not be read, in which case it must not be written over. */
@@ -31,19 +34,30 @@ export interface TrialStore {
   clearConversation(key: string): Promise<void>;
   addFlag(flag: Flag): Promise<void>;
   setRevealed(cultureId: string): Promise<void>;
+  /** Replaces any earlier outcome for the same question from the same villager. */
+  saveConsult(record: ConsultRecord): Promise<void>;
+  removeConsult(record: ConsultRecord): Promise<void>;
 }
 
-const empty = (): Saved => ({ conversations: {}, flags: [], revealed: [] });
+const empty = (): Saved => ({ conversations: {}, flags: [], revealed: [], consults: [] });
 
 export function memoryStore(): TrialStore {
   const saved = empty();
   return {
     durable: false,
-    load: async () => ({ conversations: { ...saved.conversations }, flags: [...saved.flags], revealed: [...saved.revealed], ok: true }),
+    load: async () => ({
+      conversations: { ...saved.conversations },
+      flags: [...saved.flags],
+      revealed: [...saved.revealed],
+      consults: [...saved.consults],
+      ok: true,
+    }),
     saveConversation: async (key, state) => void (saved.conversations[key] = state),
     clearConversation: async (key) => void delete saved.conversations[key],
     addFlag: async (flag) => void saved.flags.push(flag),
     setRevealed: async (id) => void (saved.revealed.includes(id) || saved.revealed.push(id)),
+    saveConsult: async (record) => void (saved.consults = [...saved.consults.filter((c) => consultId(c) !== consultId(record)), record]),
+    removeConsult: async (record) => void (saved.consults = saved.consults.filter((c) => consultId(c) !== consultId(record))),
   };
 }
 
@@ -79,6 +93,23 @@ function isState(value: unknown): value is VillagerState {
   return isObject(value) && Array.isArray(value.history) && value.history.every(isExchange) && isStrings(value.personalFacts);
 }
 
+/** A saved outcome is used only if every part the page will show or build on is sound. */
+function isConsult(value: unknown): value is ConsultRecord {
+  if (!isObject(value) || typeof value.question !== "string" || value.question === "" || typeof value.at !== "string") return false;
+  const outcome = value.outcome;
+  if (!isObject(outcome)) return false;
+  if (outcome.status === "settled") return isStrings(outcome.entries);
+  if (outcome.status === "silent") return isStrings(outcome.reasons) && optionalText(outcome.discarded);
+  if (outcome.status !== "answered") return false;
+  const entry = CultureEntrySchema.safeParse(outcome.entry);
+  return (
+    entry.success &&
+    entry.data.origin.type === "consult" &&
+    entry.data.origin.askedBy === value.villagerId &&
+    entry.data.origin.by === outcome.by
+  );
+}
+
 interface Doc {
   get(): Promise<{ exists: boolean; data(): Record<string, unknown> | undefined }>;
   set(data: Record<string, unknown>): Promise<void>;
@@ -98,10 +129,11 @@ function dbStore(db: Db, cultures: Culture[]): TrialStore {
 
   const read = async (): Promise<Saved> => {
     const saved = empty();
-    const [conversations, flags, revealed] = await Promise.all([
+    const [conversations, flags, revealed, consults] = await Promise.all([
       db.collection("conversations").get(),
       db.collection("flags").get(),
       db.doc("meta/revealed").get(),
+      db.collection("consults").get(),
     ]);
     for (const doc of conversations.docs) {
       const data = doc.data();
@@ -114,6 +146,10 @@ function dbStore(db: Db, cultures: Culture[]): TrialStore {
       if (data && typeof data.note === "string" && typeof data.at === "string" && known(data.cultureId, data.villagerId) && isExchange(data.exchange)) {
         saved.flags.push(data as unknown as Flag);
       }
+    }
+    for (const doc of consults.docs) {
+      const data = doc.data();
+      if (data && known(data.cultureId, data.villagerId) && isConsult(data)) saved.consults.push(data);
     }
     const ids = revealed.exists ? revealed.data()?.cultures : [];
     if (Array.isArray(ids)) saved.revealed = ids.filter((id): id is string => cultures.some((c) => c.id === id));
@@ -152,6 +188,14 @@ function dbStore(db: Db, cultures: Culture[]): TrialStore {
         .collection("flags")
         .doc(`f${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`)
         .set(flag as unknown as Record<string, unknown>),
+    saveConsult: (record) => {
+      const path = `consults/${consultId(record)}`;
+      return inOrder(path, () => db.doc(path).set(record as unknown as Record<string, unknown>));
+    },
+    removeConsult: (record) => {
+      const path = `consults/${consultId(record)}`;
+      return inOrder(path, () => db.doc(path).delete());
+    },
     setRevealed: (cultureId) =>
       inOrder("meta/revealed", async () => {
         const current = await db.doc("meta/revealed").get();
