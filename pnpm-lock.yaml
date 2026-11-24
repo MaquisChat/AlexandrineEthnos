@@ -109,6 +109,12 @@ importers:
 
   packages/gateway: {}
 
+  packages/villagers:
+    dependencies:
+      '@fieldwork/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+
   tools/make-models:
     dependencies:
       '@fieldwork/contracts':
