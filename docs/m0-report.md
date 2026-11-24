@@ -21,7 +21,7 @@ Date: 2026-11-24. Plan: `docs/superpowers/plans/2026-11-23-m0-ground-and-look-te
 | `pnpm e2e` | 19 passed, including the two screenshot comparisons |
 | `AI_PROVIDER=login pnpm ai:try` | answered "ok" through the login (run once, on 2026-11-23) |
 
-Not checked: the CI workflow has never run, because the repository has no remote yet.
+The CI workflow first ran on 2026-11-24, when the repository was pushed to GitHub, and passed, including the screenshot comparison on GitHub's machines: https://github.com/MaquisChat/AlexandrineEthnos/actions/runs/45302414126
 
 ## Independent review
 
@@ -95,5 +95,5 @@ Smaller findings from the review, not acted on. They are a ready list for the M1
 
 ## What the owner needs to do
 
-- Put the repository on GitHub and watch the first CI run. If the screenshot tests differ there, take the baselines from CI.
+- Done on 2026-11-24: the repository is on GitHub and the first CI run passed.
 - Nothing else is needed before M1 is planned. The API key, playtest server and reviewers are needed at the points listed in section 16 of the design.
