@@ -1,7 +1,7 @@
 # M1a, villagers first: design
 
 Date: 2026-11-24
-Status: draft for owner approval
+Status: approved by the owner on 2026-11-24 ("the spec looks good go ahead and build")
 Parent: `docs/superpowers/specs/2026-11-23-fieldwork-game-design.md` (called "the game design" below). This document scopes the first piece of its milestone M1.
 Audience: the owner, and Claude Code as the builder
 
@@ -205,7 +205,7 @@ Four of the checks in section 9.6 of the game design apply to this piece.
 
 - Probes are scripted conversations written by the builder, run against both cultures through the library and the gateway.
 - Each result is judged twice: by rule from the record, and by a separate judge call with a written rubric that sees the whole culture. The judge is a different prompt from the checker in 6.2.
-- Real runs use the login provider, which draws on the owner's Claude plan. The builder also needs real replies while writing the prompts: prompts written only against scripted answers will need at least one revision once a real model answers. Order of work: write the prompts against scripted answers; tune them on the login provider with a handful of conversations; then make one check run of ten probes per check (about 80 turns and 240 calls); only then hand over the link. The ceiling on login calls for all of this awaits the owner (section 12). The builder stops and reports when it is reached, and reports the numbers as indicative.
+- Real runs use the login provider, which draws on the owner's Claude plan. The builder also needs real replies while writing the prompts: prompts written only against scripted answers will need at least one revision once a real model answers. Order of work: write the prompts against scripted answers; tune them on the login provider with a handful of conversations; then make one check run of ten probes per check (about 80 turns and 240 calls); only then hand over the link. The ceiling on login calls for all of this is 600 (section 12). The builder stops and reports when it is reached, and reports the numbers as indicative.
 - The owner's "that's wrong" marks are the human check on the judge. The builder compares them with what the checker and judge said about the same replies.
 
 Numbers from this piece are indicative three times over: the trial uses the viewer's account model, the checks use the login's model, and the shipped game will use the API default.
@@ -240,9 +240,9 @@ Numbers from this piece are indicative three times over: the trial uses the view
 9. Villagers may tell the myths they know, in their own words and at spoken length; the author's exact text stays hidden until the culture is revealed. A villager's slant is written by the author and is a source for that villager alone (6.1).
 10. The rest of M1 follows in this order, each piece tried by link on the same library until the last: questions to the shaman and the spirits; field days and the notebook; the ethnography, the Reading and the Return; the Telling; then the online service, accounts, a second player, the key provider, the full checks and the playtest setup. Only "villagers first" is decided; the order after it is a proposal to confirm piece by piece.
 
-**Awaiting the owner**
+**Not answered by the owner**
 
-- The ceiling on calls made through the login while tuning prompts and running the first checks. They count against the owner's own Claude usage. The author's recommendation is 600 calls for this piece.
+- The ceiling on calls made through the login while tuning prompts and running the first checks. They count against the owner's own Claude usage. The owner approved the design without naming a figure, so the builder works to the author's recommendation of 600 calls for this piece, reports the count, and lowers it if the owner says so.
 
 ## 13. Left to the builder
 
