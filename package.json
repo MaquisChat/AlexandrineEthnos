@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@fieldwork/contracts": "workspace:*",
     "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
     "tsx": "^4.23.15",
