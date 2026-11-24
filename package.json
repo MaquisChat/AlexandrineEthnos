@@ -15,9 +15,11 @@
     "models": "pnpm --filter @fieldwork/make-models run models",
     "build": "pnpm --filter @fieldwork/client run build",
     "dev": "pnpm --filter @fieldwork/client run dev",
-    "e2e": "pnpm --filter @fieldwork/client run e2e",
+    "e2e": "pnpm --filter @fieldwork/client run e2e && pnpm --filter @fieldwork/trial run e2e",
     "shots": "pnpm --filter @fieldwork/client run shots",
-    "checks": "pnpm --filter @fieldwork/checks run checks"
+    "checks": "pnpm --filter @fieldwork/checks run checks",
+    "trial:build": "pnpm --filter @fieldwork/trial run build",
+    "trial:e2e": "pnpm --filter @fieldwork/trial run e2e"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

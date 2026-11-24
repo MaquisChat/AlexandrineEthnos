@@ -1,0 +1,157 @@
+import { readFileSync } from "node:fs";
+import { expect, type Page, test } from "@playwright/test";
+import { type FakeScript, installFakeClaude } from "./fakeRuntime";
+
+const canon = (over: Record<string, unknown> = {}) => ({
+  reply: "The first fish goes to the heron. Then we eat.",
+  basis: "canon",
+  entries: ["h9"],
+  myths: [],
+  question: null,
+  redirect: null,
+  personalFacts: [],
+  ...over,
+});
+const open = async (page: Page, script: FakeScript) => {
+  await page.addInitScript(installFakeClaude, script);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Villager trial" })).toBeVisible();
+};
+const say = async (page: Page, line: string) => {
+  const box = page.getByRole("textbox", { name: /^Say something to/ });
+  await box.fill(line);
+  await box.press("Enter");
+};
+const log = (page: Page) => page.getByRole("log");
+
+test("a reply is shown only once it has been checked", async ({ page }) => {
+  await open(page, { answers: [canon()], delayMs: 300 });
+  await say(page, "Why does the heron eat first?");
+  await expect(page.getByText("Maëlle is thinking…")).toBeVisible();
+  await expect(log(page)).not.toContainText("The first fish goes to the heron.");
+  await expect(log(page)).toContainText("The first fish goes to the heron. Then we eat.");
+  expect(await page.evaluate(() => window.__fake.calls)).toEqual(["answer", "check"]);
+  await expect(page.getByText("Maëlle is thinking…")).toHaveCount(0);
+});
+
+test("a refusal is listed as a question for the shaman", async ({ page }) => {
+  await open(page, { answers: [canon({ basis: "deferral", entries: [], reply: "That I cannot tell you.", question: "What is done when a heron dies?" })] });
+  await say(page, "What happens when a heron dies?");
+  await expect(log(page)).toContainText("That I cannot tell you.");
+  await page.getByText(/^Questions for the shaman \(1\)/).click();
+  await expect(page.getByRole("list", { name: "Questions for the shaman" })).toContainText("What is done when a heron dies?");
+});
+
+test("a reply the check rejects is replaced, and the curtain shows what was caught", async ({ page }) => {
+  await open(page, { answers: [canon({ reply: "We also burn the bones at midwinter." })], verdicts: [{ unsupported: ["burning bones"], explains: [], earned: [] }] });
+  await say(page, "What else do you do?");
+  await expect(log(page)).toContainText("That is for the shaman to say. I mend nets.");
+  await expect(log(page)).not.toContainText("burn the bones");
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await expect(log(page)).toContainText("We also burn the bones at midwinter.");
+  await expect(log(page)).toContainText("refused to invent");
+});
+
+test("the curtain names what a reply drew on in the open culture", async ({ page }) => {
+  await open(page, { answers: [canon()] });
+  await say(page, "Why does the heron eat first?");
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await expect(log(page)).toContainText("from the culture");
+  await expect(log(page)).toContainText("The first fish of every catch is carried to the post");
+});
+
+test("marking a reply as wrong saves it with the note", async ({ page }) => {
+  await open(page, { answers: [canon()] });
+  await say(page, "Why does the heron eat first?");
+  await page.getByRole("button", { name: "That's wrong" }).click();
+  await page.getByRole("textbox", { name: "What is wrong with it?" }).fill("Too tidy for Maëlle.");
+  await page.getByRole("button", { name: "Save the mark" }).click();
+  await expect(page.getByText("Marked as wrong")).toBeVisible();
+  const flags = await page.evaluate(() => Object.entries(window.__fake.db()).filter(([path]) => path.startsWith("flags/")).map(([, data]) => data));
+  expect(flags).toHaveLength(1);
+  expect(flags[0]).toMatchObject({ note: "Too tidy for Maëlle.", cultureId: "heron", villagerId: "maelle" });
+});
+
+test("the sealed culture keeps its truths hidden until it is revealed", async ({ page }) => {
+  await open(page, { answers: [canon({ reply: "With salt on the tongue.", entries: ["s9"] })] });
+  await page.getByRole("radio", { name: /sealed culture/i }).check();
+  await expect(page.locator("summary", { hasText: "What is true here" })).toHaveCount(0);
+  await page.getByRole("button", { name: /^Oreth/ }).click();
+  await say(page, "How is a promise made?");
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await expect(log(page)).toContainText("from the culture");
+  await expect(log(page)).not.toContainText("A promise is spoken with a pinch of salt on the tongue.");
+  await page.getByRole("button", { name: "End the blind play and reveal" }).click();
+  await page.getByRole("button", { name: "Yes, reveal it" }).click();
+  await expect(log(page)).toContainText("A promise is spoken with a pinch of salt on the tongue.");
+  await page.locator("summary", { hasText: "What is true here" }).click();
+  await expect(page.getByText("The first kept word")).toBeVisible();
+});
+
+test("a reply that looks like markup is shown as text and runs nothing", async ({ page }) => {
+  await open(page, { answers: [canon({ basis: "small_talk", entries: [], reply: "<img src=x onerror=\"window.__xss=1\"> hello" })] });
+  await say(page, "Hello");
+  await expect(log(page)).toContainText('<img src=x onerror="window.__xss=1"> hello');
+  expect(await page.evaluate(() => (window as unknown as { __xss?: number }).__xss)).toBeUndefined();
+});
+
+for (const [code, message] of [
+  ["not_granted", "not allowed"],
+  ["rate_limited", "usage limit"],
+  ["session_expired", "signed out"],
+  ["invalid_json", "did not answer in a way this page could read"],
+] as const) {
+  test(`when Claude cannot be reached (${code}) the line is kept and nothing retries by itself`, async ({ page }) => {
+    await open(page, { answers: [canon()], failWith: code });
+    await say(page, "Why does the heron eat first?");
+    await expect(page.getByRole("alert")).toContainText(message);
+    await expect(page.getByRole("textbox", { name: /^Say something to/ })).toHaveValue("Why does the heron eat first?");
+    await page.waitForTimeout(600);
+    expect(await page.evaluate(() => window.__fake.calls)).toEqual(["answer"]);
+    await page.evaluate(() => (window.__fake.failWith = null));
+    await page.getByRole("button", { name: "Try again" }).click();
+    await expect(log(page)).toContainText("The first fish goes to the heron. Then we eat.");
+    await expect(page.getByRole("alert")).toHaveCount(0);
+  });
+}
+
+test("outside the Claude viewer the page says so and still shows the cultures", async ({ page }) => {
+  await open(page, { noRuntime: true });
+  await say(page, "Hello");
+  await expect(page.getByRole("alert")).toContainText("opened on claude.ai");
+  await expect(page.getByRole("textbox", { name: /^Say something to/ })).toHaveValue("Hello");
+  await page.locator("summary", { hasText: "What is true here" }).click();
+  await expect(page.getByText("The woman and the heron")).toBeVisible();
+});
+
+test("conversations come back after a reload, and damaged saves are skipped", async ({ page }) => {
+  await open(page, {
+    answers: [canon(), canon()],
+    db: { "conversations/heron__nobody": { cultureId: "heron", villagerId: "nobody", state: { history: [], personalFacts: [] } } },
+  });
+  await say(page, "Why does the heron eat first?");
+  await expect(log(page)).toContainText("The first fish goes to the heron. Then we eat.");
+  await page.reload();
+  await expect(log(page)).toContainText("Why does the heron eat first?");
+  await expect(log(page)).toContainText("The first fish goes to the heron. Then we eat.");
+});
+
+test("starting over clears one villager's conversation", async ({ page }) => {
+  await open(page, { answers: [canon()] });
+  await say(page, "Why does the heron eat first?");
+  await expect(log(page)).toContainText("Then we eat.");
+  await page.getByRole("button", { name: "Start over with Maëlle" }).click();
+  await page.getByRole("button", { name: "Yes, clear it" }).click();
+  await expect(log(page)).not.toContainText("Then we eat.");
+});
+
+test("the published file carries everything inline and only Google Fonts from outside", async () => {
+  const html = readFileSync("dist/villager-trial.html", "utf8");
+  expect(html).not.toMatch(/<script[^>]+src=/);
+  expect(html).not.toMatch(/<!doctype|<html|<head|<body/i);
+  const links = [...html.matchAll(/<link[^>]+href="([^"]+)"/g)].map((m) => m[1]!);
+  expect(links.length).toBeGreaterThan(0);
+  for (const href of links) expect(href).toMatch(/^https:\/\/fonts\.(googleapis|gstatic)\.com\//);
+  expect(html).toMatch(/<title>Villager Trial<\/title>/);
+  expect(html.length).toBeLessThan(1_500_000);
+});

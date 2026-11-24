@@ -18,7 +18,9 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `pnpm models` | Regenerate the committed `.glb` files in `apps/client/public/content/models/` |
 | `pnpm dev` | Run the client with live reload (Vite) |
 | `pnpm build` | Build the client into `apps/client/dist` |
-| `pnpm e2e` | Build, serve and run the browser tests (Playwright) |
+| `pnpm e2e` | Build, serve and run the browser tests of both apps (Playwright) |
+| `pnpm trial:build` | Build the villager trial page into `apps/trial/dist/villager-trial.html`, the single file published to claude.ai |
+| `pnpm trial:e2e` | Browser tests of the trial page against a scripted stand-in for the claude.ai runtime |
 | `pnpm checks -- --per-check <n>` | Run scripted villager probes. Dry run on the fake provider by default; `AI_PROVIDER=login` makes real calls on the owner's Claude plan, counted in `.fieldwork/login-calls.json` against a ceiling of 600 |
 | `pnpm shots` | Build and save 2x screenshots of the look into `docs/look/` |
 
@@ -37,6 +39,7 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `packages/gateway` | The single door to AI: providers, models per job, usage log |
 | `tools/make-models` | Scripts that generate the glTF files the game loads |
 | `apps/client` | The web client: Three.js scene with ordinary web text laid over it |
+| `apps/trial` | The villager trial page: a bench for talking to villagers through the claude.ai page runtime. Not the game client |
 | `packages/villagers` | How a villager answers: one checked turn of conversation, given an "ask a model" function. Pure; no network |
 | `tools/checks` | Scripted probes of the villager rules, run through the gateway |
 | `content/cultures` | Invented cultures as JSON, checked by `parseCulture` |
@@ -44,6 +47,7 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 ## Tooling notes
 
 - What M0 delivered, what was decided along the way and what was left for later: `docs/m0-report.md`.
+- The trial page reaches Claude only when opened on claude.ai (`claude.use("sample")`). Here it is tested with `apps/trial/e2e/fakeRuntime.ts`. Its saved data lives in the page's `db` capability: collections `conversations` and `flags`, document `meta/revealed`.
 - TypeScript is pinned to 6.0.x. typescript-eslint does not support TypeScript 7 yet; move up when it does.
 - Packages export their TypeScript source directly (`exports` points at `src/index.ts`); there is no build step between packages.
 

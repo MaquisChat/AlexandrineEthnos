@@ -1,0 +1,26 @@
+{
+  "name": "@fieldwork/trial",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "vite build && tsx scripts/artifact.ts",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fieldwork/contracts": "workspace:*",
+    "@fieldwork/villagers": "workspace:*",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "vite": "^8.3.8",
+    "vite-plugin-singlefile": "2.3.4"
+  }
+}
