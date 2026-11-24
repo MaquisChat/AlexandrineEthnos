@@ -180,3 +180,58 @@ it("lists questions for the shaman in order", async () => {
     { question: "three", raisedByCatch: true },
   ]);
 });
+
+// --- from the whole-branch review ---
+
+it.each([
+  ["findings written as objects, not text", { unsupported: [], explains: [{ text: "says the heron is the dead" }], earned: [] }],
+  ["a finding nested in a list", { unsupported: [["burning bones"]], explains: [], earned: [] }],
+])("treats %s as findings, not as a clean verdict", async (_name, verdict) => {
+  const script = scripted([draft({ reply: "The heron is our dead, you see." })], [verdict]);
+  const { exchange } = await turn(script.ask);
+  expect(exchange.record.caught?.by).toBe("model");
+  expect(exchange.reply).not.toBe("The heron is our dead, you see.");
+});
+
+it.each([
+  ["only one of the three lists", { unsupported: [] }],
+  ["a list that is not a list", { unsupported: [], explains: "none", earned: [] }],
+])("cannot read a verdict with %s", async (_name, verdict) => {
+  await expect(turn(scripted([draft()], [verdict]).ask)).rejects.toMatchObject({ reason: "unreadable_check" });
+});
+
+it("checks the question for the shaman and anything newly said about the villager's own life", async () => {
+  const script = scripted([
+    draft({ basis: "deferral", entries: [], reply: "Not mine to say.", question: "What is owed when a heron dies?", personalFacts: ["My aunt keeps bees."] }),
+  ]);
+  await turn(script.ask, "What happens when a heron dies?");
+  const check = script.requests[1]!;
+  const text = check.turns.map((t) => t.content).join("\n");
+  expect(text).toContain("What is owed when a heron dies?");
+  expect(text).toContain("My aunt keeps bees.");
+  expect(check.instructions).not.toContain("My aunt keeps bees."); // a new fact is checked, not offered as its own source
+});
+
+it("discards the question and the new facts along with a reply that is caught", async () => {
+  const script = scripted(
+    [draft({ basis: "deferral", entries: [], reply: "Not mine.", question: "Since the heron is our dead, what is owed?", personalFacts: ["My people burn bones."] })],
+    [{ ...CLEAN, explains: ["the question says the heron is the dead"] }],
+  );
+  const { exchange, state } = await turn(script.ask, "What happens when a heron dies?");
+  expect(exchange.reply).toBe("That is not for a stranger.");
+  expect(exchange.record.question).toBeUndefined();
+  expect(state.personalFacts).toEqual([]);
+  expect(shamanQuestions(state.history)).toEqual([]);
+});
+
+it.each([
+  ["the reply", { reply: "Well: the heron stands for the dead, who gave before they were asked. There." }],
+  ["the question", { basis: "deferral", entries: [], reply: "Not mine.", question: "THE HERON STANDS FOR THE DEAD, WHO GAVE BEFORE THEY WERE ASKED. So what is owed?" }],
+  ["a personal fact", { basis: "small_talk", entries: [], reply: "Hm.", personalFacts: ["In a bad season the eldest must stand in the water for a day and a night."] }],
+])("catches a guarded statement said word for word in %s, without needing the check", async (_name, over) => {
+  const script = scripted([draft(over)]);
+  const { exchange } = await turn(script.ask);
+  expect(exchange.reply).toBe("That is not for a stranger.");
+  expect(exchange.record.caught?.by).toBe("rule");
+  expect(script.requests).toHaveLength(1);
+});

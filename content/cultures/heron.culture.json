@@ -18,7 +18,7 @@
     {
       "id": "m-debt",
       "title": "The knot that is owed",
-      "text": "When a child of the people is born, the eldest of the house ties a knot in the house net and says the child's name into it. That knot is the child's debt: everything the child will eat before it can fish was caught by someone else. A child cannot pay it. When the child is grown and brings home a first catch, nothing is untied. Instead the grown child ties a second knot beside the first, for someone not yet born. So no one of the people ever pays what they owe to those who fed them. They pay it to those who come after, and the net grows longer. When someone dies, the house net is carried to the water at dusk, and the dead one's first knot is cut out and given to the water, going downstream. The rest of the net stays with the living. It is said that a net with no knots cut from it is a net that has caught nothing, and that a house which keeps its dead knots will find its nets empty. No one says who first said this."
+      "text": "When a child of the people is born, the eldest of the house ties a knot in the house net and says the child's name into it. For years the child eats fish it did not catch, from nets it did not cast, and the knot hangs there with its name in it. When the child is grown and brings home a first catch, nothing is untied. Instead the grown child ties a second knot beside the first, and that one is for someone not yet born. Then that child grows, and eats, and one day ties a knot in its turn. So the net grows longer with every child of the house, and no one has ever seen the end of it. The oldest nets are too long to hang in one room, and are folded back on themselves along the rafters. The net-menders have a saying: a net with no knots cut from it has caught nothing. They say it of nets, and they say it of houses, and no one says who first said it."
     }
   ],
   "entries": [
@@ -281,8 +281,7 @@
       "topic": "what is done at a death",
       "statement": "When someone dies, the house net is carried to the water at dusk and their birth knot is cut out and given to the water, downstream.",
       "origin": {
-        "type": "myth",
-        "mythId": "m-debt"
+        "type": "gloss"
       },
       "say": "earned"
     },
@@ -290,7 +289,7 @@
       "id": "h26",
       "kind": "obligation",
       "topic": "what the eldest owes in a bad season",
-      "statement": "In an empty season the eldest must stand in the water from dusk to dusk without eating or speaking.",
+      "statement": "If the nets ever come up empty for a season again, it falls to the eldest living to do as Ket's mother did.",
       "origin": {
         "type": "myth",
         "mythId": "m-rupture"
@@ -303,8 +302,7 @@
       "topic": "the knots of the dead",
       "statement": "A house must never keep the knots of its dead.",
       "origin": {
-        "type": "myth",
-        "mythId": "m-debt"
+        "type": "gloss"
       },
       "say": "earned"
     },
@@ -312,12 +310,12 @@
       "id": "h28",
       "kind": "fact",
       "topic": "who ended the empty season",
-      "statement": "Ket's mother stood in the water and brought the fish back, and her name is not spoken.",
+      "statement": "Ket's mother, the eldest then, stood in the water from dusk to dusk, and the fish came back.",
       "origin": {
         "type": "myth",
         "mythId": "m-rupture"
       },
-      "say": "earned"
+      "say": "anyone"
     },
     {
       "id": "h29",
@@ -413,6 +411,7 @@
         "h12",
         "h13",
         "h14",
+        "h16",
         "h19",
         "h23",
         "h24",
@@ -483,11 +482,15 @@
         "h5",
         "h6",
         "h9",
+        "h10",
+        "h12",
         "h13",
         "h14",
         "h15",
         "h16",
         "h17",
+        "h18",
+        "h19",
         "h21",
         "h22",
         "h25",
@@ -562,11 +565,14 @@
         "h10",
         "h12",
         "h14",
+        "h15",
         "h16",
+        "h17",
         "h18",
         "h19",
         "h21",
-        "h24"
+        "h24",
+        "h28"
       ],
       "knowsMyths": [
         {
@@ -599,6 +605,7 @@
         "h11",
         "h13",
         "h15",
+        "h16",
         "h20",
         "h21",
         "h22",

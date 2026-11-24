@@ -51,13 +51,20 @@ export function parseDraft(value: unknown): Draft | null {
   };
 }
 
-/** Reads the checking model's verdict. Returns null unless it has at least one of the three lists. */
+/** A list of findings. Anything that is not text is kept as a finding, never dropped: the check must not fail open. */
+function findings(value: unknown): string[] | null {
+  if (!Array.isArray(value)) return null;
+  return value
+    .map((item) => (typeof item === "string" ? item.trim() : JSON.stringify(item)))
+    .filter((text) => text !== "" && text !== undefined);
+}
+
+/** Reads the checking model's verdict. Returns null unless all three lists are there. */
 export function parseVerdict(value: unknown): Verdict | null {
   if (!isObject(value)) return null;
-  if (!("unsupported" in value) && !("explains" in value) && !("earned" in value)) return null;
-  const unsupported = strings(value.unsupported);
-  const explains = strings(value.explains);
-  const earned = strings(value.earned);
+  const unsupported = findings(value.unsupported);
+  const explains = findings(value.explains);
+  const earned = findings(value.earned);
   if (unsupported === null || explains === null || earned === null) return null;
   return { unsupported, explains, earned };
 }

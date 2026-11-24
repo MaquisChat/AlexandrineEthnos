@@ -18,7 +18,7 @@
     {
       "id": "s-debt",
       "title": "What is given to the wind",
-      "text": "Two brothers quarrelled over who had dug the near well. They quarrelled for three winters, and by the third the whole camp had taken one side or the other, and children were kept from playing together. An old woman, whose name the story does not keep, led both brothers to the edge of the high ground on the day of the spring crossing. She made each of them shout his grievance into the wind, all of it, from the beginning, until he was hoarse and had nothing left to say. Then she told them: the wind has it now. What the wind has taken, no one may pick up again. The brothers walked back without speaking of the well, and they never spoke of it afterwards, and neither did anyone else. Since then, at every spring crossing, each of the people goes alone to the edge and says into the wind whatever they are holding against anyone. When they come back it is finished. To bring up a thing that has been given to the wind is the worst rudeness there is. It is said that the wind is owed our grievances, and that someone who keeps one back is stealing from it."
+      "text": "Two brothers quarrelled over who had dug the near well. They quarrelled for three winters, and by the third the whole camp had taken one side or the other, and children were kept from playing together. An old woman, whose name the story does not keep, led both brothers to the edge of the high ground on the day of the spring crossing. She made each of them shout his grievance into the wind, all of it, from the beginning, until he was hoarse and had nothing left to say. Then she told them: the wind has it now. What the wind has taken, no one may pick up again. The brothers walked back without speaking of the well, and they never spoke of it afterwards, and neither did anyone else. Since then, at every spring crossing, each of the people goes alone to the edge and says into the wind whatever they are holding against anyone. When they come back it is finished. To bring up a thing that has been given to the wind is the worst rudeness there is. The well is still called the near well, and to this day no one says who dug it."
     }
   ],
   "entries": [
@@ -46,7 +46,7 @@
       "id": "s3",
       "kind": "symbol_meaning",
       "topic": "what a cairn is",
-      "statement": "A cairn stands for trust made visible: each stone is a word someone kept.",
+      "statement": "A cairn stands for the trust between the people, made visible for all to see.",
       "origin": {
         "type": "myth",
         "mythId": "s-origin"
@@ -275,7 +275,7 @@
         "type": "myth",
         "mythId": "s-rupture"
       },
-      "say": "earned"
+      "say": "anyone"
     },
     {
       "id": "s25",
@@ -397,9 +397,12 @@
         "s10",
         "s11",
         "s14",
+        "s15",
         "s16",
+        "s20",
         "s21",
         "s22",
+        "s23",
         "s24",
         "s25",
         "s27"
@@ -433,11 +436,13 @@
         "s9",
         "s11",
         "s15",
+        "s16",
         "s17",
         "s18",
         "s19",
         "s20",
         "s23",
+        "s24",
         "s26"
       ],
       "knowsMyths": [
@@ -465,12 +470,14 @@
         "s4",
         "s6",
         "s8",
+        "s9",
         "s10",
         "s12",
         "s13",
         "s14",
         "s15",
         "s16",
+        "s20",
         "s23",
         "s24",
         "s27",
@@ -545,7 +552,9 @@
         "s16",
         "s17",
         "s20",
-        "s21"
+        "s21",
+        "s23",
+        "s24"
       ],
       "knowsMyths": [
         {
@@ -574,8 +583,10 @@
         "s2",
         "s8",
         "s9",
+        "s10",
         "s12",
         "s13",
+        "s14",
         "s17",
         "s18",
         "s19",

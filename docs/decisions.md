@@ -56,3 +56,16 @@ Two rounds, each after a run through the Claude login.
 2. A villager settled an open question by reasoning from a saying. The answer rules now say a saying or custom tells you what it says and no more, and the checker counts a conclusion the sources do not state as unsupported. The checker is also given each cited entry's topic, after it rejected a correct reply for a detail that came from the topic. The judge used in the checks is told the same always-allowed things.
 
 Two test questions were replaced because the culture file itself answered them (where salt comes from; who mends the cairns).
+
+## 2026-11-24: Changes after the independent review (M1a)
+
+- Everything the model writes that a player could come to see is checked, not only the reply: the question for the shaman and anything newly improvised about the villager's own life. A new personal fact is no longer treated as a source for itself.
+- A verdict from the checker that is missing a list is unreadable, and a finding that is not plain text still counts as a finding. The check must never read as clean by accident.
+- A guarded statement repeated word for word is caught by rule, with no model involved.
+- Villagers are told neither to confirm nor to deny a visitor's guess about a meaning. The checker sees the last two exchanges so it can tell what a bare "yes" agrees to, and the visitor's line and the reply reach it as marked data.
+- Both cultures were repaired so that telling a story cannot tell what an entry marks as earned or never said. In the heron people, the story of the knot no longer glosses the debt or describes what is done at a death; that Ket's mother stood in the water is now told openly, and what stays earned is that the eldest living would have to do the same. In the sealed culture, what Sefa did is told openly, and the story of the brothers no longer ends by saying what a kept grievance is.
+- The trial page never writes over saved conversations it could not read, and nothing can be sent until loading has finished.
+
+## 2026-11-24: Colour is allowed (M1a, third tuning round)
+
+After the review's fixes the checker discarded five good replies in fifty for harmless phrasing: that a custom "has always been done", that something stood "before I was born", "that is all there is to it", and the name of a story. A discarded reply is replaced by a refusal, so an elder was refusing ordinary questions. The checker is now told that such colour is always allowed and that only something new about the people (a practice, belief, rule, person, event or meaning) is unsupported. It is also given the names of the stories a reply drew on.

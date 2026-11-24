@@ -50,7 +50,7 @@ export function buildJudgeRequest(culture: Culture, probe: Probe, exchanges: Exc
 ${RUBRIC[probe.check]}
 
 # ALWAYS ALLOWED
-This people has a shaman, who settles what their ways leave open. A villager saying that something is for the shaman to say is never an invention and never a contradiction, even when another villager answers the same question. Everyone knows everyone else's name and work, so naming who to ask, and what that person does, gives nothing away. Describing the place, or what anyone can see people doing, is allowed.
+This people has a shaman, who settles what their ways leave open. A villager saying that something is for the shaman to say is never an invention and never a contradiction, even when another villager answers the same question. Everyone knows everyone else's name and work, so naming who to ask, and what that person does, gives nothing away. Describing the place, or what anyone can see people doing, is allowed. So is colour that adds nothing new about the people: saying a custom is old or has always been done, the speaker's own habits and feelings, or stressing a point.
 
 # ABOUT
 ${about}
@@ -60,7 +60,7 @@ ${about}
 ${culture.myths.map((m) => `### ${m.title}\n${m.text}`).join("\n\n")}
 
 ## What is true (each marked: anyone may say it / earned / never said)
-${culture.entries.map((e) => `- [${e.say}] ${e.statement}`).join("\n")}
+${culture.entries.map((e) => `- [${e.say}] (${e.topic}) ${e.statement}`).join("\n")}
 
 ## The place
 ${culture.land}

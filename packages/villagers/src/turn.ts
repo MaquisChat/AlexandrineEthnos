@@ -57,7 +57,8 @@ export async function villagerTurn(
   if (ruleFindings.length > 0) {
     // Decided without a second call: the culture file alone shows the reply cannot stand.
     const caught: Caught = { by: "rule", reply: draft.reply, reasons: ruleFindings.map((f) => f.reason) };
-    exchange = ruleFindings.some((f) => f.failure === "invention") ? refuse(caught) : withhold(caught);
+    // As on the model path below: telling what is guarded outranks inventing.
+    exchange = ruleFindings.some((f) => f.failure === "guarded") ? withhold(caught) : refuse(caught);
   } else {
     const verdict = parseVerdict(await deps.ask(buildCheckRequest(culture, villagerId, state, line, draft)));
     if (!verdict) throw new VillagerTurnError("unreadable_check");

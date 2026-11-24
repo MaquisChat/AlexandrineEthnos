@@ -44,6 +44,7 @@ it("keeps conversations, marks and reveals in memory when there is nowhere to sa
   await store.addFlag({ at: "2026-11-24T00:00:00Z", cultureId: "heron", villagerId: "maelle", exchange, note: "too chatty" });
   await store.setRevealed("sealed");
   const saved = await store.load();
+  expect(saved.ok).toBe(true);
   expect(saved.conversations["heron/maelle"]).toEqual(state);
   expect(saved.flags).toHaveLength(1);
   expect(saved.revealed).toEqual(["sealed"]);
@@ -52,7 +53,7 @@ it("keeps conversations, marks and reveals in memory when there is nowhere to sa
 });
 
 it("memoryStore starts empty", async () => {
-  expect(await memoryStore().load()).toEqual({ conversations: {}, flags: [], revealed: [] });
+  expect(await memoryStore().load()).toEqual({ conversations: {}, flags: [], revealed: [], ok: true });
 });
 
 it("saves through the page's database when there is one", async () => {
@@ -89,6 +90,41 @@ it("skips saved conversations it cannot use and keeps the rest", async () => {
 it("loads nothing, without failing, when the database cannot be read", async () => {
   const broken = { doc: () => ({ get: async () => Promise.reject({ code: "unavailable" }) }), collection: () => ({ get: async () => Promise.reject({ code: "unavailable" }) }) };
   const saved = await (await connectStore(withDb(broken), cultures)).load();
-  expect(saved).toEqual({ conversations: {}, flags: [], revealed: [] });
+  expect(saved).toEqual({ conversations: {}, flags: [], revealed: [], ok: false }); // not ok: the page must not write over what it never read
   expect(emptyState()).toEqual({ history: [], personalFacts: [] });
+});
+
+// --- from the whole-branch review ---
+
+it.each([
+  ["a caught note that is not a record", { caught: "oops" }],
+  ["a question that is not text", { basis: "deferral", question: { a: 1 } }],
+  ["a redirect that is not text", { basis: "redirect", redirect: 7 }],
+  ["a model that is not one of the three", { model: "turbo" }],
+  ["caught reasons that are not text", { caught: { by: "model", reply: "x", reasons: [1] } }],
+])("skips a saved exchange with %s", async (_name, recordOver) => {
+  const bad = { ...exchange, record: { ...exchange.record, ...recordOver } };
+  const db = fakeDb({
+    "conversations/heron__maelle": { cultureId: "heron", villagerId: "maelle", state: { history: [bad], personalFacts: [] } },
+    "conversations/heron__tam": { cultureId: "heron", villagerId: "tam", state },
+  });
+  const saved = await (await connectStore(withDb(db), cultures)).load();
+  expect(Object.keys(saved.conversations)).toEqual(["heron/tam"]);
+});
+
+it("writes to one document one at a time, in the order asked", async () => {
+  const order: string[] = [];
+  const slow = (path: string) => ({
+    get: async () => ({ id: "x", exists: false, data: () => undefined }),
+    set: async () => {
+      order.push(`set start ${path}`);
+      await new Promise((resolve) => setTimeout(resolve, 20));
+      order.push(`set end ${path}`);
+    },
+    delete: async () => void order.push(`delete ${path}`),
+  });
+  const db = { doc: slow, collection: (name: string) => ({ doc: (id: string) => slow(`${name}/${id}`), get: async () => ({ docs: [] }) }) };
+  const store = await connectStore(withDb(db), cultures);
+  await Promise.all([store.saveConversation("heron/maelle", state), store.clearConversation("heron/maelle")]);
+  expect(order).toEqual(["set start conversations/heron__maelle", "set end conversations/heron__maelle", "delete conversations/heron__maelle"]);
 });

@@ -20,10 +20,13 @@ export interface Saved {
   revealed: string[];
 }
 
+/** What was loaded. `ok` is false when the saved data could not be read, in which case it must not be written over. */
+export type Loaded = Saved & { ok: boolean };
+
 export interface TrialStore {
   /** False when nothing outlives this visit. */
   readonly durable: boolean;
-  load(): Promise<Saved>;
+  load(): Promise<Loaded>;
   saveConversation(key: string, state: VillagerState): Promise<void>;
   clearConversation(key: string): Promise<void>;
   addFlag(flag: Flag): Promise<void>;
@@ -36,7 +39,7 @@ export function memoryStore(): TrialStore {
   const saved = empty();
   return {
     durable: false,
-    load: async () => ({ conversations: { ...saved.conversations }, flags: [...saved.flags], revealed: [...saved.revealed] }),
+    load: async () => ({ conversations: { ...saved.conversations }, flags: [...saved.flags], revealed: [...saved.revealed], ok: true }),
     saveConversation: async (key, state) => void (saved.conversations[key] = state),
     clearConversation: async (key) => void delete saved.conversations[key],
     addFlag: async (flag) => void saved.flags.push(flag),
@@ -47,10 +50,29 @@ export function memoryStore(): TrialStore {
 const isObject = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value);
 const isStrings = (value: unknown): value is string[] => Array.isArray(value) && value.every((item) => typeof item === "string");
 
+const MODELS = ["quick", "balanced", "careful"];
+const optionalText = (value: unknown) => value === undefined || typeof value === "string";
+
+function isCaught(value: unknown): boolean {
+  if (value === undefined) return true;
+  return isObject(value) && (value.by === "rule" || value.by === "model") && typeof value.reply === "string" && isStrings(value.reasons);
+}
+
+/** Every field the page will later show or act on is checked, so one damaged record cannot break the page. */
 function isExchange(value: unknown): value is Exchange {
   if (!isObject(value) || typeof value.visitor !== "string" || typeof value.reply !== "string") return false;
   const record = value.record;
-  return isObject(record) && BASES.includes(record.basis as never) && isStrings(record.entries) && isStrings(record.myths) && isStrings(record.personalFacts);
+  return (
+    isObject(record) &&
+    BASES.includes(record.basis as never) &&
+    isStrings(record.entries) &&
+    isStrings(record.myths) &&
+    isStrings(record.personalFacts) &&
+    MODELS.includes(record.model as string) &&
+    optionalText(record.question) &&
+    optionalText(record.redirect) &&
+    isCaught(record.caught)
+  );
 }
 
 function isState(value: unknown): value is VillagerState {
@@ -98,27 +120,45 @@ function dbStore(db: Db, cultures: Culture[]): TrialStore {
     return saved;
   };
 
+  // One write at a time per document, in the order asked, as the database requires.
+  const tails = new Map<string, Promise<void>>();
+  const inOrder = (path: string, write: () => Promise<void>): Promise<void> => {
+    const next = (tails.get(path) ?? Promise.resolve()).catch(() => {}).then(write);
+    tails.set(path, next);
+    return next;
+  };
+  const unread = (): Loaded => ({ ...empty(), ok: false });
+
   return {
     durable: true,
-    // A store that cannot be read, or does not answer in time, loads as empty: the page still works.
+    // A store that cannot be read, or does not answer in time, loads as empty and says so: the page still
+    // works, and the caller must then not write over what was never read.
     load: () =>
-      Promise.race([read(), new Promise<Saved>((resolve) => setTimeout(() => resolve(empty()), LOAD_LIMIT_MS))]).catch(() => empty()),
+      Promise.race([
+        read().then((saved): Loaded => ({ ...saved, ok: true })),
+        new Promise<Loaded>((resolve) => setTimeout(() => resolve(unread()), LOAD_LIMIT_MS)),
+      ]).catch(unread),
     saveConversation: (key, state) => {
       const [cultureId, villagerId] = key.split("/");
-      return db.doc(`conversations/${docId(key)}`).set({ cultureId, villagerId, state, updatedAt: new Date().toISOString() } as Record<string, unknown>);
+      const path = `conversations/${docId(key)}`;
+      return inOrder(path, () => db.doc(path).set({ cultureId, villagerId, state, updatedAt: new Date().toISOString() } as Record<string, unknown>));
     },
-    clearConversation: (key) => db.doc(`conversations/${docId(key)}`).delete(),
+    clearConversation: (key) => {
+      const path = `conversations/${docId(key)}`;
+      return inOrder(path, () => db.doc(path).delete());
+    },
     addFlag: (flag) =>
       db
         .collection("flags")
         .doc(`f${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`)
         .set(flag as unknown as Record<string, unknown>),
-    setRevealed: async (cultureId) => {
-      const current = await db.doc("meta/revealed").get();
-      const before = current.exists ? current.data()?.cultures : [];
-      const ids = Array.isArray(before) ? before.filter((id): id is string => typeof id === "string") : [];
-      if (!ids.includes(cultureId)) await db.doc("meta/revealed").set({ cultures: [...ids, cultureId] });
-    },
+    setRevealed: (cultureId) =>
+      inOrder("meta/revealed", async () => {
+        const current = await db.doc("meta/revealed").get();
+        const before = current.exists ? current.data()?.cultures : [];
+        const ids = Array.isArray(before) ? before.filter((id): id is string => typeof id === "string") : [];
+        if (!ids.includes(cultureId)) await db.doc("meta/revealed").set({ cultures: [...ids, cultureId] });
+      }),
   };
 }
 

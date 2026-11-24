@@ -26,6 +26,17 @@ export function checkByRule(culture: Culture, villagerId: string, draft: Draft):
     else if (!villager.knowsMyths.some((k) => k.mythId === id)) invention(`cites a story ${villager.name} does not know: ${id}`);
   }
 
+  // Everything the model wrote that a visitor could come to see: the reply, the question for the shaman, new facts.
+  const written = [draft.reply, draft.question ?? "", ...draft.personalFacts].join("\n").toLowerCase().replace(/\s+/g, " ");
+  for (const guarded of culture.entries.filter((e) => e.say !== "anyone")) {
+    if (written.includes(guarded.statement.toLowerCase().replace(/\s+/g, " "))) {
+      findings.push({
+        failure: "guarded",
+        reason: guarded.say === "earned" ? `says word for word what is earned: ${guarded.id}` : `says word for word what is never said: ${guarded.id}`,
+      });
+    }
+  }
+
   if (draft.basis === "redirect") {
     const target = culture.villagers.find((v) => v.id === draft.redirect);
     if (!target || target.id === villager.id) {

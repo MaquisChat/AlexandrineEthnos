@@ -8,7 +8,7 @@ import {
   villagerTurn,
   VillagerTurnError,
 } from "@fieldwork/villagers";
-import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { Component, type FormEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import heronJson from "../../../content/cultures/heron.culture.json";
 import sealedJson from "../../../content/cultures/sealed.culture.json";
 import { BASIS_COPY, FAILURE_COPY, SAVED_NOTE, SPEEDS } from "./copy";
@@ -130,7 +130,32 @@ function Truths({ culture }: { culture: Culture }) {
   );
 }
 
+/** A last line of defence: if something still cannot be drawn, say so instead of showing a blank page. */
+class Safely extends Component<{ children: ReactNode }, { broken: boolean }> {
+  state = { broken: false };
+  static getDerivedStateFromError() {
+    return { broken: true };
+  }
+  render() {
+    if (!this.state.broken) return this.props.children;
+    return (
+      <main className="page">
+        <h1>Villager trial</h1>
+        <p role="alert">This page hit a problem it could not recover from. Reload it. If it happens again, tell Claude what you were doing.</p>
+      </main>
+    );
+  }
+}
+
 export function App({ claude }: { claude: unknown }) {
+  return (
+    <Safely>
+      <Trial claude={claude} />
+    </Safely>
+  );
+}
+
+function Trial({ claude }: { claude: unknown }) {
   // Both connections are made once. Sending a line waits for them, so nothing is lost if the visitor is quick.
   const askRef = useRef<Promise<Ask | null> | null>(null);
   const storeRef = useRef<Promise<TrialStore> | null>(null);
@@ -149,16 +174,21 @@ export function App({ claude }: { claude: unknown }) {
   const [failure, setFailure] = useState<AskFailure | null>(null);
   const [flagging, setFlagging] = useState<number | null>(null);
   const [note, setNote] = useState("");
-  const [flagged, setFlagged] = useState<string[]>([]);
+  const [unread, setUnread] = useState(false);
   const [confirming, setConfirming] = useState<"reveal" | "clear" | null>(null);
   const [saveProblem, setSaveProblem] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     storeRef.current!.then(async (store) => {
-      const data = await store.load();
+      const { ok, ...data } = await store.load();
       if (cancelled) return;
-      setDurable(store.durable);
+      if (!ok) {
+        // What is saved could not be read, so this visit keeps to memory and writes over nothing.
+        storeRef.current = Promise.resolve(memoryStore());
+        setUnread(true);
+      }
+      setDurable(store.durable && ok);
       setSaved(data);
       setLoaded(true);
     });
@@ -204,10 +234,15 @@ export function App({ claude }: { claude: unknown }) {
     void send(draft);
   };
 
+  // A mark belongs to the reply it was made on, not to its place in the list, and comes back with the saved marks.
+  const isMarked = (exchange: Exchange) =>
+    saved.flags.some(
+      (flag) => flag.cultureId === culture.id && flag.villagerId === villager.id && flag.exchange.visitor === exchange.visitor && flag.exchange.reply === exchange.reply,
+    );
+
   const saveFlag = async (index: number) => {
     const exchange = state.history[index]!;
     const flag = { at: new Date().toISOString(), cultureId: culture.id, villagerId: villager.id, exchange, note: note.trim() };
-    setFlagged((before) => [...before, `${key}#${index}`]);
     setSaved((before) => ({ ...before, flags: [...before.flags, flag] }));
     setFlagging(null);
     setNote("");
@@ -309,7 +344,7 @@ export function App({ claude }: { claude: unknown }) {
               </p>
               {curtain && <Curtain exchange={exchange} culture={culture} sealed={sealed} />}
               <div className="marks">
-                {flagged.includes(`${key}#${index}`) ? (
+                {isMarked(exchange) ? (
                   <span className="quiet">Marked as wrong</span>
                 ) : flagging === index ? (
                   <form
@@ -361,10 +396,10 @@ export function App({ claude }: { claude: unknown }) {
             aria-label={`Say something to ${villager.name}`}
             placeholder={`Say something to ${villager.name}…`}
             value={draft}
-            disabled={pending !== null}
+            disabled={pending !== null || !loaded}
             onChange={(event) => setDraft(event.target.value)}
           />
-          <button type="submit" disabled={pending !== null || draft.trim() === ""}>
+          <button type="submit" disabled={pending !== null || !loaded || draft.trim() === ""}>
             Say it
           </button>
         </form>
@@ -406,7 +441,7 @@ export function App({ claude }: { claude: unknown }) {
               </button>
             </span>
           ) : (
-            <button type="button" onClick={() => setConfirming("reveal")}>
+            <button type="button" disabled={pending !== null} onClick={() => setConfirming("reveal")}>
               End the blind play and reveal
             </button>
           ))}
@@ -414,7 +449,7 @@ export function App({ claude }: { claude: unknown }) {
           (confirming === "clear" ? (
             <span>
               This forgets everything {villager.name} has said to you.{" "}
-              <button type="button" onClick={() => void clear()}>
+              <button type="button" disabled={pending !== null} onClick={() => void clear()}>
                 Yes, clear it
               </button>{" "}
               <button type="button" onClick={() => setConfirming(null)}>
@@ -422,13 +457,19 @@ export function App({ claude }: { claude: unknown }) {
               </button>
             </span>
           ) : (
-            <button type="button" onClick={() => setConfirming("clear")}>
+            <button type="button" disabled={pending !== null} onClick={() => setConfirming("clear")}>
               Start over with {villager.name}
             </button>
           ))}
       </section>
 
       <footer>
+        {unread && (
+          <p role="status">
+            Your earlier conversations could not be loaded. Nothing from this visit will be saved, so nothing of yours is written over.
+            Reload the page to try again.
+          </p>
+        )}
         <p>{durable ? SAVED_NOTE : "Nothing can be saved in this view, so conversations last only until you close the page."}</p>
         {saveProblem && <p role="status">The last change could not be saved. It is still on this screen.</p>}
         <p>Each reply is two requests to Claude on your own account: one to answer, one to check the answer.</p>

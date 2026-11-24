@@ -61,6 +61,23 @@ describe.each(["heron", "sealed"])("the %s culture", (id) => {
       expect(entry.topic, entry.id).not.toContain(".");
     }
   });
+  it("never has a story, as any villager knows it, say a guarded statement word for word", () => {
+    const guarded = culture.entries.filter((e) => e.say !== "anyone");
+    for (const v of culture.villagers) {
+      for (const known of v.knowsMyths) {
+        const telling = (known.version ?? culture.myths.find((m) => m.id === known.mythId)!.text).toLowerCase();
+        for (const entry of guarded) expect(telling.includes(entry.statement.toLowerCase()), `${v.name} / ${entry.id}`).toBe(false);
+      }
+    }
+  });
+  it("has every villager who knows a story in full also know the sayable entries that come from it", () => {
+    for (const v of culture.villagers) {
+      for (const known of v.knowsMyths.filter((k) => k.version === undefined)) {
+        const fromIt = culture.entries.filter((e) => e.say === "anyone" && e.origin.type === "myth" && e.origin.mythId === known.mythId);
+        for (const entry of fromIt) expect(v.knowsEntries.includes(entry.id), `${v.name} knows ${known.mythId} but not ${entry.id}`).toBe(true);
+      }
+    }
+  });
   it("gives no villager a duplicate entry or myth", () => {
     for (const v of culture.villagers) {
       expect(new Set(v.knowsEntries).size, v.name).toBe(v.knowsEntries.length);

@@ -145,6 +145,67 @@ test("starting over clears one villager's conversation", async ({ page }) => {
   await expect(log(page)).not.toContainText("Then we eat.");
 });
 
+// --- from the whole-branch review ---
+
+test("nothing can be sent until earlier conversations have been looked for", async ({ page }) => {
+  await open(page, { answers: [canon()], dbDelayMs: 700 });
+  await expect(page.getByRole("textbox", { name: /^Say something to/ })).toBeDisabled();
+  await expect(page.getByRole("textbox", { name: /^Say something to/ })).toBeEnabled();
+});
+
+test("when earlier conversations cannot be read, the page says so and does not write over them", async ({ page }) => {
+  await open(page, { answers: [canon()], dbFails: true, db: { "conversations/heron__maelle": { cultureId: "heron", villagerId: "maelle", state: { history: [], personalFacts: ["kept"] } } } });
+  await expect(page.getByRole("status").filter({ hasText: "could not be loaded" })).toBeVisible();
+  await say(page, "Why does the heron eat first?");
+  await expect(log(page)).toContainText("Then we eat.");
+  const kept = await page.evaluate(() => window.__fake.db()["conversations/heron__maelle"]);
+  expect(kept).toMatchObject({ state: { personalFacts: ["kept"] } });
+});
+
+test("a damaged saved record does not blank the page", async ({ page }) => {
+  const record = { basis: "deferral", entries: [], myths: [], personalFacts: [], model: "balanced" };
+  await open(page, {
+    answers: [canon()],
+    db: {
+      "conversations/heron__maelle": { cultureId: "heron", villagerId: "maelle", state: { history: [{ visitor: "a", reply: "b", record: { ...record, question: { x: 1 } } }], personalFacts: [] } },
+      "conversations/heron__tam": { cultureId: "heron", villagerId: "tam", state: { history: [{ visitor: "a", reply: "b", record: { ...record, caught: "oops" } }], personalFacts: [] } },
+    },
+  });
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await page.getByRole("button", { name: /^Old Tam/ }).click();
+  await say(page, "Hello");
+  await expect(log(page)).toContainText("Then we eat.");
+});
+
+test("a mark belongs to the reply it was made on, survives a reload, and does not carry over after starting again", async ({ page }) => {
+  await open(page, { answers: [canon()] });
+  await say(page, "Why does the heron eat first?");
+  await page.getByRole("button", { name: "That's wrong" }).click();
+  await page.getByRole("textbox", { name: "What is wrong with it?" }).fill("no");
+  await page.getByRole("button", { name: "Save the mark" }).click();
+  await expect(page.getByText("Marked as wrong")).toBeVisible();
+  await page.reload();
+  await expect(page.getByText("Marked as wrong")).toBeVisible();
+  await page.getByRole("button", { name: "Start over with Maëlle" }).click();
+  await page.getByRole("button", { name: "Yes, clear it" }).click();
+  // The stand-in starts its script again after a reload, so the same words come back to a new question.
+  await say(page, "And now?");
+  await expect(log(page)).toContainText("And now?");
+  await expect(log(page)).toContainText("Then we eat.");
+  await expect(page.getByText("Marked as wrong")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "That's wrong" })).toBeVisible();
+});
+
+test("a conversation cannot be cleared while a reply is on its way", async ({ page }) => {
+  await open(page, { answers: [canon(), canon({ reply: "Second." })], delayMs: 600 });
+  await say(page, "One");
+  await expect(log(page)).toContainText("Then we eat.");
+  await say(page, "Two");
+  await expect(page.getByRole("button", { name: "Start over with Maëlle" })).toBeDisabled();
+  await expect(log(page)).toContainText("Second.");
+  await expect(page.getByRole("button", { name: "Start over with Maëlle" })).toBeEnabled();
+});
+
 test("the published file carries everything inline and only Google Fonts from outside", async () => {
   const html = readFileSync("dist/villager-trial.html", "utf8");
   expect(html).not.toMatch(/<script[^>]+src=/);
