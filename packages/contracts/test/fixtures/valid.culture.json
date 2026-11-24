@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "test-people",
+  "name": "The test people",
+  "language": "en",
+  "land": "A river mouth with reed beds.",
+  "myths": [
+    { "id": "m1", "title": "The first net", "text": "Before the people there was only water. The heron stood in it and waited. A woman came and asked for a fish, and the heron gave her one and then another, and asked for nothing. So she wove a net and fed the heron first." },
+    { "id": "m2", "title": "The empty season", "text": "One year the people ate before the heron. The fish went deep and did not return until the eldest stood in the water for a day and a night." }
+  ],
+  "entries": [
+    { "id": "e1", "kind": "symbol_meaning", "topic": "what the heron is", "statement": "The heron stands for the dead, who gave before they were asked.", "origin": { "type": "gloss" }, "say": "shown" },
+    { "id": "e2", "kind": "custom", "topic": "who eats first", "statement": "The first fish of every catch is given to the heron before anyone eats.", "origin": { "type": "myth", "mythId": "m1" }, "say": "anyone" },
+    { "id": "e3", "kind": "obligation", "topic": "what the eldest owes", "statement": "In a bad season the eldest must stand in the water for a day and a night.", "origin": { "type": "myth", "mythId": "m2" }, "say": "earned" },
+    { "id": "e4", "kind": "fact", "topic": "where the nets are kept", "statement": "Nets are hung on the north side of every house.", "origin": { "type": "gloss" }, "say": "anyone" }
+  ],
+  "customs": [
+    { "id": "c1", "name": "Feeding the heron", "visible": "At dusk someone carries the first fish to the post and leaves it there.", "reasons": ["e1", "e2"] }
+  ],
+  "villagers": [
+    {
+      "id": "maelle", "name": "Maëlle", "role": "net-mender", "age": 41, "temperament": "dry, patient", "doubts": false,
+      "knowsEntries": ["e1", "e2", "e3"],
+      "knowsMyths": [{ "mythId": "m1" }],
+      "slant": "She tells the first story as a story about patience.",
+      "lines": { "refusal": "That is for the shaman to say.", "withholding": "That is not for a stranger.", "redirect": "Ask {name}." }
+    },
+    {
+      "id": "tam", "name": "Old Tam", "role": "boat-keeper", "age": 70, "temperament": "gruff", "doubts": true,
+      "knowsEntries": ["e2", "e4"],
+      "knowsMyths": [{ "mythId": "m2", "version": "One year we ate first, and the fish left. That is all I was told." }],
+      "slant": "He thinks the empty season was only bad weather.",
+      "lines": { "refusal": "Ask the shaman, not me.", "withholding": "Not your business yet.", "redirect": "{name} would know." }
+    }
+  ],
+  "heart": ["e1"],
+  "silences": ["What is done when a heron dies."]
+}
