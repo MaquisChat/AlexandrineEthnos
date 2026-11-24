@@ -124,3 +124,8 @@
   opacity: 0.35;
   cursor: default;
 }
+
+/* Over the error panel, which is dark. */
+.text-size-on-dark button {
+  color: var(--c-mark, #f4ead7);
+}

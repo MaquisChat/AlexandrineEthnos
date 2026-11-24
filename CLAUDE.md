@@ -18,7 +18,7 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 | `pnpm models` | Regenerate the committed `.glb` files in `apps/client/public/content/models/` |
 | `pnpm dev` | Run the client with live reload (Vite) |
 | `pnpm build` | Build the client into `apps/client/dist` |
-| `pnpm e2e` | Build, serve and run the browser tests (Playwright). In the cloud container, set `PW_CHROMIUM_PATH=/opt/pw-browsers/chromium` first |
+| `pnpm e2e` | Build, serve and run the browser tests (Playwright) |
 | `pnpm shots` | Build and save 2x screenshots of the look into `docs/look/` |
 
 ## Running and looking
@@ -39,6 +39,7 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 
 ## Tooling notes
 
+- What M0 delivered, what was decided along the way and what was left for later: `docs/m0-report.md`.
 - TypeScript is pinned to 6.0.x. typescript-eslint does not support TypeScript 7 yet; move up when it does.
 - Packages export their TypeScript source directly (`exports` points at `src/index.ts`); there is no build step between packages.
 
@@ -58,4 +59,4 @@ A two-player game about interpreting a culture, plus a single-player mode about 
 - Text size is adjustable, everything is reachable from the keyboard, colour is never the only carrier of meaning.
 - The dialogue font must cover English, French, Russian and Kazakh, including ә ғ қ ң ө ұ ү һ і.
 - Package scope is `@fieldwork/`. All paths are relative to the repository root, the directory that holds `docs/superpowers`.
-- In the Claude Code cloud container, do not run `playwright install`. Set `PW_CHROMIUM_PATH=/opt/pw-browsers/chromium`; the Playwright config reads it.
+- In the Claude Code cloud container, do not run `playwright install`. `@playwright/test` is pinned to 1.63.0, the release that matches the browser installed there, so `pnpm e2e` and `pnpm shots` work with no setup. If the two ever drift apart, set `PW_CHROMIUM_PATH=/opt/pw-browsers/chromium` as a stopgap, then move the pin and regenerate the baselines.

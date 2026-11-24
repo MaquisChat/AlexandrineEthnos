@@ -4,7 +4,7 @@ import { applyTextScale, initialTextScale, TEXT_SCALES } from "./textScale";
 export { TEXT_SCALES } from "./textScale";
 
 /** Two buttons that make all text smaller or larger. The choice is remembered. */
-export function TextSizeControl() {
+export function TextSizeControl({ onDark = false }: { onDark?: boolean }) {
   const [index, setIndex] = useState(() => TEXT_SCALES.indexOf(initialTextScale()));
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function TextSizeControl() {
   };
 
   return (
-    <div className="text-size" role="group" aria-label="Text size">
+    <div className={onDark ? "text-size text-size-on-dark" : "text-size"} role="group" aria-label="Text size">
       <button type="button" aria-label="Smaller text" disabled={index === 0} onClick={() => step(-1)}>
         A−
       </button>

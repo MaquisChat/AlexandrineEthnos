@@ -2,7 +2,7 @@
 // figures on the shared skeleton, and the culture's marks. Holds no game rules.
 import { FIGURE_ANIMATIONS, type Scene, type Vec3 } from "@fieldwork/contracts";
 import * as THREE from "three";
-import { WebGLUnavailableError } from "./errors";
+import { SceneLoadError, WebGLUnavailableError } from "./errors";
 import type { LoadedScene } from "./loadScene";
 import { applyPalette } from "./palette";
 import { railPose } from "./rail";
@@ -85,8 +85,9 @@ export class Stage {
     this.resize();
     if (typeof ResizeObserver !== "undefined") {
       this.resizeObserver = new ResizeObserver(() => {
+        // Resizing clears the canvas, so draw again at once or the scene blinks.
         this.resize();
-        if (this.opts.fixedTimeSeconds !== undefined) this.draw(this.opts.fixedTimeSeconds, 0);
+        this.draw(this.opts.fixedTimeSeconds ?? this.elapsed, 0);
       });
       this.resizeObserver.observe(canvas);
     }
@@ -163,16 +164,23 @@ export class Stage {
       entries.map(async ([slotId, url]) => {
         const slot = this.scene.slots.find((s) => s.id === slotId && s.kind === "mark");
         if (!slot) throw new Error(`The scene has no mark slot "${slotId}".`);
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Could not load the mark ${url}.`);
-        const svg = (await response.text()).replaceAll("currentColor", this.scene.palette.mark);
-
-        const image = new Image();
-        image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-        await image.decode();
+        // A mark that cannot be loaded is reported by name, like a model: marks carry the culture's symbols.
         const bitmap = document.createElement("canvas");
         bitmap.width = bitmap.height = MARK_TEXTURE_PX;
-        bitmap.getContext("2d")!.drawImage(image, 0, 0, MARK_TEXTURE_PX, MARK_TEXTURE_PX);
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+          const text = await response.text();
+          if (!text.includes("<svg")) throw new Error("not an SVG file");
+          const image = new Image();
+          image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+            text.replaceAll("currentColor", this.scene.palette.mark),
+          )}`;
+          await image.decode();
+          bitmap.getContext("2d")!.drawImage(image, 0, 0, MARK_TEXTURE_PX, MARK_TEXTURE_PX);
+        } catch (error) {
+          throw new SceneLoadError("mark_missing", url, error instanceof Error ? error.message : undefined);
+        }
 
         const texture = new THREE.CanvasTexture(bitmap);
         texture.colorSpace = THREE.SRGBColorSpace;

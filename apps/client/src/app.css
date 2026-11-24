@@ -80,9 +80,20 @@ body {
   position: absolute;
   inset: 0;
   display: grid;
-  place-items: center;
+  place-content: center;
+  gap: 0.5em;
   padding: 2rem;
   text-align: center;
   background: #241c26;
   font-size: calc(1.2rem * var(--text-scale));
+}
+
+.problem p {
+  margin: 0;
+}
+
+.problem-detail {
+  font-size: 0.75em;
+  opacity: 0.8;
+  overflow-wrap: anywhere;
 }

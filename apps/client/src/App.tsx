@@ -25,12 +25,20 @@ declare global {
 const defaultLoad = () => loadScene(DEMO.contentRoot, DEMO.sceneFile, DEMO.figureFile);
 const defaultCreateStage: NonNullable<AppProps["createStage"]> = (canvas, loaded, opts) => new Stage(canvas, loaded, opts);
 
-function problemText(error: unknown): string {
-  if (error instanceof SceneLoadError) return `Could not load ${error.file}.`;
-  if (error instanceof WebGLUnavailableError) {
-    return "This game needs WebGL, which is not available in this browser.";
+interface Problem {
+  text: string;
+  /** Extra information for whoever made the content, such as what is wrong in a scene file. */
+  detail?: string;
+}
+
+function describeProblem(error: unknown): Problem {
+  if (error instanceof SceneLoadError) {
+    return { text: `Could not load ${error.file}.`, ...(error.detail ? { detail: error.detail } : {}) };
   }
-  return "Something went wrong while opening the scene.";
+  if (error instanceof WebGLUnavailableError) {
+    return { text: "This game needs WebGL, which is not available in this browser." };
+  }
+  return { text: "Something went wrong while opening the scene." };
 }
 
 /** The scene's palette as CSS variables, so the interface wears the culture's colours. */
@@ -42,7 +50,7 @@ function paletteVariables(palette: Scene["palette"] | null): CSSProperties {
 export function App({ load = defaultLoad, createStage = defaultCreateStage }: AppProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<StageLike | null>(null);
-  const [problem, setProblem] = useState<string | null>(null);
+  const [problem, setProblem] = useState<Problem | null>(null);
   const [hotspots, setHotspots] = useState<Scene["hotspots"]>([]);
   const [palette, setPalette] = useState<Scene["palette"] | null>(null);
   const [speaking, setSpeaking] = useState(false);
@@ -86,7 +94,16 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
         if (debug) window.__stage = stage;
         window.__stageReady = true;
       } catch (error) {
-        if (!cancelled) setProblem(problemText(error));
+        if (cancelled) return;
+        // The panel says what a player needs; the console keeps the rest for whoever is debugging.
+        console.error(error);
+        // Nothing of a failed scene stays running or reachable behind the message.
+        stage?.dispose();
+        stage = null;
+        stageRef.current = null;
+        setHotspots([]);
+        setSpeaking(false);
+        setProblem(describeProblem(error));
       }
     })();
 
@@ -108,7 +125,6 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
           </button>
         ))}
       </nav>
-      {problem === null && palette !== null && <TextSizeControl />}
       {problem === null && speaking && (
         <DialogueStrip
           speaker={dialogue.speaker}
@@ -124,9 +140,11 @@ export function App({ load = defaultLoad, createStage = defaultCreateStage }: Ap
       )}
       {problem !== null && (
         <div role="alert" className="problem">
-          {problem}
+          <p>{problem.text}</p>
+          {problem.detail !== undefined && <p className="problem-detail">{problem.detail}</p>}
         </div>
       )}
+      {(problem !== null || palette !== null) && <TextSizeControl onDark={problem !== null} />}
     </div>
   );
 }
