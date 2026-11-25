@@ -211,16 +211,21 @@ export function buildSpiritCheckRequest(culture: Culture, consult: Consult, draf
   };
 }
 
-/** The entry for an answer to a consult, with the next free id of the form a1, a2, … */
+/**
+ * The entry for an answer to a consult. Its id is the one the caller names, if that is free;
+ * otherwise the next free id of the form a1, a2, …
+ */
 export function consultEntry(
   culture: Culture,
   consult: Consult,
   answer: { by: "shaman" | "spirits"; statement: string; topic: string; kind: EntryKind; say: Say },
+  id?: string,
 ): CultureEntry {
+  const taken = (candidate: string) => culture.entries.some((e) => e.id === candidate);
   let n = 1;
-  while (culture.entries.some((e) => e.id === `a${n}`)) n += 1;
+  while (taken(`a${n}`)) n += 1;
   return {
-    id: `a${n}`,
+    id: id !== undefined && id !== "" && !taken(id) ? id : `a${n}`,
     kind: answer.kind,
     topic: answer.topic.trim(),
     statement: answer.statement.trim(),
@@ -252,7 +257,7 @@ export function addConsultEntry(culture: Culture, entry: CultureEntry): Culture 
  */
 export async function askSpirits(
   deps: { ask: Ask },
-  input: { culture: Culture; consult: Consult; model: ModelClass },
+  input: { culture: Culture; consult: Consult; model: ModelClass; entryId?: string },
 ): Promise<SpiritOutcome> {
   const { culture, consult, model } = input;
   asker(culture, consult.villagerId);
@@ -276,12 +281,17 @@ export async function askSpirits(
   if (reasons.length > 0) return { status: "silent", reasons, ...discarded };
 
   // The rule check has established that the statement and the topic are there.
-  const entry = consultEntry(culture, consult, {
-    by: "spirits",
-    statement: draft.statement!,
-    topic: draft.topic!,
-    kind: draft.kind === "not_spoken_of" ? "prohibition" : draft.kind === "people_disagree" ? "fact" : (draft.entryKind ?? "fact"),
-    say: draft.kind === "answer" ? (draft.say ?? "anyone") : "anyone",
-  });
+  const entry = consultEntry(
+    culture,
+    consult,
+    {
+      by: "spirits",
+      statement: draft.statement!,
+      topic: draft.topic!,
+      kind: draft.kind === "not_spoken_of" ? "prohibition" : draft.kind === "people_disagree" ? "fact" : (draft.entryKind ?? "fact"),
+      say: draft.kind === "answer" ? (draft.say ?? "anyone") : "anyone",
+    },
+    input.entryId,
+  );
   return { status: "answered", entry, culture: addConsultEntry(culture, entry)! };
 }

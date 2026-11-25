@@ -1,6 +1,7 @@
 // What became of each question a villager refused to invent an answer to, as the trial page saves it.
 import type { Culture, CultureEntry } from "@fieldwork/contracts";
 import { addConsultEntry } from "@fieldwork/villagers";
+import { fingerprint } from "./ids";
 
 /** One question from one villager, and what was last decided about it. Every outcome is saved, the silent ones too. */
 export interface ConsultRecord {
@@ -16,18 +17,6 @@ export interface ConsultRecord {
 }
 
 type Which = Pick<ConsultRecord, "cultureId" | "villagerId" | "question">;
-
-/** A short, stable fingerprint of a piece of text. */
-function fingerprint(text: string): string {
-  let a = 0x811c9dc5;
-  let b = 5381;
-  for (let i = 0; i < text.length; i += 1) {
-    const code = text.charCodeAt(i);
-    a = Math.imul(a ^ code, 0x01000193) >>> 0;
-    b = (Math.imul(b, 33) + code) >>> 0;
-  }
-  return a.toString(36) + b.toString(36);
-}
 
 const plain = (id: string) => id.replace(/[^A-Za-z0-9_]/g, "_");
 

@@ -118,6 +118,17 @@ describe("asking the spirits", () => {
     expect(second.status === "answered" && second.entry.id).toBe("a2");
   });
 
+  it("gives the entry the id the caller names, so a caller can keep ids from ever being used twice", async () => {
+    const outcome = await askSpirits({ ask: spirits([spiritDraft()]).ask }, { ...input, entryId: "ax9" });
+    expect(outcome.status === "answered" && outcome.entry.id).toBe("ax9");
+    expect(outcome.status === "answered" && outcome.culture.villagers.find((v) => v.id === "tam")!.knowsEntries).toContain("ax9");
+  });
+
+  it("falls back to the next free id when the named one is taken", async () => {
+    const outcome = await askSpirits({ ask: spirits([spiritDraft()]).ask }, { ...input, entryId: "e2" });
+    expect(outcome.status === "answered" && outcome.entry.id).toBe("a1");
+  });
+
   it("uses plain defaults when an answer leaves out its kind and who may say it", async () => {
     const outcome = await askSpirits({ ask: spirits([spiritDraft({ entryKind: null, say: null })]).ask }, input);
     expect(outcome.status === "answered" && [outcome.entry.kind, outcome.entry.say]).toEqual(["fact", "anyone"]);

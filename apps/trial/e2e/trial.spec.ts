@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { expect, type Page, test } from "@playwright/test";
+import { answerId } from "../src/ids";
 import { type FakeScript, installFakeClaude } from "./fakeRuntime";
 
 const canon = (over: Record<string, unknown> = {}) => ({
@@ -204,6 +205,189 @@ test("a conversation cannot be cleared while a reply is on its way", async ({ pa
   await expect(page.getByRole("button", { name: "Start over with Maëlle" })).toBeDisabled();
   await expect(log(page)).toContainText("Second.");
   await expect(page.getByRole("button", { name: "Start over with Maëlle" })).toBeEnabled();
+});
+
+// --- questions to the shaman and the spirits ---
+
+const STATEMENT = "When a heron dies it is left where it falls, and no one touches it.";
+/** The id the page gives the answer to Maëlle's question, so a scripted reply can draw on it. */
+const ADDED = answerId({ villagerId: "maelle", question: "What is done when a heron dies?" });
+const refusal = (over: Record<string, unknown> = {}) =>
+  canon({ basis: "deferral", entries: [], reply: "That I cannot tell you.", question: "What is done when a heron dies?", ...over });
+const spirit = (over: Record<string, unknown> = {}) => ({ kind: "answer", statement: STATEMENT, topic: "a dead heron", entryKind: "custom", say: "anyone", entries: ["h9"], ...over });
+const calls = (page: Page) => page.evaluate(() => window.__fake.calls);
+const savedConsults = (page: Page) =>
+  page.evaluate(() => Object.entries(window.__fake.db()).filter(([path]) => path.startsWith("consults/")).map(([, data]) => data as { outcome: { status: string } }));
+const refused = async (page: Page, script: FakeScript) => {
+  await open(page, { answers: [refusal()], ...script });
+  await say(page, "What happens when a heron dies?");
+  await expect(log(page)).toContainText("That I cannot tell you.");
+};
+const truths = async (page: Page) => {
+  await page.locator("summary", { hasText: "What is true here" }).click();
+  return page.locator(".truths");
+};
+
+test("the spirits answer a refusal and the villager can be asked again", async ({ page }) => {
+  await refused(page, {
+    answers: [refusal(), canon({ reply: "The shaman was silent. The spirits spoke: it is left where it falls.", entries: [ADDED] })],
+    spirits: [spirit()],
+  });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("Maëlle went to ask. The shaman was silent. The spirits spoke.");
+  expect(await calls(page)).toEqual(["answer", "check", "spirits", "spirits_check"]);
+  await expect(log(page)).not.toContainText(STATEMENT); // heard only from the villager, unless the curtain is open
+
+  await page.getByRole("button", { name: "Ask Maëlle again" }).click();
+  await expect(log(page)).toContainText("The spirits spoke: it is left where it falls.");
+  await expect(log(page).getByText("What happens when a heron dies?")).toHaveCount(2); // the visitor's own line, asked again
+  await expect(page.getByRole("button", { name: "Ask Maëlle again" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Ask the spirits" })).toHaveCount(0);
+
+  await page.getByText(/^Questions for the shaman \(1\)/).click();
+  await expect(page.getByRole("list", { name: "Questions for the shaman" })).toContainText("answered by the spirits");
+});
+
+test("an answer from the spirits is kept after a reload and listed as theirs", async ({ page }) => {
+  await refused(page, { spirits: [spirit()] });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("The spirits spoke.");
+  await page.reload();
+  await expect(log(page)).toContainText("Maëlle went to ask. The shaman was silent. The spirits spoke.");
+  const list = await truths(page);
+  await expect(list.getByRole("listitem").filter({ hasText: STATEMENT })).toContainText("from the spirits");
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await expect(log(page)).toContainText(STATEMENT);
+});
+
+test("the sealed culture never shows a spirit answer's text, and offers no shaman's answer", async ({ page }) => {
+  const statement = "A cairn struck by lightning is rebuilt by whoever sees it first.";
+  await open(page, {
+    answers: [refusal({ reply: "That is beyond me.", question: "What is done when lightning strikes a cairn?" })],
+    spirits: [spirit({ statement, topic: "a struck cairn", entries: ["s9"] })],
+  });
+  await page.getByRole("radio", { name: /sealed culture/i }).check();
+  await say(page, "What if lightning strikes a cairn?");
+  await expect(log(page)).toContainText("That is beyond me.");
+  await expect(page.getByRole("button", { name: "Answer as the shaman" })).toHaveCount(0);
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("Oreth went to ask. The shaman was silent. The spirits spoke.");
+  await expect(log(page)).toContainText("hidden until you reveal the culture");
+  await page.getByText(/^Questions for the shaman \(1\)/).click();
+  await expect(page.locator("body")).not.toContainText("rebuilt by whoever sees it first");
+});
+
+test("the spirits are silent when the check finds a contradiction", async ({ page }) => {
+  await refused(page, { spirits: [spirit()], spiritVerdicts: [{ contradicts: ["the heron is fed, never left"], explains: [], unfit: [] }] });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("The spirits were silent.");
+  await expect(page.getByRole("button", { name: "Ask the spirits again" })).toBeVisible();
+  expect((await savedConsults(page)).map((c) => c.outcome.status)).toEqual(["silent"]);
+  await expect(await truths(page)).not.toContainText(STATEMENT);
+  await page.getByRole("checkbox", { name: "Behind the curtain" }).check();
+  await expect(log(page)).toContainText("contradicts the culture: the heron is fed, never left");
+  await expect(log(page)).toContainText(STATEMENT);
+});
+
+test("the spirits can say the culture already answers it, and who to ask", async ({ page }) => {
+  await refused(page, { spirits: [{ kind: "already_settled", entries: ["h21", "h1"] }] });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("The spirits say this is already known here. Ask Ysolt, Corin or Besa.");
+  expect(await calls(page)).toEqual(["answer", "check", "spirits"]);
+  expect((await savedConsults(page)).map((c) => c.outcome.status)).toEqual(["settled"]);
+});
+
+test("what already answers it may be something never said aloud", async ({ page }) => {
+  await refused(page, { spirits: [{ kind: "already_settled", entries: ["h1"] }] });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("The spirits say this is already known here. It is not something that is said aloud.");
+});
+
+test("an unreadable answer from the spirits keeps nothing", async ({ page }) => {
+  await refused(page, { spirits: ["The heron is left where it falls."] });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(page.getByRole("alert")).toContainText("The spirits did not answer in a way this page could read.");
+  expect(await savedConsults(page)).toEqual([]);
+  await expect(page.getByRole("button", { name: "Ask the spirits" })).toBeEnabled();
+});
+
+test("Claude declining during a consult keeps nothing and retries nothing", async ({ page }) => {
+  await refused(page, { spirits: [spirit()] });
+  await page.evaluate(() => (window.__fake.failWith = "not_granted"));
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(page.getByRole("alert")).toContainText("not allowed");
+  await page.waitForTimeout(600);
+  expect(await calls(page)).toEqual(["answer", "check", "spirits"]);
+  expect(await savedConsults(page)).toEqual([]);
+  await expect(page.getByRole("button", { name: "Ask the spirits" })).toBeEnabled();
+});
+
+test("the owner can answer as the shaman in the open culture, with no call to Claude", async ({ page }) => {
+  await refused(page, {});
+  await page.getByRole("button", { name: "Answer as the shaman" }).click();
+  await expect(page.getByRole("textbox", { name: "What it is about" })).toHaveValue("What is done when a heron dies");
+  await page.getByRole("textbox", { name: "The shaman's answer" }).fill("It is carried to the water at dusk.");
+  await page.getByRole("combobox", { name: "Who may say it" }).selectOption("earned");
+  await page.getByRole("button", { name: "Save the answer" }).click();
+  await expect(log(page)).toContainText("Maëlle went to ask. The shaman has answered.");
+  expect(await calls(page)).toEqual(["answer", "check"]);
+  const item = (await truths(page)).getByRole("listitem").filter({ hasText: "It is carried to the water at dusk." });
+  await expect(item).toContainText("from the shaman");
+  await expect(item).toContainText("earned");
+});
+
+test("the shaman's answer cannot be saved empty", async ({ page }) => {
+  await refused(page, {});
+  await page.getByRole("button", { name: "Answer as the shaman" }).click();
+  await page.getByRole("textbox", { name: "The shaman's answer" }).fill("   ");
+  await expect(page.getByRole("button", { name: "Save the answer" })).toBeDisabled();
+  await page.getByRole("button", { name: "Never mind" }).click();
+  await expect(page.getByRole("button", { name: "Answer as the shaman" })).toBeVisible();
+});
+
+test("asking the spirits twice at once makes one answer", async ({ page }) => {
+  await refused(page, { spirits: [spirit(), spirit({ statement: "A second answer." })], delayMs: 400 });
+  const button = page.getByRole("button", { name: "Ask the spirits" });
+  await button.click();
+  await expect(log(page)).toContainText("The spirits are asked…");
+  await expect(page.getByRole("button", { name: "Ask the spirits" })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: /^Say something to/ })).toBeDisabled();
+  await expect(log(page)).toContainText("The spirits spoke.");
+  expect((await calls(page)).filter((c) => c === "spirits")).toHaveLength(1);
+  expect(await savedConsults(page)).toHaveLength(1);
+});
+
+test("the same question refused twice is one question", async ({ page }) => {
+  await refused(page, { answers: [refusal(), refusal()], spirits: [spirit()] });
+  await say(page, "But what happens when a heron dies?");
+  await expect(log(page).getByText("That I cannot tell you.")).toHaveCount(2);
+  await page.getByRole("button", { name: "Ask the spirits" }).first().click();
+  await expect(log(page).getByText("Maëlle went to ask. The shaman was silent. The spirits spoke.")).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "Ask the spirits" })).toHaveCount(0);
+  expect(await savedConsults(page)).toHaveLength(1);
+});
+
+test("a withdrawn answer leaves the culture", async ({ page }) => {
+  await refused(page, { spirits: [spirit()] });
+  await page.getByRole("button", { name: "Ask the spirits" }).click();
+  await expect(log(page)).toContainText("The spirits spoke.");
+  const list = await truths(page);
+  await list.getByRole("button", { name: "Withdraw" }).click();
+  await list.getByRole("button", { name: "Yes, withdraw it" }).click();
+  await expect(list).not.toContainText(STATEMENT);
+  expect(await savedConsults(page)).toEqual([]);
+  await expect(page.getByRole("button", { name: "Ask the spirits" })).toBeVisible();
+});
+
+test("a damaged saved outcome does not break the page", async ({ page }) => {
+  await open(page, {
+    answers: [canon()],
+    db: { "consults/x": { cultureId: "heron", villagerId: "maelle", question: "q", at: "2026-11-24T09:00:00Z", outcome: { status: "answered", by: "spirits" } } },
+  });
+  await say(page, "Why does the heron eat first?");
+  await expect(log(page)).toContainText("Then we eat.");
+  await expect(await truths(page)).not.toContainText("from the spirits");
 });
 
 test("the published file carries everything inline and only Google Fonts from outside", async () => {

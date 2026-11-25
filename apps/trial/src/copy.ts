@@ -27,4 +27,22 @@ export const SPEEDS = [
 ] as const;
 
 export const SAVED_NOTE =
-  "What you type here is saved with this page, so your conversations are still here next time and so Claude can read them back when you ask it to. Only you can open this page.";
+  "What you type here, and what the spirits or you as the shaman answer, is saved with this page, so it is still here next time and so Claude can read it back when you ask it to. Only you can open this page.";
+
+/** Written by the page, never by a model: who went to ask and who answered. */
+export const WENT_TO_ASK = {
+  spirits: (name: string) => `${name} went to ask. The shaman was silent. The spirits spoke.`,
+  shaman: (name: string) => `${name} went to ask. The shaman has answered.`,
+} as const;
+
+export const SPIRITS_UNREADABLE = "The spirits did not answer in a way this page could read. Ask again.";
+
+/** Who may say an answer the shaman gives. */
+export const SAY_CHOICES = [
+  { id: "anyone", label: "anyone may say it" },
+  { id: "earned", label: "not for a stranger" },
+  { id: "shown", label: "never said aloud" },
+] as const;
+
+/** "A", "A or B", "A, B or C". */
+export const anyOf = (names: string[]) => (names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} or ${names.at(-1)}`);

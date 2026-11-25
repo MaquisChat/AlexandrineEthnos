@@ -321,6 +321,8 @@ summary:focus-visible {
 }
 
 .flag textarea,
+.flag input[type="text"],
+.flag select,
 .say input {
   font: inherit;
   color: var(--speech-fg);
@@ -331,9 +333,40 @@ summary:focus-visible {
   padding: 0.35rem 0;
 }
 
-.flag textarea {
+.flag textarea,
+.flag input[type="text"],
+.flag select {
   border: 1px solid var(--speech-muted);
   padding: 0.4rem;
+}
+
+.flag select option {
+  color: var(--fg);
+  background: var(--panel);
+}
+
+/* What became of a question a villager would not answer. The line is the page speaking, not the villager. */
+.consult {
+  border-inline-start: 2px solid var(--speech-muted);
+  padding-inline-start: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+  min-inline-size: 0;
+}
+
+.stage {
+  font-style: italic;
+  color: var(--speech-muted);
+}
+
+.consult .failure {
+  display: block;
+}
+
+button.small {
+  font-size: 0.8rem;
+  padding: 0.05rem 0.45rem;
 }
 
 .say {

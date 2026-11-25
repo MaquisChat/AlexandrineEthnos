@@ -3,6 +3,9 @@
 export interface FakeScript {
   answers?: unknown[];
   verdicts?: unknown[];
+  /** What the spirits return, in order, and what their check returns (clean when the list runs out). */
+  spirits?: unknown[];
+  spiritVerdicts?: unknown[];
   /** The runtime error code every call rejects with, until the test clears it. */
   failWith?: string | null;
   /** No window.claude at all. */
@@ -29,15 +32,30 @@ export function installFakeClaude(script: FakeScript): void {
 
   const answers = [...(script.answers ?? [])];
   const verdicts = [...(script.verdicts ?? [])];
+  const spirits = [...(script.spirits ?? [])];
+  const spiritVerdicts = [...(script.spiritVerdicts ?? [])];
   window.__fake = { calls: [], failWith: script.failWith ?? null, db: read };
   if (script.noRuntime) return;
 
   const json = async (input: { role: string; content: string }[]) => {
-    const purpose = input[0]!.content.startsWith("You are checking") ? "check" : "answer";
+    // A request is told apart by how its standing instructions begin.
+    const start = input[0]!.content;
+    const purpose = start.startsWith("You are checking one new statement")
+      ? "spirits_check"
+      : start.startsWith("You are checking")
+        ? "check"
+        : start.startsWith("You are the spirits")
+          ? "spirits"
+          : "answer";
     window.__fake.calls.push(purpose);
     if (script.delayMs) await new Promise((resolve) => setTimeout(resolve, script.delayMs));
     if (window.__fake.failWith) throw { code: window.__fake.failWith, message: "scripted failure" };
     if (purpose === "check") return verdicts.length > 0 ? verdicts.shift() : { unsupported: [], explains: [], earned: [] };
+    if (purpose === "spirits_check") return spiritVerdicts.length > 0 ? spiritVerdicts.shift() : { contradicts: [], explains: [], unfit: [] };
+    if (purpose === "spirits") {
+      if (spirits.length === 0) throw { code: "upstream_error", message: "the script has no more spirit answers" };
+      return spirits.shift();
+    }
     if (answers.length === 0) throw { code: "upstream_error", message: "the script has no more answers" };
     return answers.shift();
   };
